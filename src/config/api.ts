@@ -8,7 +8,7 @@ export const API_CONFIG = {
   },
   // للإنتاج - PRODUCTION READY 🚀
   production: {
-    baseURL: 'https://medb.onrender.com', // الـ URL الأساسي
+    baseURL: 'https://perb.onrender.com', // الـ URL الأساسي
     fallback: 'https://medicine-backend-api.vercel.app', // backup إذا كان متاح
   }
 };
