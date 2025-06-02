@@ -1,0 +1,735 @@
+/* Import only critical optimizations */
+@import './styles/ultraFastCart.css';
+@import './styles/instantCart.css';
+@import './styles/mobile-enhancements.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* إزالة أي margins افتراضية */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* تأكد من عدم وجود فراغات في البودي */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f1f5f9 100%);
+  overflow-x: hidden;
+}
+
+/* إزالة أي فراغات من المكونات */
+.min-h-screen {
+  min-height: 100vh;
+}
+
+/* تأكد من أن المحتوى يبدأ تماماً بعد النافبار - responsive */
+.pt-32 {
+  padding-top: 6rem; /* للموبايل */
+}
+
+@media (min-width: 640px) {
+  .pt-32 {
+    padding-top: 7rem; /* للتابلت */
+  }
+}
+
+@media (min-width: 768px) {
+  .pt-32 {
+    padding-top: 8rem; /* للديسكتوب */
+  }
+}
+
+@media (min-width: 1024px) {
+  .pt-32 {
+    padding-top: 9rem; /* للشاشات الكبيرة */
+  }
+}
+
+/* Navbar styles - إزالة أي فراغات */
+.fixed {
+  position: fixed;
+}
+
+.top-0 {
+  top: 0;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.right-0 {
+  right: 0;
+}
+
+.z-50 {
+  z-index: 50;
+}
+
+/* Slider styles - بدون فراغات */
+.w-full {
+  width: 100%;
+}
+
+/* تحسين عرض الصور في الـ slider */
+.object-cover {
+  object-fit: cover;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+/* تحسينات responsive للبطاقات */
+@media (max-width: 640px) {
+  /* أحجام أصغر للموبايل */
+  .text-3xl {
+    font-size: 1.5rem !important;
+  }
+  
+  .text-2xl {
+    font-size: 1.25rem !important;
+  }
+  
+  .text-xl {
+    font-size: 1.125rem !important;
+  }
+  
+  .text-lg {
+    font-size: 1rem !important;
+  }
+  
+  /* padding أصغر للموبايل */
+  .p-6 {
+    padding: 0.75rem !important;
+  }
+  
+  .p-4 {
+    padding: 0.5rem !important;
+  }
+  
+  .p-8 {
+    padding: 1rem !important;
+  }
+  
+  /* margins أصغر */
+  .mb-8 {
+    margin-bottom: 1rem !important;
+  }
+  
+  .mb-6 {
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .mb-4 {
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* أيقونات أصغر */
+  .w-8, .h-8 {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+  }
+  
+  .w-6, .h-6 {
+    width: 1rem !important;
+    height: 1rem !important;
+  }
+  
+  .w-5, .h-5 {
+    width: 0.875rem !important;
+    height: 0.875rem !important;
+  }
+  
+  /* أزرار أصغر */
+  .py-4 {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+  
+  .px-6 {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  
+  /* شبكة responsive */
+  .grid-cols-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  
+  .grid-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  
+  .grid-cols-5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  
+  .grid-cols-6 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* تحسينات متوسطة للتابلت */
+@media (min-width: 641px) and (max-width: 768px) {
+  .grid-cols-4 {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+  
+  .grid-cols-5 {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+  
+  .grid-cols-6 {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+/* تحسينات للأزرار */
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+.duration-500 {
+  transition-duration: 500ms;
+}
+
+.duration-700 {
+  transition-duration: 700ms;
+}
+
+.duration-1000 {
+  transition-duration: 1000ms;
+}
+
+/* تحسينات الظلال */
+.shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* تحسينات للخطوط */
+.font-black {
+  font-weight: 900;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+/* تحسينات الـ backdrop blur */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+}
+
+.backdrop-blur-md {
+  backdrop-filter: blur(12px);
+}
+
+.backdrop-blur-xl {
+  backdrop-filter: blur(24px);
+}
+
+/* تحسينات للـ gradients */
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+.bg-gradient-to-br {
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+
+.bg-gradient-to-t {
+  background-image: linear-gradient(to top, var(--tw-gradient-stops));
+}
+
+/* تحسينات للنصوص */
+.text-transparent {
+  color: transparent;
+}
+
+.bg-clip-text {
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+/* تحسينات الـ line clamp */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+/* تحسينات للـ animations */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+/* تحسينات للتفاعل */
+.hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+.hover\:scale-110:hover {
+  transform: scale(1.1);
+}
+
+.hover\:-translate-y-1:hover {
+  transform: translateY(-0.25rem);
+}
+
+.hover\:-translate-y-2:hover {
+  transform: translateY(-0.5rem);
+}
+
+.hover\:-translate-y-3:hover {
+  transform: translateY(-0.75rem);
+}
+
+.hover\:-translate-y-4:hover {
+  transform: translateY(-1rem);
+}
+
+.hover\:translate-x-1:hover {
+  transform: translateX(0.25rem);
+}
+
+.group-hover\:scale-110:hover .group-hover\:scale-110 {
+  transform: scale(1.1);
+}
+
+.group-hover\:rotate-12:hover .group-hover\:rotate-12 {
+  transform: rotate(12deg);
+}
+
+/* إضافة smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* تحسينات للفوكس */
+.focus\:ring-4:focus {
+  box-shadow: 0 0 0 4px var(--tw-ring-color);
+}
+
+.focus\:ring-red-100:focus {
+  --tw-ring-color: rgb(254 226 226);
+}
+
+.focus\:border-red-500:focus {
+  border-color: rgb(239 68 68);
+}
+
+/* تحسينات للـ scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #ef4444, #f87171);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #dc2626, #ef4444);
+}
+
+/* تحسينات للـ selection */
+::selection {
+  background-color: #fecaca;
+  color: #7f1d1d;
+}
+
+/* إزالة outline للـ buttons */
+button:focus {
+  outline: none;
+}
+
+/* تحسينات للـ inputs */
+input:focus {
+  outline: none;
+}
+
+/* تأكد من أن كل المحتوى محاذي بشكل صحيح */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-cream-50 rounded-xl shadow-lg border border-gray-200 overflow-hidden;
+  }
+  .gold-text {
+    @apply text-gold-600 font-semibold;
+  }
+  
+  /* Responsive utilities محسنة */
+  .container-responsive {
+    @apply container mx-auto px-2 sm:px-4 md:px-6 lg:px-8;
+  }
+  
+  .text-responsive-xs {
+    @apply text-xs sm:text-sm;
+  }
+  
+  .text-responsive-sm {
+    @apply text-xs sm:text-sm md:text-base;
+  }
+  
+  .text-responsive-base {
+    @apply text-sm sm:text-base md:text-lg;
+  }
+  
+  .text-responsive-lg {
+    @apply text-base sm:text-lg md:text-xl lg:text-2xl;
+  }
+  
+  .text-responsive-xl {
+    @apply text-lg sm:text-xl md:text-2xl lg:text-3xl;
+  }
+  
+  .text-responsive-2xl {
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl;
+  }
+  
+  .text-responsive-3xl {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl;
+  }
+  
+  .grid-responsive-1 {
+    @apply grid grid-cols-1;
+  }
+  
+  .grid-responsive-2 {
+    @apply grid grid-cols-1 sm:grid-cols-2;
+  }
+  
+  .grid-responsive-3 {
+    @apply grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3;
+  }
+  
+  .grid-responsive-4 {
+    @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4;
+  }
+  
+  .grid-responsive-5 {
+    @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5;
+  }
+  
+  .grid-responsive-6 {
+    @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6;
+  }
+  
+  .padding-responsive {
+    @apply p-2 sm:p-4 md:p-6 lg:p-8;
+  }
+  
+  .margin-responsive {
+    @apply m-2 sm:m-4 md:m-6 lg:m-8;
+  }
+  
+  /* Button responsive utilities */
+  .btn-responsive {
+    @apply px-2 py-1 sm:px-4 sm:py-2 md:px-6 md:py-3 text-xs sm:text-sm md:text-base rounded-lg sm:rounded-xl;
+  }
+  
+  .btn-responsive-lg {
+    @apply px-3 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 text-sm sm:text-base md:text-lg rounded-xl sm:rounded-2xl;
+  }
+  
+  /* Card responsive utilities */
+  .card-responsive {
+    @apply rounded-lg sm:rounded-xl md:rounded-2xl p-2 sm:p-4 md:p-6 lg:p-8;
+  }
+  
+  .card-responsive-sm {
+    @apply rounded-lg sm:rounded-xl p-2 sm:p-3 md:p-4 lg:p-6;
+  }
+  
+  /* Gap responsive utilities */
+  .gap-responsive {
+    @apply gap-2 sm:gap-4 md:gap-6 lg:gap-8;
+  }
+  
+  .gap-responsive-sm {
+    @apply gap-1 sm:gap-2 md:gap-4 lg:gap-6;
+  }
+  
+  /* Icon responsive utilities */
+  .icon-responsive {
+    @apply w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6;
+  }
+  
+  .icon-responsive-lg {
+    @apply w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-10 lg:h-10;
+  }
+  
+  /* Image responsive utilities */
+  .img-responsive {
+    @apply w-full h-auto object-cover;
+  }
+  
+  .aspect-responsive {
+    @apply aspect-square sm:aspect-video lg:aspect-[4/3];
+  }
+  
+  /* Spacing responsive utilities */
+  .space-y-responsive > * + * {
+    @apply mt-2 sm:mt-4 md:mt-6 lg:mt-8;
+  }
+  
+  .space-x-responsive > * + * {
+    @apply ml-2 sm:ml-4 md:ml-6 lg:ml-8;
+  }
+  
+  /* Border radius responsive */
+  .rounded-responsive {
+    @apply rounded-lg sm:rounded-xl md:rounded-2xl;
+  }
+  
+  /* Shadow responsive */
+  .shadow-responsive {
+    @apply shadow-md sm:shadow-lg md:shadow-xl;
+  }
+}
+
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  direction: rtl;
+  background-color: #f8f5f0;
+  color: #1a1a1a;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Custom Shadows */
+.shadow-lg {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-xl {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* RTL Specific Styles */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .text-left {
+  text-align: left;
+}
+
+/* Minimal animations for speed */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Simple animation classes */
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* إضافات خاصة للموبايل */
+@media (max-width: 640px) {
+  /* تصغير النصوص الكبيرة */
+  h1 {
+    font-size: 1.5rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  h2 {
+    font-size: 1.25rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  h3 {
+    font-size: 1.125rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  /* تصغير الأزرار الكبيرة */
+  .btn-lg {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.875rem !important;
+  }
+  
+  /* تحسين المباعدة */
+  .space-y-8 > * + * {
+    margin-top: 1rem !important;
+  }
+  
+  .space-y-6 > * + * {
+    margin-top: 0.75rem !important;
+  }
+  
+  .space-y-4 > * + * {
+    margin-top: 0.5rem !important;
+  }
+}
+
+/* خاص بالبطاقات الصغيرة */
+.product-card-mobile {
+  @apply bg-white rounded-lg shadow-lg p-2 text-xs;
+}
+
+.category-card-mobile {
+  @apply bg-white rounded-lg shadow-lg p-2 text-xs;
+}
+
+@media (min-width: 640px) {
+  .product-card-mobile {
+    @apply p-4 text-sm;
+  }
+  
+  .category-card-mobile {
+    @apply p-4 text-sm;
+  }
+}
