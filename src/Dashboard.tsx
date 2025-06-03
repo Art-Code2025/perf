@@ -878,7 +878,7 @@ const Dashboard: React.FC = () => {
         <div className="p-4 border-t border-gray-800">
           <div className="space-y-2">
             <Link
-              to="/admin/product/new"
+              to="/admin/product/add"
               className="w-full flex items-center justify-center bg-white text-black px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors"
             >
               <Plus className="w-4 h-4 ml-2" />
@@ -1056,7 +1056,7 @@ const Dashboard: React.FC = () => {
               <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">إجراءات سريعة</h3>
               <div className="space-y-2">
                 <Link
-                  to="/admin/product/new"
+                  to="/admin/product/add"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200"
                 >
@@ -1065,12 +1065,12 @@ const Dashboard: React.FC = () => {
                 </Link>
                 
                 <Link
-                  to="/admin/category/new"
+                  to="/admin/category/add"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200"
                 >
                   <Grid className="w-5 h-5 ml-3" />
-                  إضافة تصنيف جديد
+                  تصنيف جديد
                 </Link>
                 
                 <Link
@@ -1187,7 +1187,7 @@ const Dashboard: React.FC = () => {
                 </div>
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
                   <Link
-                    to="/admin/product/new"
+                    to="/admin/product/add"
                     className="inline-flex items-center justify-center px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors font-medium"
                   >
                     <Plus className="w-4 h-4 ml-2" />
@@ -1275,7 +1275,7 @@ const Dashboard: React.FC = () => {
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">لا توجد منتجات</h3>
                   <p className="text-gray-600 mb-6">ابدأ بإضافة منتجات جديدة لمتجرك</p>
                   <Link
-                    to="/admin/product/new"
+                    to="/admin/product/add"
                     className="inline-flex items-center px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
                   >
                     <Plus className="w-4 h-4 ml-2" />
@@ -1339,7 +1339,7 @@ const Dashboard: React.FC = () => {
 
                           <div className="flex gap-2">
                             <Link
-                              to={`/admin/product/${product.id}`}
+                              to={`/admin/product/edit/${product.id}`}
                               className="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors text-center"
                             >
                               تعديل
@@ -1426,7 +1426,7 @@ const Dashboard: React.FC = () => {
                                 <td className="px-6 py-4 whitespace-nowrap">
                                   <div className="flex items-center gap-2">
                                     <Link
-                                      to={`/admin/product/${product.id}`}
+                                      to={`/admin/product/edit/${product.id}`}
                                       className="p-2 text-gray-600 hover:text-black hover:bg-gray-100 rounded-lg transition-colors"
                                     >
                                       <Edit className="w-4 h-4" />
@@ -1711,7 +1711,7 @@ const Dashboard: React.FC = () => {
                 </div>
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
                   <Link
-                    to="/admin/category/new"
+                    to="/admin/category/add"
                     className="inline-flex items-center justify-center px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors font-medium"
                   >
                     <Plus className="w-4 h-4 ml-2" />
@@ -1741,7 +1741,7 @@ const Dashboard: React.FC = () => {
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">لا توجد تصنيفات</h3>
                   <p className="text-gray-600 mb-6">ابدأ بإضافة تصنيفات لتنظيم منتجاتك</p>
                   <Link
-                    to="/admin/category/new"
+                    to="/admin/category/add"
                     className="inline-flex items-center px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
                   >
                     <Plus className="w-4 h-4 ml-2" />
@@ -1778,10 +1778,10 @@ const Dashboard: React.FC = () => {
                           <p className="text-gray-600 text-sm mb-6 line-clamp-2">{category.description}</p>
                           <div className="flex gap-3">
                             <Link
-                              to={`/admin/category/${category.id}`}
-                              className="p-2 text-gray-600 hover:text-black hover:bg-gray-100 rounded-lg transition-colors"
+                              to={`/admin/category/edit/${category.id}`}
+                              className="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors text-center"
                             >
-                              <Edit className="w-4 h-4" />
+                              تعديل
                             </Link>
                             <button
                               onClick={() => openDeleteModal('category', category.id, category.name)}
@@ -2307,7 +2307,7 @@ const Dashboard: React.FC = () => {
                     <h3 className="text-lg font-bold text-gray-900 mb-4">إجراءات سريعة</h3>
                     <div className="grid grid-cols-1 gap-3">
                       <Link
-                        to="/admin/product/new"
+                        to="/admin/product/add"
                         className="flex items-center justify-center bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition-colors font-medium"
                       >
                         <Plus className="w-5 h-5 ml-2" />
