@@ -11,10 +11,11 @@ import AllProducts from './components/AllProducts';
 import ProductDetail from './components/ProductDetail';
 import CustomerSignIn from './components/CustomerSignIn';
 import Login from './Login';
-import Dashboard from './components/Dashboard';
+import Dashboard from './Dashboard';
 import ProductForm from './components/ProductForm';
 import CategoryAdd from './CategoryAdd';
 import CategoryEdit from './CategoryEdit';
+import CouponForm from './components/CouponForm';
 import Cart from './components/Cart';
 import Wishlist from './components/Wishlist';
 import Checkout from './components/Checkout';
@@ -103,6 +104,22 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             element={
               <ProtectedRoute requiredRole="admin">
                 <CategoryEdit />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/admin/coupon/add" 
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <CouponForm />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/admin/coupon/edit/:id" 
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <CouponForm />
               </ProtectedRoute>
             } 
           />
