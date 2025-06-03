@@ -181,14 +181,17 @@ const Dashboard: React.FC = () => {
     
     // Listen for updates
     const handleCategoriesUpdate = () => {
+      console.log('🔄 Categories update event received');
       fetchCategories();
     };
     
     const handleProductsUpdate = () => {
+      console.log('🔄 Products update event received');
       fetchProducts();
     };
     
     const handleCouponsUpdate = () => {
+      console.log('🔄 Coupons update event received');
       fetchCoupons();
     };
     
@@ -202,6 +205,28 @@ const Dashboard: React.FC = () => {
       window.removeEventListener('couponsUpdated', handleCouponsUpdate);
     };
   }, []);
+
+  // Force refresh when tab changes
+  useEffect(() => {
+    console.log(`🔄 Tab changed to: ${currentTab}`);
+    switch (currentTab) {
+      case 'products':
+        fetchProducts();
+        break;
+      case 'categories':
+        fetchCategories();
+        break;
+      case 'orders':
+        fetchOrders();
+        break;
+      case 'customers':
+        fetchCustomers();
+        break;
+      case 'coupons':
+        fetchCoupons();
+        break;
+    }
+  }, [currentTab]);
 
   // Update filtered orders when orders change or when switching to orders tab
   useEffect(() => {
@@ -225,11 +250,13 @@ const Dashboard: React.FC = () => {
   // وظائف المنتجات
   const fetchProducts = async () => {
     try {
+      console.log('🔄 Fetching products...');
       const data = await apiCall(API_ENDPOINTS.PRODUCTS);
+      console.log(`✅ Products fetched: ${data.length} items`);
       setProducts(data);
       setFilteredProducts(data);
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error('❌ Error fetching products:', error);
       toast.error('فشل في جلب المنتجات');
     }
   };
@@ -237,11 +264,13 @@ const Dashboard: React.FC = () => {
   // وظائف التصنيفات
   const fetchCategories = async () => {
     try {
+      console.log('🔄 Fetching categories...');
       const data = await apiCall(API_ENDPOINTS.CATEGORIES);
+      console.log(`✅ Categories fetched: ${data.length} items`);
       setCategories(data);
       setFilteredCategories(data);
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      console.error('❌ Error fetching categories:', error);
       toast.error('فشل في جلب التصنيفات');
     }
   };
@@ -249,11 +278,13 @@ const Dashboard: React.FC = () => {
   // وظائف الكوبونات
   const fetchCoupons = async () => {
     try {
+      console.log('🔄 Fetching coupons...');
       const data = await apiCall(API_ENDPOINTS.COUPONS);
+      console.log(`✅ Coupons fetched: ${data.length} items`);
       setCoupons(data);
       setFilteredCoupons(data);
     } catch (error) {
-      console.error('Error fetching coupons:', error);
+      console.error('❌ Error fetching coupons:', error);
       toast.error('فشل في جلب الكوبونات');
     }
   };
@@ -704,43 +735,110 @@ const Dashboard: React.FC = () => {
           break;
       }
 
+      console.log(`🗑️ Deleting ${deleteModal.type} with ID: ${deleteModal.id}`);
       await apiCall(endpoint, { method: 'DELETE' });
 
-      // Update local state
+      // Update local state immediately
       switch (deleteModal.type) {
         case 'product':
-          setProducts(prev => prev.filter(item => item.id !== deleteModal.id));
-          setFilteredProducts(prev => prev.filter(item => item.id !== deleteModal.id));
+          setProducts(prev => {
+            const updated = prev.filter(item => item.id !== deleteModal.id);
+            console.log(`🔄 Products updated: ${prev.length} -> ${updated.length}`);
+            return updated;
+          });
+          setFilteredProducts(prev => {
+            const updated = prev.filter(item => item.id !== deleteModal.id);
+            console.log(`🔄 Filtered products updated: ${prev.length} -> ${updated.length}`);
+            return updated;
+          });
+          // Trigger products update event
+          window.dispatchEvent(new Event('productsUpdated'));
           break;
         case 'category':
-          setCategories(prev => prev.filter(item => item.id !== deleteModal.id));
-          setFilteredCategories(prev => prev.filter(item => item.id !== deleteModal.id));
+          setCategories(prev => {
+            const updated = prev.filter(item => item.id !== deleteModal.id);
+            console.log(`🔄 Categories updated: ${prev.length} -> ${updated.length}`);
+            return updated;
+          });
+          setFilteredCategories(prev => {
+            const updated = prev.filter(item => item.id !== deleteModal.id);
+            console.log(`🔄 Filtered categories updated: ${prev.length} -> ${updated.length}`);
+            return updated;
+          });
           // Update products that had this category
-          const updatedProducts = products.map(product => 
+          setProducts(prev => prev.map(product => 
             product.categoryId === deleteModal.id ? { ...product, categoryId: null } : product
-          );
-          setProducts(updatedProducts);
-          setFilteredProducts(filteredProducts.map(product => 
+          ));
+          setFilteredProducts(prev => prev.map(product => 
             product.categoryId === deleteModal.id ? { ...product, categoryId: null } : product
           ));
           window.dispatchEvent(new Event('categoriesUpdated'));
           break;
         case 'order':
-          setOrders(prev => prev.filter(item => item.id !== deleteModal.id));
-          setFilteredOrders(prev => prev.filter(item => item.id !== deleteModal.id));
+          setOrders(prev => {
+            const updated = prev.filter(item => item.id !== deleteModal.id);
+            console.log(`🔄 Orders updated: ${prev.length} -> ${updated.length}`);
+            return updated;
+          });
+          setFilteredOrders(prev => {
+            const updated = prev.filter(item => item.id !== deleteModal.id);
+            console.log(`🔄 Filtered orders updated: ${prev.length} -> ${updated.length}`);
+            return updated;
+          });
           break;
         case 'customer':
-          setCustomers(prev => prev.filter(item => item.id !== deleteModal.id));
-          setFilteredCustomers(prev => prev.filter(item => item.id !== deleteModal.id));
+          setCustomers(prev => {
+            const updated = prev.filter(item => item.id !== deleteModal.id);
+            console.log(`🔄 Customers updated: ${prev.length} -> ${updated.length}`);
+            return updated;
+          });
+          setFilteredCustomers(prev => {
+            const updated = prev.filter(item => item.id !== deleteModal.id);
+            console.log(`🔄 Filtered customers updated: ${prev.length} -> ${updated.length}`);
+            return updated;
+          });
           break;
         case 'coupon':
-          setCoupons(prev => prev.filter(item => item.id !== deleteModal.id));
-          setFilteredCoupons(prev => prev.filter(item => item.id !== deleteModal.id));
+          setCoupons(prev => {
+            const updated = prev.filter(item => item.id !== deleteModal.id);
+            console.log(`🔄 Coupons updated: ${prev.length} -> ${updated.length}`);
+            return updated;
+          });
+          setFilteredCoupons(prev => {
+            const updated = prev.filter(item => item.id !== deleteModal.id);
+            console.log(`🔄 Filtered coupons updated: ${prev.length} -> ${updated.length}`);
+            return updated;
+          });
+          // Trigger coupons update event
+          window.dispatchEvent(new Event('couponsUpdated'));
           break;
       }
 
       toast.success(successMessage);
       closeDeleteModal();
+      
+      // Force refresh after a short delay to ensure consistency
+      setTimeout(() => {
+        console.log('🔄 Force refreshing data after delete...');
+        switch (deleteModal.type) {
+          case 'product':
+            fetchProducts();
+            break;
+          case 'category':
+            fetchCategories();
+            break;
+          case 'order':
+            fetchOrders();
+            break;
+          case 'customer':
+            fetchCustomers();
+            break;
+          case 'coupon':
+            fetchCoupons();
+            break;
+        }
+      }, 500);
+      
     } catch (error) {
       console.error('Error deleting item:', error);
       toast.error('فشل في الحذف');
