@@ -7,7 +7,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { apiCall, API_ENDPOINTS, buildImageUrl } from '../config/api';
+import { apiCall, API_ENDPOINTS, buildImageUrl, safeApiCall } from '../config/api';
 import { createProductSlug, createCategorySlug } from '../utils/slugify';
 
 // Lazy load components that aren't immediately visible
@@ -194,8 +194,11 @@ function Home() {
 
   const fetchServices = async () => {
     try {
-      const data = await apiCall(API_ENDPOINTS.SERVICES);
-      setServices(data);
+      const result = await safeApiCall<Service[]>(API_ENDPOINTS.SERVICES, {}, []);
+      if (result.error && !result.isServerDown) {
+        console.error('Error fetching services:', result.error);
+      }
+      setServices(result.data || []);
     } catch (error) {
       console.error('Error fetching services:', error);
     }
@@ -203,8 +206,12 @@ function Home() {
 
   const fetchProducts = async () => {
     try {
-      const data = await apiCall(API_ENDPOINTS.PRODUCTS);
-      setProducts(data.slice(0, 8)); // أخذ أول 8 منتجات فقط
+      const result = await safeApiCall<Product[]>(API_ENDPOINTS.PRODUCTS, {}, []);
+      if (result.error && !result.isServerDown) {
+        console.error('Error fetching products:', result.error);
+      }
+      const products = result.data || [];
+      setProducts(products.slice(0, 8)); // أخذ أول 8 منتجات فقط
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -212,8 +219,11 @@ function Home() {
 
   const fetchCategories = async () => {
     try {
-      const data = await apiCall(API_ENDPOINTS.CATEGORIES);
-      setCategories(data);
+      const result = await safeApiCall<Category[]>(API_ENDPOINTS.CATEGORIES, {}, []);
+      if (result.error && !result.isServerDown) {
+        console.error('Error fetching categories:', result.error);
+      }
+      setCategories(result.data || []);
     } catch (error) {
       console.error('Error fetching categories:', error);
     }

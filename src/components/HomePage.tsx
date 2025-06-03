@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Star, Heart, ShoppingCart, Package, Truck, Shield, Award, Phone, Mail, MapPin, Clock, Facebook, Twitter, Instagram, Eye, Users, Briefcase, Home, Accessibility, Stethoscope, Sparkles, Crown, Gem, Zap } from 'lucide-react';
 import { toast } from 'react-toastify';
-import { buildImageUrl, apiCall, API_ENDPOINTS } from '../config/api';
+import { buildImageUrl, apiCall, API_ENDPOINTS, safeApiCall } from '../config/api';
 import { addToCartUnified } from '../utils/cartUtils';
 import { isInWishlist, addToWishlist, removeFromWishlist } from '../utils/wishlistUtils';
 import ImageSlider from './ImageSlider';
@@ -38,13 +38,33 @@ const HomePage: React.FC = () => {
 
   const loadData = async () => {
     try {
-      const [productsData, categoriesData] = await Promise.all([
-        apiCall(API_ENDPOINTS.PRODUCTS),
-        apiCall(API_ENDPOINTS.CATEGORIES)
+      // Use safe API call with better error handling
+      const [productsResult, categoriesResult] = await Promise.all([
+        safeApiCall<Product[]>(API_ENDPOINTS.PRODUCTS, {}, []),
+        safeApiCall<Category[]>(API_ENDPOINTS.CATEGORIES, {}, [])
       ]);
       
-      setProducts(productsData);
-      setCategories(categoriesData);
+      // Check if server is down
+      if (productsResult.isServerDown || categoriesResult.isServerDown) {
+        toast.error('🚫 الخادم غير متاح حالياً. يرجى التأكد من تشغيل الخادم والمحاولة مرة أخرى.');
+        return;
+      }
+      
+      // Check for errors
+      if (productsResult.error) {
+        toast.error(productsResult.error);
+        console.error('Error loading products:', productsResult.error);
+      }
+      if (categoriesResult.error) {
+        toast.error(categoriesResult.error);
+        console.error('Error loading categories:', categoriesResult.error);
+      }
+      
+      // Set data even if there are some non-critical errors
+      setProducts(productsResult.data || []);
+      setCategories(categoriesResult.data || []);
+      
+      console.log(`✅ HomePage: تم تحميل ${(productsResult.data || []).length} منتج و ${(categoriesResult.data || []).length} تصنيف`);
     } catch (error) {
       console.error('Error loading data:', error);
       toast.error('حدث خطأ في تحميل البيانات');

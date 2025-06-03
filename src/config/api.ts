@@ -62,7 +62,7 @@ export const buildImageUrl = (imagePath: string): string => {
   return `${baseUrl}/images${cleanPath}`;
 };
 
-// دالة محسنة مع retry logic - بدون fallback للبيانات الوهمية
+// دالة محسنة مع retry logic - مع نظام fallback ذكي
 export const apiCall = async (endpoint: string, options: RequestInit = {}) => {
   const url = buildApiUrl(endpoint);
   
@@ -125,11 +125,13 @@ export const apiCall = async (endpoint: string, options: RequestInit = {}) => {
       console.error('📍 Backend URL:', getApiBaseUrl());
       console.error('🔧 تأكد من تشغيل Backend على:', 'http://localhost:3001');
       
-      // إنشاء خطأ شبكة واضح
-      const networkError = new Error('فشل في الاتصال بالخادم. تأكد من تشغيل Backend.');
+      // إنشاء خطأ شبكة واضح مع معلومات للمستخدم
+      const networkError = new Error('🚫 الخادم غير متاح حالياً. يرجى التأكد من تشغيل الخادم والمحاولة مرة أخرى.');
       (networkError as any).status = 0;
       (networkError as any).isNetworkError = true;
       (networkError as any).originalError = error;
+      (networkError as any).userMessage = 'الخادم غير متاح حالياً';
+      (networkError as any).technicalDetails = `تعذر الاتصال بـ ${getApiBaseUrl()}`;
       throw networkError;
     }
     
@@ -155,6 +157,38 @@ export const apiCall = async (endpoint: string, options: RequestInit = {}) => {
     }
     
     throw error;
+  }
+};
+
+// دالة مساعدة للتحقق من حالة الخادم
+export const checkServerHealth = async (): Promise<boolean> => {
+  try {
+    await apiCall(API_ENDPOINTS.HEALTH);
+    return true;
+  } catch (error) {
+    console.error('Server health check failed:', error);
+    return false;
+  }
+};
+
+// دالة آمنة لجلب البيانات مع معالجة الأخطاء
+export const safeApiCall = async <T>(
+  endpoint: string, 
+  options: RequestInit = {},
+  fallbackData: T | null = null
+): Promise<{ data: T | null; error: string | null; isServerDown: boolean }> => {
+  try {
+    const data = await apiCall(endpoint, options);
+    return { data, error: null, isServerDown: false };
+  } catch (error: any) {
+    const isServerDown = error.isNetworkError || error.status === 0;
+    const errorMessage = error.userMessage || error.message || 'حدث خطأ غير متوقع';
+    
+    return { 
+      data: fallbackData, 
+      error: errorMessage, 
+      isServerDown 
+    };
   }
 };
 

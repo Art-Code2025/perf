@@ -12,7 +12,7 @@ import cover1 from './assets/cover1.jpg';
 import { createCategorySlug, createProductSlug } from './utils/slugify';
 import cover2 from './assets/cover2.jpg';
 import cover3 from './assets/cover3.jpg';
-import { apiCall, API_ENDPOINTS, buildImageUrl } from './config/api';
+import { apiCall, API_ENDPOINTS, buildImageUrl, safeApiCall } from './config/api';
 import { addToCartUnified } from './utils/cartUtils';
 
 interface Product {
@@ -125,11 +125,27 @@ const App: React.FC = () => {
       setLoading(true);
       setError(null);
 
-      // Fetch categories and products
-      const [categoriesData, productsData] = await Promise.all([
-        apiCall(API_ENDPOINTS.CATEGORIES),
-        apiCall(API_ENDPOINTS.PRODUCTS)
+      // Use safe API call with better error handling
+      const [categoriesResult, productsResult] = await Promise.all([
+        safeApiCall<Category[]>(API_ENDPOINTS.CATEGORIES, {}, []),
+        safeApiCall<Product[]>(API_ENDPOINTS.PRODUCTS, {}, [])
       ]);
+
+      // Check if server is down
+      if (categoriesResult.isServerDown || productsResult.isServerDown) {
+        throw new Error('🚫 الخادم غير متاح حالياً. يرجى التأكد من تشغيل الخادم والمحاولة مرة أخرى.');
+      }
+
+      // Check for errors
+      if (categoriesResult.error) {
+        throw new Error(categoriesResult.error);
+      }
+      if (productsResult.error) {
+        throw new Error(productsResult.error);
+      }
+
+      const categoriesData = categoriesResult.data || [];
+      const productsData = productsResult.data || [];
 
       // Group products by category and sort by creation date
       const categoryProductsMap: { [key: number]: Product[] } = {};
@@ -161,20 +177,12 @@ const App: React.FC = () => {
         }));
 
       setCategoryProducts(categoryProductsArray);
-      
-      // Initialize quantities for all products
-      const initialQuantities: {[key: number]: number} = {};
-      categoryProductsArray.forEach(cp => {
-        cp.products.forEach(product => {
-          initialQuantities[product.id] = 1;
-        });
-      });
-      setQuantities(initialQuantities);
-      
+      console.log(`✅ تم تحميل ${categoriesData.length} تصنيف و ${productsData.length} منتج`);
     } catch (error) {
-      console.error('Error fetching data:', error);
-      setError('حدث خطأ أثناء جلب البيانات');
-      toast.error('فشل في جلب البيانات');
+      console.error('❌ خطأ في تحميل البيانات:', error);
+      const errorMessage = error instanceof Error ? error.message : 'فشل في تحميل البيانات';
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -220,7 +228,33 @@ const App: React.FC = () => {
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
 
-  // No loading screen - instant display
+  // Error display component
+  const ErrorDisplay = ({ error, onRetry }: { error: string, onRetry: () => void }) => (
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-rose-50 flex items-center justify-center px-4">
+      <div className="text-center max-w-md mx-auto">
+        <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <Package className="w-10 h-10 text-red-600" />
+        </div>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">مشكلة في الاتصال</h2>
+        <p className="text-gray-600 mb-6 leading-relaxed">{error}</p>
+        <div className="space-y-3">
+          <button
+            onClick={onRetry}
+            className="w-full bg-gradient-to-r from-red-600 to-rose-600 text-white px-6 py-3 rounded-lg hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 font-semibold"
+          >
+            إعادة المحاولة
+          </button>
+          <p className="text-sm text-gray-500">
+            تأكد من تشغيل الخادم على localhost:3001
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+
+  if (error) {
+    return <ErrorDisplay error={error} onRetry={fetchCategoriesWithProducts} />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-rose-50 overflow-hidden" dir="rtl">
