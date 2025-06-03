@@ -1,5 +1,3 @@
-import { mockApiCall } from './mockApi';
-
 // API Configuration for different environments
 export const API_CONFIG = {
   // للتطوير المحلي
@@ -9,7 +7,7 @@ export const API_CONFIG = {
   // للإنتاج - PRODUCTION READY 🚀
   production: {
     baseURL: 'https://perb.onrender.com', // الـ URL الأساسي
-    fallback: 'https://medicine-backend-api.vercel.app', // backup إذا كان متاح
+    fallback: 'https://perb-backend-api.vercel.app', // backup إذا كان متاح
   }
 };
 
@@ -64,9 +62,11 @@ export const buildImageUrl = (imagePath: string): string => {
   return `${baseUrl}/images${cleanPath}`;
 };
 
-// دالة محسنة مع retry logic وfallback للبيانات الوهمية
+// دالة محسنة مع retry logic - بدون fallback للبيانات الوهمية
 export const apiCall = async (endpoint: string, options: RequestInit = {}) => {
   const url = buildApiUrl(endpoint);
+  
+  console.log(`🔗 API Call: ${options.method || 'GET'} ${url}`);
   
   try {
     const response = await fetch(url, {
@@ -79,6 +79,8 @@ export const apiCall = async (endpoint: string, options: RequestInit = {}) => {
       signal: AbortSignal.timeout(15000), // 15 seconds timeout
     });
     
+    console.log(`📡 API Response: ${response.status} ${response.statusText}`);
+    
     // إذا لم تكن الاستجابة ناجحة
     if (!response.ok) {
       let errorData;
@@ -87,6 +89,8 @@ export const apiCall = async (endpoint: string, options: RequestInit = {}) => {
       } catch {
         errorData = { message: response.statusText };
       }
+      
+      console.error(`❌ API Error ${response.status}:`, errorData);
       
       // إنشاء خطأ مفصل مع معلومات إضافية
       const error = new Error(errorData.message || `HTTP ${response.status}: ${response.statusText}`);
@@ -98,12 +102,14 @@ export const apiCall = async (endpoint: string, options: RequestInit = {}) => {
       throw error;
     }
     
-    return await response.json();
+    const data = await response.json();
+    console.log(`✅ API Success:`, data.length ? `${data.length} items` : 'Data received');
+    return data;
   } catch (error) {
-    console.error('API Error:', error);
+    console.error('❌ API Call Failed:', error);
     console.error('Failed URL:', url);
     
-    // في حالة فشل الاتصال، استخدم البيانات الوهمية
+    // في حالة فشل الاتصال، اعرض خطأ واضح
     const errorMessage = error instanceof Error ? error.message : String(error);
     const errorName = error instanceof Error ? error.name : '';
     
@@ -115,18 +121,16 @@ export const apiCall = async (endpoint: string, options: RequestInit = {}) => {
         errorMessage.includes('NetworkError') ||
         errorMessage.includes('Failed to fetch')) {
       
-      console.warn('🔄 Backend غير متاح، جاري استخدام البيانات التجريبية...');
+      console.error('🚫 Network Error: Backend غير متاح أو غير قابل للوصول');
+      console.error('📍 Backend URL:', getApiBaseUrl());
+      console.error('🔧 تأكد من تشغيل Backend على:', 'http://localhost:3001');
       
-      // في حالة أخطاء المصادقة أو الحساب، لا نستخدم البيانات الوهمية
-      if (endpoint.includes('auth/') || endpoint.includes('login') || endpoint.includes('register')) {
-        const networkError = new Error('Network connection failed');
-        (networkError as any).status = 0;
-        (networkError as any).isNetworkError = true;
-        throw networkError;
-      }
-      
-      // استخدام البيانات الوهمية للـ endpoints الأخرى فقط
-      return await mockApiCall(endpoint);
+      // إنشاء خطأ شبكة واضح
+      const networkError = new Error('فشل في الاتصال بالخادم. تأكد من تشغيل Backend.');
+      (networkError as any).status = 0;
+      (networkError as any).isNetworkError = true;
+      (networkError as any).originalError = error;
+      throw networkError;
     }
     
     // إضافة معلومات إضافية للخطأ إذا لم تكن موجودة
