@@ -136,7 +136,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen">
       
-      {/* Premium Hero Section - تصميم جديد مثل الصورة */}
+      {/* Premium Hero Section - تصميم جديد مثل الصورة - محدث */}
       <div className="relative bg-white">
         
         {/* Hero Content */}
