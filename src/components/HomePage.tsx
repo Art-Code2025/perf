@@ -136,217 +136,139 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen">
       
-      {/* Premium Hero Section - Similar to Reference Images */}
-      <div className="relative min-h-screen bg-gradient-to-br from-ajwaak-dark via-ajwaak-primary to-ajwaak-secondary overflow-hidden">
+      {/* Premium Hero Section - تصميم جديد مثل الصورة */}
+      <div className="relative bg-white">
         
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4AF37' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }} />
-        </div>
+        {/* Hero Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          
+          {/* Header Section */}
+          <div className="text-center mb-16">
+            <h1 className="text-5xl md:text-7xl font-black text-ajwaak-primary mb-6 arabic-title">
+              أجــــواك
+            </h1>
+            <p className="text-2xl md:text-3xl text-ajwaak-secondary font-bold mb-8">
+              عطور فاخرة من التراث العربي
+            </p>
+            <div className="w-32 h-1 bg-ajwaak-gold mx-auto rounded-full"></div>
+          </div>
 
-        {/* Floating Geometric Shapes */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-32 h-32 border-2 border-ajwaak-gold/20 rounded-full animate-spin-slow"></div>
-          <div className="absolute top-40 right-20 w-24 h-24 bg-ajwaak-gold/10 rotate-45 animate-float"></div>
-          <div className="absolute bottom-40 left-16 w-20 h-20 border border-ajwaak-cream/20 rounded-full animate-bounce-slow"></div>
-          <div className="absolute bottom-20 right-32 w-16 h-16 bg-ajwaak-secondary/20 rotate-12 animate-pulse"></div>
-        </div>
-
-        {/* Main Content */}
-        <div className="relative z-10 min-h-screen flex items-center">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              
-              {/* Left Side - Text Content */}
-              <div className="text-center lg:text-right space-y-8">
-                
-                {/* Brand Badge */}
-                <div className="inline-flex items-center bg-ajwaak-gold/20 backdrop-blur-md border border-ajwaak-gold/30 rounded-full px-6 py-3 mb-6">
-                  <Crown className="w-5 h-5 text-ajwaak-gold ml-2" />
-                  <span className="text-white font-bold text-sm">AJWAAK LUXURY PERFUMES</span>
-                  <Sparkles className="w-4 h-4 text-ajwaak-gold mr-2 animate-pulse" />
-                </div>
-
-                {/* Main Title */}
-                <div className="space-y-6">
-                  <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white arabic-title leading-tight">
-                    <span className="block text-ajwaak-gold drop-shadow-2xl">أجــــواك</span>
-                    <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-4 text-ajwaak-cream/90">عطور فاخرة من التراث</span>
-                  </h1>
-                  
-                  <div className="flex justify-center lg:justify-start">
-                    <div className="h-1 w-40 bg-gradient-to-r from-ajwaak-gold via-ajwaak-cream to-transparent rounded-full"></div>
+          {/* Main Product Showcase - 3 عطور كبيرة */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+            
+            {/* عطر 1 */}
+            <div className="group relative bg-gradient-to-br from-ajwaak-dark via-ajwaak-primary to-ajwaak-secondary rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-all duration-500">
+              <div className="aspect-[3/4] relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=600&h=800&fit=crop&crop=center"
+                  alt="عطر أجواك الملكي"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div className="absolute bottom-8 left-8 right-8 text-white">
+                  <h3 className="text-3xl font-black mb-2 arabic-title">عطر الملوك</h3>
+                  <p className="text-lg mb-4">العطر الأكثر فخامة</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-2xl font-bold text-ajwaak-gold">ر.س 299</span>
+                    <button className="bg-ajwaak-gold text-ajwaak-dark px-6 py-2 rounded-full font-bold hover:bg-yellow-400 transition-colors">
+                      اطلب الآن
+                    </button>
                   </div>
-                </div>
-
-                {/* Description */}
-                <p className="text-xl sm:text-2xl lg:text-3xl text-ajwaak-cream/80 font-light leading-relaxed max-w-3xl mx-auto lg:mx-0">
-                  رحلة عبر عالم العطور الشرقية الأصيلة، حيث تلتقي الفخامة بالتراث العربي العريق في تناغم مثالي
-                </p>
-
-                {/* Premium Stats */}
-                <div className="grid grid-cols-3 gap-8 py-12">
-                  <div className="text-center">
-                    <div className="text-4xl sm:text-5xl lg:text-6xl font-black text-ajwaak-gold mb-3 drop-shadow-lg">1000+</div>
-                    <div className="text-ajwaak-cream/70 text-sm sm:text-base font-medium">عطر حصري</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-4xl sm:text-5xl lg:text-6xl font-black text-ajwaak-gold mb-3 drop-shadow-lg">100K+</div>
-                    <div className="text-ajwaak-cream/70 text-sm sm:text-base font-medium">عميل راضٍ</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-4xl sm:text-5xl lg:text-6xl font-black text-ajwaak-gold mb-3 drop-shadow-lg">25+</div>
-                    <div className="text-ajwaak-cream/70 text-sm sm:text-base font-medium">عام تميز</div>
-                  </div>
-                </div>
-
-                {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
-                  <Link
-                    to="/products"
-                    className="group relative overflow-hidden bg-ajwaak-gold hover:bg-ajwaak-gold/90 text-ajwaak-dark font-black px-10 py-5 rounded-2xl transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-ajwaak-gold/50"
-                  >
-                    <span className="relative z-10 flex items-center justify-center text-xl">
-                      <Sparkles className="w-6 h-6 ml-3" />
-                      اكتشف المجموعة
-                      <ArrowRight className="w-6 h-6 mr-3 group-hover:translate-x-2 transition-transform" />
-                    </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-ajwaak-gold opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  </Link>
-                  
-                  <Link
-                    to="/categories"
-                    className="group bg-transparent hover:bg-ajwaak-gold/10 backdrop-blur-md border-3 border-ajwaak-gold/50 hover:border-ajwaak-gold text-white font-bold px-10 py-5 rounded-2xl transform hover:scale-105 transition-all duration-300"
-                  >
-                    <span className="flex items-center justify-center text-xl">
-                      <Gem className="w-6 h-6 ml-3" />
-                      تصفح الأقسام
-                    </span>
-                  </Link>
                 </div>
               </div>
+            </div>
 
-              {/* Right Side - Visual Content */}
-              <div className="relative">
-                {/* Main Perfume Bottle Display */}
-                <div className="relative mx-auto w-96 h-[500px]">
-                  
-                  {/* Central Bottle */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="relative group">
-                      
-                      {/* Bottle Glow Effect */}
-                      <div className="absolute inset-0 bg-ajwaak-gold/30 blur-3xl rounded-full scale-150 animate-pulse group-hover:scale-175 transition-transform duration-500"></div>
-                      
-                      {/* Main Bottle Container */}
-                      <div className="relative z-10 w-64 h-80 mx-auto transform group-hover:scale-110 transition-transform duration-500">
-                        
-                        {/* استخدام صورة حقيقية للعطر بدلاً من SVG */}
-                        <div className="w-full h-full relative overflow-hidden rounded-3xl shadow-2xl">
-                          <img 
-                            src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=600&fit=crop&crop=center"
-                            alt="عطر أجواك الفاخر"
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              // في حالة فشل الصورة، استخدم gradient كبديل
-                              (e.target as HTMLImageElement).style.display = 'none';
-                              const parent = (e.target as HTMLImageElement).parentElement;
-                              if (parent) {
-                                parent.style.background = 'linear-gradient(135deg, #8B1538 0%, #D4AF37 50%, #A91D47 100%)';
-                                parent.innerHTML += `
-                                  <div class="absolute inset-0 flex items-center justify-center">
-                                    <div class="text-center text-white">
-                                      <div class="text-6xl mb-4">🌹</div>
-                                      <div class="text-2xl font-bold arabic-title">أجواك</div>
-                                      <div class="text-lg">عطور فاخرة</div>
-                                    </div>
-                                  </div>
-                                `;
-                              }
-                            }}
-                          />
-                          
-                          {/* Overlay للنص */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-ajwaak-dark/60 via-transparent to-transparent"></div>
-                          <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-center text-white">
-                            <div className="text-2xl font-black arabic-title mb-2">أجواك</div>
-                            <div className="text-sm opacity-90">عطر الملوك</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+            {/* عطر 2 */}
+            <div className="group relative bg-gradient-to-br from-ajwaak-secondary via-ajwaak-primary to-ajwaak-dark rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-all duration-500">
+              <div className="aspect-[3/4] relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1588405748880-12d1d2a59d32?w=600&h=800&fit=crop&crop=center"
+                  alt="زيت العود الأصلي"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div className="absolute bottom-8 left-8 right-8 text-white">
+                  <h3 className="text-3xl font-black mb-2 arabic-title">زيت العود</h3>
+                  <p className="text-lg mb-4">العود الأصلي الفاخر</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-2xl font-bold text-ajwaak-gold">ر.س 399</span>
+                    <button className="bg-ajwaak-gold text-ajwaak-dark px-6 py-2 rounded-full font-bold hover:bg-yellow-400 transition-colors">
+                      اطلب الآن
+                    </button>
                   </div>
-
-                  {/* Floating Mini Bottles مع صور حقيقية */}
-                  <div className="absolute inset-0">
-                    {[
-                      "https://images.unsplash.com/photo-1588405748880-12d1d2a59d32?w=100&h=150&fit=crop",
-                      "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=100&h=150&fit=crop",
-                      "https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=100&h=150&fit=crop",
-                      "https://images.unsplash.com/photo-1557170334-a9632e77c6e4?w=100&h=150&fit=crop"
-                    ].map((imgSrc, i) => (
-                      <div
-                        key={i}
-                        className="absolute w-16 h-20 rounded-lg overflow-hidden shadow-xl animate-float opacity-70 hover:opacity-100 transition-opacity border-2 border-ajwaak-gold/30"
-                        style={{
-                          left: `${15 + (i * 20)}%`,
-                          top: `${20 + Math.sin(i * 0.8) * 40}%`,
-                          animationDelay: `${i * 0.7}s`,
-                          transform: `rotate(${i * 15}deg)`,
-                        }}
-                      >
-                        <img 
-                          src={imgSrc} 
-                          alt={`عطر ${i + 1}`}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDEwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTUwIiBmaWxsPSIjOEIxNTM4Ii8+Cjx0ZXh0IHg9IjUwIiB5PSI3NSIgZmlsbD0iI0Q0QUYzNyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIyMCI+8J+MuTwvdGV4dD4KPC9zdmc+';
-                          }}
-                        />
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Sparkle Effects */}
-                  {[...Array(12)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="absolute w-3 h-3 bg-ajwaak-gold rounded-full animate-ping"
-                      style={{
-                        left: `${10 + Math.random() * 80}%`,
-                        top: `${10 + Math.random() * 80}%`,
-                        animationDelay: `${Math.random() * 3}s`,
-                        animationDuration: `${2 + Math.random() * 3}s`
-                      }}
-                    />
-                  ))}
                 </div>
+              </div>
+            </div>
 
-                {/* Premium Features */}
-                <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 flex gap-4">
-                  <div className="bg-ajwaak-gold/20 backdrop-blur-md border border-ajwaak-gold/30 rounded-full px-4 py-2">
-                    <span className="text-ajwaak-gold text-sm font-bold">100% أصلي</span>
-                  </div>
-                  <div className="bg-ajwaak-gold/20 backdrop-blur-md border border-ajwaak-gold/30 rounded-full px-4 py-2">
-                    <span className="text-ajwaak-gold text-sm font-bold">شحن مجاني</span>
-                  </div>
-                  <div className="bg-ajwaak-gold/20 backdrop-blur-md border border-ajwaak-gold/30 rounded-full px-4 py-2">
-                    <span className="text-ajwaak-gold text-sm font-bold">ضمان الجودة</span>
+            {/* عطر 3 */}
+            <div className="group relative bg-gradient-to-br from-ajwaak-primary via-ajwaak-dark to-ajwaak-secondary rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-all duration-500">
+              <div className="aspect-[3/4] relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&h=800&fit=crop&crop=center"
+                  alt="عطر الورد الدمشقي"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div className="absolute bottom-8 left-8 right-8 text-white">
+                  <h3 className="text-3xl font-black mb-2 arabic-title">الورد الدمشقي</h3>
+                  <p className="text-lg mb-4">عبق الورد الأصيل</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-2xl font-bold text-ajwaak-gold">ر.س 249</span>
+                    <button className="bg-ajwaak-gold text-ajwaak-dark px-6 py-2 rounded-full font-bold hover:bg-yellow-400 transition-colors">
+                      اطلب الآن
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-8 h-12 border-2 border-ajwaak-gold/50 rounded-full flex justify-center">
-            <div className="w-2 h-4 bg-ajwaak-gold/70 rounded-full mt-2 animate-pulse"></div>
+          {/* Features Section */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-ajwaak-gradient rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl">
+                <Truck className="w-8 h-8 text-white" />
+              </div>
+              <h4 className="text-lg font-bold text-ajwaak-dark mb-2">شحن مجاني</h4>
+              <p className="text-gray-600">للطلبات أكثر من 200 ريال</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-ajwaak-gradient rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl">
+                <Shield className="w-8 h-8 text-white" />
+              </div>
+              <h4 className="text-lg font-bold text-ajwaak-dark mb-2">ضمان الجودة</h4>
+              <p className="text-gray-600">عطور أصلية 100%</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-ajwaak-gradient rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl">
+                <Award className="w-8 h-8 text-white" />
+              </div>
+              <h4 className="text-lg font-bold text-ajwaak-dark mb-2">خدمة ممتازة</h4>
+              <p className="text-gray-600">دعم عملاء 24/7</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-ajwaak-gradient rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl">
+                <Package className="w-8 h-8 text-white" />
+              </div>
+              <h4 className="text-lg font-bold text-ajwaak-dark mb-2">تغليف فاخر</h4>
+              <p className="text-gray-600">تغليف أنيق ومميز</p>
+            </div>
           </div>
-          <p className="text-ajwaak-cream/60 text-xs mt-2 text-center">اكتشف المزيد</p>
+
+          {/* Call to Action */}
+          <div className="text-center">
+            <Link
+              to="/products"
+              className="inline-flex items-center bg-ajwaak-gradient text-white font-black px-12 py-4 rounded-2xl text-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+            >
+              <Sparkles className="w-6 h-6 ml-3" />
+              تسوق جميع العطور
+              <ArrowRight className="w-6 h-6 mr-3" />
+            </Link>
+          </div>
         </div>
       </div>
 
