@@ -96,29 +96,32 @@ const Navbar: React.FC = () => {
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50">
-      {/* Top Bar - مخفي على الشاشات الصغيرة */}
-      <div className="hidden md:block ajwaak-gradient text-white py-1.5 shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between text-xs lg:text-sm">
-            <div className="flex items-center gap-4 lg:gap-8">
-              <div className="flex items-center gap-1 lg:gap-2 font-medium">
-                <Phone className="w-3 h-3 lg:w-4 lg:h-4" />
-                <span>للاستفسار: +966 50 123 4567</span>
+      {/* Top Premium Bar */}
+      <div className="hidden lg:block bg-gradient-to-r from-ajwaak-dark via-ajwaak-primary to-ajwaak-dark text-white py-2 shadow-lg">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center gap-8">
+              <div className="flex items-center gap-2 font-semibold">
+                <Phone className="w-4 h-4" />
+                <span>للاستفسار والطلبات: +966 50 123 4567</span>
               </div>
-              <div className="hidden lg:flex items-center gap-2 font-medium">
-                <Sparkles className="w-4 h-4" />
-                <span>عطور فاخرة أصلية</span>
+              <div className="flex items-center gap-2 font-medium">
+                <Sparkles className="w-4 h-4 text-ajwaak-gold" />
+                <span>شحن مجاني للطلبات أكثر من 200 ريال</span>
               </div>
             </div>
             
-            <div className="flex items-center gap-3 lg:gap-6">
-              <span className="hidden lg:block font-semibold">تواصل معنا</span>
-              <div className="flex items-center gap-2">
-                <a href="#" className="w-5 h-5 lg:w-6 lg:h-6 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-all">
-                  <Instagram className="w-2.5 h-2.5 lg:w-3 lg:h-3" />
+            <div className="flex items-center gap-6">
+              <span className="font-bold text-ajwaak-gold">تواصل معنا:</span>
+              <div className="flex items-center gap-3">
+                <a href="#" className="w-8 h-8 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-ajwaak-gold/20 transition-all border border-white/20">
+                  <Instagram className="w-4 h-4" />
                 </a>
-                <a href="#" className="w-5 h-5 lg:w-6 lg:h-6 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-all">
-                  <Facebook className="w-2.5 h-2.5 lg:w-3 lg:h-3" />
+                <a href="#" className="w-8 h-8 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-ajwaak-gold/20 transition-all border border-white/20">
+                  <Facebook className="w-4 h-4" />
+                </a>
+                <a href="#" className="w-8 h-8 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-ajwaak-gold/20 transition-all border border-white/20">
+                  <Twitter className="w-4 h-4" />
                 </a>
               </div>
             </div>
@@ -126,101 +129,101 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Header - Responsive */}
-      <header className="bg-white shadow-lg border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
-          <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
+      {/* Main Header */}
+      <header className="bg-white/95 backdrop-blur-md shadow-2xl border-b border-ajwaak-primary/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20 lg:h-24">
             
-            {/* Mobile Menu Button - Left */}
-            <div className="flex items-center md:hidden">
+            {/* Mobile Menu Button */}
+            <div className="flex items-center lg:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-1.5 rounded-lg text-gray-600 hover:text-ajwaak-primary hover:bg-ajwaak-cream transition-all"
+                className="p-2 rounded-xl text-ajwaak-primary hover:bg-ajwaak-cream transition-all"
               >
-                {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
 
-            {/* Logo - Right Side */}
-            <Link to="/" className="group flex items-center gap-2 sm:gap-3">
-              <div className="text-right">
-                <h1 className="text-sm sm:text-lg md:text-xl lg:text-2xl font-black arabic-title text-ajwaak-primary">
-                  <span className="text-ajwaak-gold">أ</span>جواك
-                </h1>
-                <p className="text-xs sm:text-sm font-semibold text-ajwaak-secondary hidden sm:block">عطور فاخرة وزيوت عطرية</p>
-              </div>
+            {/* Premium Logo */}
+            <Link to="/" className="group flex items-center gap-4">
               <div className="relative">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 ajwaak-gradient rounded-lg sm:rounded-xl md:rounded-2xl flex items-center justify-center shadow-xl border-2 sm:border-4 border-white group-hover:scale-105 transition-all duration-300">
+                <div className="w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-ajwaak-primary via-ajwaak-secondary to-ajwaak-gold rounded-2xl flex items-center justify-center shadow-2xl border-4 border-white group-hover:scale-105 transition-all duration-300">
                   <div className="text-white font-black text-center arabic-title">
-                    <div className="text-xs sm:text-sm md:text-base">أجواك</div>
-                    <div className="text-xs opacity-90 hidden sm:block">AJWAAK</div>
+                    <div className="text-lg lg:text-xl">أجواك</div>
+                    <div className="text-xs opacity-90">AJWAAK</div>
                   </div>
                 </div>
-                <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 bg-gradient-to-r from-ajwaak-gold to-yellow-500 rounded-full flex items-center justify-center animate-pulse border border-white shadow-lg">
-                  <Sparkles className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 lg:w-3 lg:h-3 text-white" />
+                <div className="absolute -top-1 -right-1 w-6 h-6 lg:w-8 lg:h-8 bg-gradient-to-r from-ajwaak-gold to-yellow-400 rounded-full flex items-center justify-center animate-pulse border-2 border-white shadow-lg">
+                  <Crown className="w-3 h-3 lg:w-4 lg:h-4 text-white" />
                 </div>
+              </div>
+              <div className="text-right hidden sm:block">
+                <h1 className="text-2xl lg:text-3xl font-black arabic-title text-ajwaak-primary">
+                  أجــــواك
+                </h1>
+                <p className="text-sm lg:text-base font-bold text-ajwaak-secondary">عطور فاخرة وزيوت عطرية</p>
               </div>
             </Link>
 
-            {/* Search Bar - Center (Hidden on mobile) */}
-            <div className="hidden md:flex flex-1 max-w-md lg:max-w-2xl mx-4 lg:mx-8">
+            {/* Search Bar - Center */}
+            <div className="hidden lg:flex flex-1 max-w-2xl mx-8">
               <form onSubmit={handleSearch} className="relative w-full">
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="ابحث عن العطور..."
-                  className="w-full px-3 py-2 lg:px-4 lg:py-3 pr-8 lg:pr-10 border-2 border-ajwaak-primary/20 rounded-lg lg:rounded-xl focus:ring-2 lg:focus:ring-4 focus:ring-ajwaak-gold/20 focus:border-ajwaak-primary bg-gradient-to-r from-white to-ajwaak-cream/30 text-sm lg:text-base font-medium placeholder-gray-400 shadow-lg transition-all duration-300"
+                  placeholder="ابحث عن العطور الفاخرة..."
+                  className="w-full px-6 py-4 pr-12 border-2 border-ajwaak-primary/20 rounded-2xl focus:ring-4 focus:ring-ajwaak-gold/20 focus:border-ajwaak-primary bg-gradient-to-r from-white to-ajwaak-cream/30 text-lg font-medium placeholder-gray-400 shadow-lg transition-all duration-300"
                 />
                 <button
                   type="submit"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 w-6 h-6 lg:w-8 lg:h-8 ajwaak-gradient rounded-lg flex items-center justify-center text-white hover:shadow-lg transition-all duration-300"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-gradient-to-r from-ajwaak-primary to-ajwaak-secondary rounded-xl flex items-center justify-center text-white hover:shadow-lg transition-all duration-300"
                 >
-                  <Search className="w-3 h-3 lg:w-4 lg:h-4" />
+                  <Search className="w-5 h-5" />
                 </button>
               </form>
             </div>
 
-            {/* Action Buttons - Left */}
-            <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
-              {/* Cart - Always visible */}
+            {/* Action Buttons */}
+            <div className="flex items-center gap-3 lg:gap-4">
+              {/* Cart */}
               <Link to="/cart" className="group relative">
-                <div className="flex items-center gap-1 sm:gap-2 p-1.5 sm:p-2 md:p-3 bg-gradient-to-r from-ajwaak-cream to-ajwaak-light rounded-lg sm:rounded-xl border border-ajwaak-primary/20 hover:shadow-lg transition-all duration-300">
+                <div className="flex items-center gap-3 p-3 lg:p-4 bg-gradient-to-r from-ajwaak-cream to-ajwaak-light rounded-2xl border-2 border-ajwaak-primary/20 hover:border-ajwaak-gold/50 hover:shadow-xl transition-all duration-300">
                   <div className="relative">
-                    <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 ajwaak-gradient rounded-lg flex items-center justify-center shadow-lg">
-                      <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" />
+                    <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-r from-ajwaak-primary to-ajwaak-secondary rounded-xl flex items-center justify-center shadow-lg">
+                      <ShoppingCart className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
                     </div>
                     {totalCartItems > 0 && (
-                      <div className="absolute -top-1 -right-1 w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 bg-gradient-to-r from-ajwaak-gold to-yellow-500 rounded-full flex items-center justify-center text-ajwaak-dark text-xs font-black shadow-lg animate-pulse">
+                      <div className="absolute -top-2 -right-2 w-5 h-5 lg:w-6 lg:h-6 bg-gradient-to-r from-ajwaak-gold to-yellow-400 rounded-full flex items-center justify-center text-ajwaak-dark text-xs font-black shadow-lg animate-pulse">
                         {totalCartItems}
                       </div>
                     )}
                   </div>
-                  <div className="text-right hidden lg:block">
-                    <div className="text-xs text-gray-500 font-medium">السلة</div>
-                    <div className="text-sm font-bold text-ajwaak-primary">
+                  <div className="text-right hidden xl:block">
+                    <div className="text-xs text-gray-500 font-medium">سلة التسوق</div>
+                    <div className="text-lg font-bold text-ajwaak-primary">
                       {totalCartValue > 0 ? `${totalCartValue.toFixed(2)} ر.س` : '0 ر.س'}
                     </div>
                   </div>
                 </div>
               </Link>
 
-              {/* Wishlist - Hidden on small screens */}
+              {/* Wishlist */}
               <Link to="/wishlist" className="group relative hidden sm:block">
-                <div className="flex items-center gap-1 sm:gap-2 p-1.5 sm:p-2 md:p-3 bg-gradient-to-r from-ajwaak-cream to-ajwaak-light rounded-lg sm:rounded-xl border border-ajwaak-primary/20 hover:shadow-lg transition-all duration-300">
+                <div className="flex items-center gap-3 p-3 lg:p-4 bg-gradient-to-r from-ajwaak-cream to-ajwaak-light rounded-2xl border-2 border-ajwaak-primary/20 hover:border-ajwaak-gold/50 hover:shadow-xl transition-all duration-300">
                   <div className="relative">
-                    <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 ajwaak-gradient rounded-lg flex items-center justify-center shadow-lg">
-                      <Heart className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" />
+                    <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-r from-ajwaak-primary to-ajwaak-secondary rounded-xl flex items-center justify-center shadow-lg">
+                      <Heart className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
                     </div>
                     {wishlistCount > 0 && (
-                      <div className="absolute -top-1 -right-1 w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 bg-gradient-to-r from-ajwaak-gold to-yellow-500 rounded-full flex items-center justify-center text-ajwaak-dark text-xs font-black shadow-lg animate-pulse">
+                      <div className="absolute -top-2 -right-2 w-5 h-5 lg:w-6 lg:h-6 bg-gradient-to-r from-ajwaak-gold to-yellow-400 rounded-full flex items-center justify-center text-ajwaak-dark text-xs font-black shadow-lg animate-pulse">
                         {wishlistCount}
                       </div>
                     )}
                   </div>
-                  <div className="text-right hidden lg:block">
+                  <div className="text-right hidden xl:block">
                     <div className="text-xs text-gray-500 font-medium">المفضلة</div>
-                    <div className="text-sm font-bold text-ajwaak-primary">{wishlistCount} منتج</div>
+                    <div className="text-lg font-bold text-ajwaak-primary">{wishlistCount} منتج</div>
                   </div>
                 </div>
               </Link>
@@ -229,46 +232,46 @@ const Navbar: React.FC = () => {
               <div className="relative">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="group flex items-center gap-1 sm:gap-2 p-1.5 sm:p-2 md:p-3 bg-gradient-to-r from-ajwaak-cream to-ajwaak-light rounded-lg sm:rounded-xl border border-ajwaak-primary/20 hover:shadow-lg transition-all duration-300"
+                  className="group flex items-center gap-3 p-3 lg:p-4 bg-gradient-to-r from-ajwaak-cream to-ajwaak-light rounded-2xl border-2 border-ajwaak-primary/20 hover:border-ajwaak-gold/50 hover:shadow-xl transition-all duration-300"
                 >
-                  <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 ajwaak-gradient rounded-lg flex items-center justify-center shadow-lg">
-                    <User className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" />
+                  <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-r from-ajwaak-primary to-ajwaak-secondary rounded-xl flex items-center justify-center shadow-lg">
+                    <User className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
                   </div>
-                  <div className="text-right hidden lg:block">
+                  <div className="text-right hidden xl:block">
                     <div className="text-xs text-gray-500 font-medium">حسابي</div>
-                    <div className="text-sm font-bold text-ajwaak-primary">
+                    <div className="text-lg font-bold text-ajwaak-primary">
                       {isCustomerLoggedIn ? customerName.split(' ')[0] : 'دخول'}
                     </div>
                   </div>
-                  <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 transition-transform group-hover:rotate-180" />
+                  <ChevronDown className="w-4 h-4 text-gray-400 transition-transform group-hover:rotate-180" />
                 </button>
 
                 {/* User Dropdown */}
                 {isUserMenuOpen && (
-                  <div className="absolute left-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50">
+                  <div className="absolute left-0 mt-3 w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-ajwaak-primary/20 py-3 z-50">
                     {isCustomerLoggedIn ? (
                       <>
-                        <div className="px-4 py-2 border-b border-gray-100">
-                          <p className="text-sm font-semibold text-ajwaak-dark">{customerName}</p>
-                          <p className="text-xs text-gray-500">عضو مميز</p>
+                        <div className="px-6 py-3 border-b border-ajwaak-primary/10">
+                          <p className="text-lg font-bold text-ajwaak-dark">{customerName}</p>
+                          <p className="text-sm text-ajwaak-secondary">عضو مميز في أجواك</p>
                         </div>
                         <Link
                           to="/profile"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-ajwaak-cream transition-colors"
+                          className="block px-6 py-3 text-ajwaak-dark hover:bg-ajwaak-cream transition-colors font-medium"
                           onClick={() => setIsUserMenuOpen(false)}
                         >
                           الملف الشخصي
                         </Link>
                         <Link
                           to="/orders"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-ajwaak-cream transition-colors"
+                          className="block px-6 py-3 text-ajwaak-dark hover:bg-ajwaak-cream transition-colors font-medium"
                           onClick={() => setIsUserMenuOpen(false)}
                         >
                           طلباتي
                         </Link>
                         <button
                           onClick={handleLogout}
-                          className="block w-full text-right px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                          className="block w-full text-right px-6 py-3 text-red-600 hover:bg-red-50 transition-colors font-medium"
                         >
                           تسجيل الخروج
                         </button>
@@ -277,17 +280,17 @@ const Navbar: React.FC = () => {
                       <>
                         <Link
                           to="/sign-in"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-ajwaak-cream transition-colors"
+                          className="block px-6 py-3 text-ajwaak-dark hover:bg-ajwaak-cream transition-colors font-medium"
                           onClick={() => setIsUserMenuOpen(false)}
                         >
                           تسجيل الدخول
                         </Link>
                         <Link
                           to="/sign-up"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-ajwaak-cream transition-colors"
+                          className="block px-6 py-3 text-ajwaak-dark hover:bg-ajwaak-cream transition-colors font-medium"
                           onClick={() => setIsUserMenuOpen(false)}
                         >
-                          إنشاء حساب
+                          إنشاء حساب جديد
                         </Link>
                       </>
                     )}
@@ -298,61 +301,61 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center justify-center border-t border-gray-100 py-3">
-            <div className="flex items-center gap-8">
+          <nav className="hidden lg:flex items-center justify-center border-t border-ajwaak-primary/10 py-4">
+            <div className="flex items-center gap-10">
               <Link
                 to="/"
-                className={`text-sm lg:text-base font-semibold transition-all duration-300 hover:text-ajwaak-primary relative group ${
-                  location.pathname === '/' ? 'text-ajwaak-primary' : 'text-gray-700'
+                className={`text-lg font-bold transition-all duration-300 hover:text-ajwaak-primary relative group ${
+                  location.pathname === '/' ? 'text-ajwaak-primary' : 'text-ajwaak-dark'
                 }`}
               >
                 الرئيسية
-                <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-ajwaak-gradient transition-all duration-300 group-hover:w-full"></div>
+                <div className="absolute -bottom-2 left-0 w-0 h-1 bg-gradient-to-r from-ajwaak-primary to-ajwaak-gold transition-all duration-300 group-hover:w-full rounded-full"></div>
               </Link>
               <Link
                 to="/products"
-                className={`text-sm lg:text-base font-semibold transition-all duration-300 hover:text-ajwaak-primary relative group ${
-                  location.pathname === '/products' ? 'text-ajwaak-primary' : 'text-gray-700'
+                className={`text-lg font-bold transition-all duration-300 hover:text-ajwaak-primary relative group ${
+                  location.pathname === '/products' ? 'text-ajwaak-primary' : 'text-ajwaak-dark'
                 }`}
               >
                 جميع العطور
-                <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-ajwaak-gradient transition-all duration-300 group-hover:w-full"></div>
+                <div className="absolute -bottom-2 left-0 w-0 h-1 bg-gradient-to-r from-ajwaak-primary to-ajwaak-gold transition-all duration-300 group-hover:w-full rounded-full"></div>
               </Link>
               <Link
                 to="/categories"
-                className={`text-sm lg:text-base font-semibold transition-all duration-300 hover:text-ajwaak-primary relative group ${
-                  location.pathname === '/categories' ? 'text-ajwaak-primary' : 'text-gray-700'
+                className={`text-lg font-bold transition-all duration-300 hover:text-ajwaak-primary relative group ${
+                  location.pathname === '/categories' ? 'text-ajwaak-primary' : 'text-ajwaak-dark'
                 }`}
               >
                 أقسام العطور
-                <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-ajwaak-gradient transition-all duration-300 group-hover:w-full"></div>
+                <div className="absolute -bottom-2 left-0 w-0 h-1 bg-gradient-to-r from-ajwaak-primary to-ajwaak-gold transition-all duration-300 group-hover:w-full rounded-full"></div>
               </Link>
               <Link
                 to="/offers"
-                className={`text-sm lg:text-base font-semibold transition-all duration-300 hover:text-ajwaak-primary relative group ${
-                  location.pathname === '/offers' ? 'text-ajwaak-primary' : 'text-gray-700'
+                className={`text-lg font-bold transition-all duration-300 hover:text-ajwaak-primary relative group ${
+                  location.pathname === '/offers' ? 'text-ajwaak-primary' : 'text-ajwaak-dark'
                 }`}
               >
-                العروض
-                <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-ajwaak-gradient transition-all duration-300 group-hover:w-full"></div>
+                العروض الخاصة
+                <div className="absolute -bottom-2 left-0 w-0 h-1 bg-gradient-to-r from-ajwaak-primary to-ajwaak-gold transition-all duration-300 group-hover:w-full rounded-full"></div>
               </Link>
               <Link
                 to="/about"
-                className={`text-sm lg:text-base font-semibold transition-all duration-300 hover:text-ajwaak-primary relative group ${
-                  location.pathname === '/about' ? 'text-ajwaak-primary' : 'text-gray-700'
+                className={`text-lg font-bold transition-all duration-300 hover:text-ajwaak-primary relative group ${
+                  location.pathname === '/about' ? 'text-ajwaak-primary' : 'text-ajwaak-dark'
                 }`}
               >
                 من نحن
-                <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-ajwaak-gradient transition-all duration-300 group-hover:w-full"></div>
+                <div className="absolute -bottom-2 left-0 w-0 h-1 bg-gradient-to-r from-ajwaak-primary to-ajwaak-gold transition-all duration-300 group-hover:w-full rounded-full"></div>
               </Link>
               <Link
                 to="/contact"
-                className={`text-sm lg:text-base font-semibold transition-all duration-300 hover:text-ajwaak-primary relative group ${
-                  location.pathname === '/contact' ? 'text-ajwaak-primary' : 'text-gray-700'
+                className={`text-lg font-bold transition-all duration-300 hover:text-ajwaak-primary relative group ${
+                  location.pathname === '/contact' ? 'text-ajwaak-primary' : 'text-ajwaak-dark'
                 }`}
               >
                 تواصل معنا
-                <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-ajwaak-gradient transition-all duration-300 group-hover:w-full"></div>
+                <div className="absolute -bottom-2 left-0 w-0 h-1 bg-gradient-to-r from-ajwaak-primary to-ajwaak-gold transition-all duration-300 group-hover:w-full rounded-full"></div>
               </Link>
             </div>
           </nav>
@@ -360,8 +363,8 @@ const Navbar: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white border-t border-gray-100 shadow-lg">
-            <div className="px-4 py-3 space-y-3">
+          <div className="lg:hidden bg-white/95 backdrop-blur-md border-t border-ajwaak-primary/10 shadow-2xl">
+            <div className="px-4 py-6 space-y-4">
               {/* Mobile Search */}
               <form onSubmit={handleSearch} className="relative">
                 <input
@@ -369,24 +372,24 @@ const Navbar: React.FC = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="ابحث عن العطور..."
-                  className="w-full px-3 py-2 pr-8 border-2 border-ajwaak-primary/20 rounded-lg focus:ring-2 focus:ring-ajwaak-gold/20 focus:border-ajwaak-primary bg-gradient-to-r from-white to-ajwaak-cream/30 text-sm font-medium placeholder-gray-400"
+                  className="w-full px-4 py-3 pr-10 border-2 border-ajwaak-primary/20 rounded-xl focus:ring-2 focus:ring-ajwaak-gold/20 focus:border-ajwaak-primary bg-gradient-to-r from-white to-ajwaak-cream/30 font-medium placeholder-gray-400"
                 />
                 <button
                   type="submit"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 w-6 h-6 ajwaak-gradient rounded flex items-center justify-center text-white"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-gradient-to-r from-ajwaak-primary to-ajwaak-secondary rounded-lg flex items-center justify-center text-white"
                 >
-                  <Search className="w-3 h-3" />
+                  <Search className="w-4 h-4" />
                 </button>
               </form>
 
               {/* Mobile Menu Links */}
-              <div className="space-y-1">
+              <div className="space-y-2">
                 <Link
                   to="/"
-                  className={`block px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                  className={`block px-4 py-3 rounded-xl font-bold transition-colors ${
                     location.pathname === '/' 
-                      ? 'bg-ajwaak-gradient text-white' 
-                      : 'text-gray-700 hover:bg-ajwaak-cream hover:text-ajwaak-primary'
+                      ? 'bg-gradient-to-r from-ajwaak-primary to-ajwaak-secondary text-white' 
+                      : 'text-ajwaak-dark hover:bg-ajwaak-cream hover:text-ajwaak-primary'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -394,10 +397,10 @@ const Navbar: React.FC = () => {
                 </Link>
                 <Link
                   to="/products"
-                  className={`block px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                  className={`block px-4 py-3 rounded-xl font-bold transition-colors ${
                     location.pathname === '/products' 
-                      ? 'bg-ajwaak-gradient text-white' 
-                      : 'text-gray-700 hover:bg-ajwaak-cream hover:text-ajwaak-primary'
+                      ? 'bg-gradient-to-r from-ajwaak-primary to-ajwaak-secondary text-white' 
+                      : 'text-ajwaak-dark hover:bg-ajwaak-cream hover:text-ajwaak-primary'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -405,10 +408,10 @@ const Navbar: React.FC = () => {
                 </Link>
                 <Link
                   to="/categories"
-                  className={`block px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                  className={`block px-4 py-3 rounded-xl font-bold transition-colors ${
                     location.pathname === '/categories' 
-                      ? 'bg-ajwaak-gradient text-white' 
-                      : 'text-gray-700 hover:bg-ajwaak-cream hover:text-ajwaak-primary'
+                      ? 'bg-gradient-to-r from-ajwaak-primary to-ajwaak-secondary text-white' 
+                      : 'text-ajwaak-dark hover:bg-ajwaak-cream hover:text-ajwaak-primary'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -416,21 +419,21 @@ const Navbar: React.FC = () => {
                 </Link>
                 <Link
                   to="/offers"
-                  className={`block px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                  className={`block px-4 py-3 rounded-xl font-bold transition-colors ${
                     location.pathname === '/offers' 
-                      ? 'bg-ajwaak-gradient text-white' 
-                      : 'text-gray-700 hover:bg-ajwaak-cream hover:text-ajwaak-primary'
+                      ? 'bg-gradient-to-r from-ajwaak-primary to-ajwaak-secondary text-white' 
+                      : 'text-ajwaak-dark hover:bg-ajwaak-cream hover:text-ajwaak-primary'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  العروض
+                  العروض الخاصة
                 </Link>
                 <Link
                   to="/wishlist"
-                  className={`sm:hidden block px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                  className={`sm:hidden block px-4 py-3 rounded-xl font-bold transition-colors ${
                     location.pathname === '/wishlist' 
-                      ? 'bg-ajwaak-gradient text-white' 
-                      : 'text-gray-700 hover:bg-ajwaak-cream hover:text-ajwaak-primary'
+                      ? 'bg-gradient-to-r from-ajwaak-primary to-ajwaak-secondary text-white' 
+                      : 'text-ajwaak-dark hover:bg-ajwaak-cream hover:text-ajwaak-primary'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -438,10 +441,10 @@ const Navbar: React.FC = () => {
                 </Link>
                 <Link
                   to="/about"
-                  className={`block px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                  className={`block px-4 py-3 rounded-xl font-bold transition-colors ${
                     location.pathname === '/about' 
-                      ? 'bg-ajwaak-gradient text-white' 
-                      : 'text-gray-700 hover:bg-ajwaak-cream hover:text-ajwaak-primary'
+                      ? 'bg-gradient-to-r from-ajwaak-primary to-ajwaak-secondary text-white' 
+                      : 'text-ajwaak-dark hover:bg-ajwaak-cream hover:text-ajwaak-primary'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -449,10 +452,10 @@ const Navbar: React.FC = () => {
                 </Link>
                 <Link
                   to="/contact"
-                  className={`block px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                  className={`block px-4 py-3 rounded-xl font-bold transition-colors ${
                     location.pathname === '/contact' 
-                      ? 'bg-ajwaak-gradient text-white' 
-                      : 'text-gray-700 hover:bg-ajwaak-cream hover:text-ajwaak-primary'
+                      ? 'bg-gradient-to-r from-ajwaak-primary to-ajwaak-secondary text-white' 
+                      : 'text-ajwaak-dark hover:bg-ajwaak-cream hover:text-ajwaak-primary'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
