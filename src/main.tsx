@@ -5,8 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 
-import Navbar from './components/Navbar';
-import HomePage from './components/HomePage';
+import App from './App';
 import AllProducts from './components/AllProducts';
 import ProductDetail from './components/ProductDetail';
 import CustomerSignIn from './components/CustomerSignIn';
@@ -53,91 +52,88 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Router>
-      <div className="min-h-screen bg-gray-50">
-        <Navbar />
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/products" element={<AllProducts />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/sign-in" element={<CustomerSignIn />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/checkout" element={<Checkout />} />
-          
-          {/* Admin Routes */}
-          <Route path="/login" element={<Login />} />
-          <Route 
-            path="/admin" 
-            element={
-              <ProtectedRoute requiredRole="admin">
-                <Dashboard />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/admin/product/new" 
-            element={
-              <ProtectedRoute requiredRole="admin">
-                <ProductForm />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/admin/product/:id" 
-            element={
-              <ProtectedRoute requiredRole="admin">
-                <ProductForm />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/admin/category/new" 
-            element={
-              <ProtectedRoute requiredRole="admin">
-                <CategoryAdd />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/admin/category/:id" 
-            element={
-              <ProtectedRoute requiredRole="admin">
-                <CategoryEdit />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/admin/coupon/add" 
-            element={
-              <ProtectedRoute requiredRole="admin">
-                <CouponForm />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/admin/coupon/edit/:id" 
-            element={
-              <ProtectedRoute requiredRole="admin">
-                <CouponForm />
-              </ProtectedRoute>
-            } 
-          />
-        </Routes>
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<App />} />
+        <Route path="/products" element={<AllProducts />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/sign-in" element={<CustomerSignIn />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/checkout" element={<Checkout />} />
         
-        <ToastContainer 
-          position="top-center"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
+        {/* Admin Routes */}
+        <Route path="/login" element={<Login />} />
+        <Route 
+          path="/admin" 
+          element={
+            <ProtectedRoute requiredRole="admin">
+              <Dashboard />
+            </ProtectedRoute>
+          } 
         />
-      </div>
+        <Route 
+          path="/admin/product/new" 
+          element={
+            <ProtectedRoute requiredRole="admin">
+              <ProductForm />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/admin/product/:id" 
+          element={
+            <ProtectedRoute requiredRole="admin">
+              <ProductForm />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/admin/category/new" 
+          element={
+            <ProtectedRoute requiredRole="admin">
+              <CategoryAdd />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/admin/category/:id" 
+          element={
+            <ProtectedRoute requiredRole="admin">
+              <CategoryEdit />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/admin/coupon/add" 
+          element={
+            <ProtectedRoute requiredRole="admin">
+              <CouponForm />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/admin/coupon/edit/:id" 
+          element={
+            <ProtectedRoute requiredRole="admin">
+              <CouponForm />
+            </ProtectedRoute>
+          } 
+        />
+      </Routes>
+      
+      <ToastContainer 
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Router>
   </React.StrictMode>,
 );
