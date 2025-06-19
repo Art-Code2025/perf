@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ChevronLeft, ChevronRight, Menu, X, Search, ShoppingCart, Heart, User, Package, Gift, Sparkles, ArrowLeft, Plus, Minus, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Menu, X, Search, ShoppingCart, Heart, User, Package, Gift, Sparkles, ArrowLeft, Plus, Minus, Star, ChevronDown, Phone, Mail } from 'lucide-react';
 
 // Import components directly for debugging
 import ImageSlider from './components/ImageSlider';
@@ -55,8 +55,8 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [cartCount, setCartCount] = useState(0);
-  // Add quantity state for mobile cards
   const [quantities, setQuantities] = useState<{[key: number]: number}>({});
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   const heroSlides = [
     {
@@ -82,45 +82,6 @@ const App: React.FC = () => {
       subtitle: 'اضفي لمسة من الأناقة والعطر الفواح على منزلك',
       buttonText: 'ابدأ التسوق',
       buttonLink: '/products'
-    }
-  ];
-
-  // Default categories for perfume store
-  const defaultCategories = [
-    {
-      id: 1,
-      name: 'عطور مستوحاة',
-      description: 'عطور مستوحاة من ماركات عالمية',
-      image: '/placeholder-perfume.png',
-      products: []
-    },
-    {
-      id: 2,
-      name: 'زيوت عطرية',
-      description: 'زيوت عطرية طبيعية وفاخرة',
-      image: '/placeholder-oil.png',
-      products: []
-    },
-    {
-      id: 3,
-      name: 'عطور اللبان',
-      description: 'أضافة وتميز في تجربة فريدة لا تنسى',
-      image: '/placeholder-incense.png',
-      products: []
-    },
-    {
-      id: 4,
-      name: 'معطرات المنزل',
-      description: 'تشكيلة واسعة من المعطرات الفاخرة',
-      image: '/placeholder-home.png',
-      products: []
-    },
-    {
-      id: 5,
-      name: 'بخور',
-      description: 'بخور خاص متعدد الاستخدام',
-      image: '/placeholder-bakhoor.png',
-      products: []
     }
   ];
 
@@ -164,18 +125,15 @@ const App: React.FC = () => {
       setLoading(true);
       setError(null);
 
-      // Use safe API call with better error handling
       const [categoriesResult, productsResult] = await Promise.all([
         safeApiCall<Category[]>(API_ENDPOINTS.CATEGORIES, {}, []),
         safeApiCall<Product[]>(API_ENDPOINTS.PRODUCTS, {}, [])
       ]);
 
-      // Check if server is down
       if (categoriesResult.isServerDown || productsResult.isServerDown) {
         throw new Error('🚫 الخادم غير متاح حالياً. يرجى التأكد من تشغيل الخادم والمحاولة مرة أخرى.');
       }
 
-      // Check for errors
       if (categoriesResult.error) {
         throw new Error(categoriesResult.error);
       }
@@ -186,7 +144,6 @@ const App: React.FC = () => {
       const categoriesData = categoriesResult.data || [];
       const productsData = productsResult.data || [];
 
-      // Group products by category and sort by creation date
       const categoryProductsMap: { [key: number]: Product[] } = {};
 
       productsData.forEach((product: Product) => {
@@ -198,36 +155,20 @@ const App: React.FC = () => {
         }
       });
 
-      // Sort products within each category by creation date (newest first)
-      Object.keys(categoryProductsMap).forEach(categoryId => {
-        categoryProductsMap[parseInt(categoryId)].sort((a, b) => {
-          const dateA = new Date(a.createdAt || 0).getTime();
-          const dateB = new Date(b.createdAt || 0).getTime();
-          return dateB - dateA;
-        });
-      });
+      const groupedData: CategoryProducts[] = categoriesData.map((category: Category) => ({
+        category,
+        products: categoryProductsMap[category.id] || []
+      })).filter(group => group.products.length > 0);
 
-      // Create category products array with products
-      const categoryProductsArray: CategoryProducts[] = categoriesData
-        .filter((category: Category) => categoryProductsMap[category.id] && categoryProductsMap[category.id].length > 0)
-        .map((category: Category) => ({
-          category,
-          products: categoryProductsMap[category.id].slice(0, 8) // Limit to 8 products per category
-        }));
-
-      setCategoryProducts(categoryProductsArray);
-      console.log(`✅ تم تحميل ${categoriesData.length} تصنيف و ${productsData.length} منتج`);
-    } catch (error) {
-      console.error('❌ خطأ في تحميل البيانات:', error);
-      const errorMessage = error instanceof Error ? error.message : 'فشل في تحميل البيانات';
-      setError(errorMessage);
-      toast.error(errorMessage);
+      setCategoryProducts(groupedData);
+    } catch (err: any) {
+      console.error('Error fetching data:', err);
+      setError(err.message || 'حدث خطأ في تحميل البيانات');
     } finally {
       setLoading(false);
     }
   };
 
-  // Quantity handlers for mobile cards
   const handleQuantityDecrease = (productId: number) => {
     setQuantities(prev => ({
       ...prev,
@@ -243,108 +184,109 @@ const App: React.FC = () => {
   };
 
   const handleAddToCart = async (product: Product) => {
-    const quantity = quantities[product.id] || 1;
     try {
-      const success = await addToCartUnified(product.id, product.name, quantity);
-      if (success) {
+      const quantity = quantities[product.id] || 1;
+      const result = await addToCartUnified(product.id, product.name, quantity);
+      
+      if (result) {
+        toast.success(`تم إضافة ${product.name} إلى السلة!`, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          rtl: true,
+        });
+        
         // Update cart count
         const cart = JSON.parse(localStorage.getItem('cart') || '[]');
         const totalCount = cart.reduce((sum: number, item: any) => sum + item.quantity, 0);
         setCartCount(totalCount);
+      } else {
+        throw new Error('فشل في إضافة المنتج إلى السلة');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error adding to cart:', error);
+      toast.error(error.message || 'فشل في إضافة المنتج إلى السلة');
     }
   };
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 3000); // Faster slide transition
-    return () => clearInterval(timer);
-  }, [heroSlides.length]);
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
 
-  // Error display component
-  const ErrorDisplay = ({ error, onRetry }: { error: string, onRetry: () => void }) => (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-rose-50 flex items-center justify-center px-4">
-      <div className="text-center max-w-md mx-auto">
-        <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-          <Package className="w-10 h-10 text-red-600" />
-        </div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">مشكلة في الاتصال</h2>
-        <p className="text-gray-600 mb-6 leading-relaxed">{error}</p>
-        <div className="space-y-3">
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-rose-50 flex items-center justify-center px-4">
+        <div className="text-center max-w-md mx-auto">
+          <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Package className="w-10 h-10 text-red-600" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">مشكلة في الاتصال</h2>
+          <p className="text-gray-600 mb-6 leading-relaxed">{error}</p>
           <button
-            onClick={onRetry}
+            onClick={fetchCategoriesWithProducts}
             className="w-full bg-gradient-to-r from-red-600 to-rose-600 text-white px-6 py-3 rounded-lg hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 font-semibold"
           >
             إعادة المحاولة
           </button>
-          <p className="text-sm text-gray-500">
-            تأكد من تشغيل الخادم على localhost:3001
-          </p>
         </div>
       </div>
-    </div>
-  );
-
-  if (error) {
-    return <ErrorDisplay error={error} onRetry={fetchCategoriesWithProducts} />;
+    );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-ajwaak-light via-white to-ajwaak-cream" dir="rtl">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 ajwaak-gradient shadow-lg backdrop-blur-md">
+    <div className="min-h-screen bg-black" dir="rtl">
+      {/* Header - Modern Luxury Design */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-xl border-b border-yellow-600/20">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <div className="flex items-center space-x-4 rtl:space-x-reverse">
-              <div className="text-2xl font-bold text-white arabic-title">
-                <span className="text-ajwaak-gold">أ</span>جواك
-                <div className="text-xs font-normal text-white/80">AJWAAK</div>
+            <div className="flex items-center">
+              <div className="relative">
+                <div className="text-3xl font-bold text-white">
+                  <span className="text-yellow-500">أ</span>جواك
+                </div>
+                <div className="text-xs text-yellow-500 tracking-[0.2em] mt-1">AJWAAK</div>
               </div>
             </div>
 
             {/* Navigation */}
             <nav className="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
-              <Link to="/" className="text-white hover:text-ajwaak-gold transition-colors font-medium">
+              <Link to="/" className="text-white hover:text-yellow-500 transition-colors font-medium">
                 الرئيسية
               </Link>
-              <Link to="/products" className="text-white hover:text-ajwaak-gold transition-colors font-medium">
+              <Link to="/products" className="text-white hover:text-yellow-500 transition-colors font-medium">
                 المنتجات
               </Link>
-              <Link to="/categories" className="text-white hover:text-ajwaak-gold transition-colors font-medium">
+              <Link to="/categories" className="text-white hover:text-yellow-500 transition-colors font-medium">
                 التصنيفات
               </Link>
-              <Link to="/about" className="text-white hover:text-ajwaak-gold transition-colors font-medium">
+              <Link to="/about" className="text-white hover:text-yellow-500 transition-colors font-medium">
                 من نحن
               </Link>
-              <Link to="/contact" className="text-white hover:text-ajwaak-gold transition-colors font-medium">
+              <Link to="/contact" className="text-white hover:text-yellow-500 transition-colors font-medium">
                 تواصل معنا
               </Link>
             </nav>
 
             {/* Icons */}
             <div className="flex items-center space-x-4 rtl:space-x-reverse">
-              <button className="text-white hover:text-ajwaak-gold transition-colors p-2">
+              <button className="text-white hover:text-yellow-500 transition-colors p-2">
                 <Search className="w-5 h-5" />
               </button>
-              <button className="text-white hover:text-ajwaak-gold transition-colors p-2">
+              <button className="text-white hover:text-yellow-500 transition-colors p-2">
                 <Heart className="w-5 h-5" />
               </button>
-              <Link to="/cart" className="text-white hover:text-ajwaak-gold transition-colors p-2 relative">
+              <Link to="/cart" className="text-white hover:text-yellow-500 transition-colors p-2 relative">
                 <ShoppingCart className="w-5 h-5" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-ajwaak-gold text-ajwaak-dark text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                  <span className="absolute -top-1 -right-1 bg-yellow-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                     {cartCount}
                   </span>
                 )}
               </Link>
-              <button className="text-white hover:text-ajwaak-gold transition-colors p-2">
+              <button className="text-white hover:text-yellow-500 transition-colors p-2">
                 <User className="w-5 h-5" />
               </button>
             </div>
@@ -352,28 +294,28 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden pt-20">
+      {/* Hero Section - Luxury Perfume Style */}
+      <section className="relative h-screen overflow-hidden">
         <div className="absolute inset-0">
           <img 
             src={heroSlides[currentSlide].image} 
             alt={heroSlides[currentSlide].title}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-ajwaak-primary/70 via-transparent to-ajwaak-secondary/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
         </div>
         
-        <div className="relative z-10 h-full flex items-center justify-center text-center text-white px-4">
+        <div className="relative z-10 h-full flex items-center justify-center text-center text-white px-4 pt-20">
           <div className="max-w-4xl">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 arabic-title text-white">
+            <h1 className="text-6xl md:text-8xl font-bold mb-6 text-white leading-tight">
               {heroSlides[currentSlide].title}
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-2xl mx-auto">
+            <p className="text-xl md:text-2xl mb-8 text-yellow-200 max-w-2xl mx-auto leading-relaxed">
               {heroSlides[currentSlide].subtitle}
             </p>
             <Link 
               to={heroSlides[currentSlide].buttonLink}
-              className="perfume-button inline-flex items-center px-8 py-4 text-lg font-semibold"
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold text-lg rounded-full hover:from-yellow-400 hover:to-yellow-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl"
             >
               {heroSlides[currentSlide].buttonText}
               <ArrowLeft className="w-5 h-5 mr-2" />
@@ -384,298 +326,238 @@ const App: React.FC = () => {
         {/* Navigation Arrows */}
         <button 
           onClick={prevSlide}
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-ajwaak-gold transition-colors p-3 rounded-full bg-black/20 backdrop-blur-sm"
+          className="absolute left-8 top-1/2 transform -translate-y-1/2 text-white hover:text-yellow-500 transition-colors p-4 rounded-full bg-black/30 backdrop-blur-sm hover:bg-black/50"
         >
           <ChevronLeft className="w-6 h-6" />
         </button>
         <button 
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-ajwaak-gold transition-colors p-3 rounded-full bg-black/20 backdrop-blur-sm"
+          className="absolute right-8 top-1/2 transform -translate-y-1/2 text-white hover:text-yellow-500 transition-colors p-4 rounded-full bg-black/30 backdrop-blur-sm hover:bg-black/50"
         >
           <ChevronRight className="w-6 h-6" />
         </button>
 
         {/* Slide Indicators */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 rtl:space-x-reverse">
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 rtl:space-x-reverse">
           {heroSlides.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`w-3 h-3 rounded-full transition-colors ${
-                index === currentSlide ? 'bg-ajwaak-gold' : 'bg-white/50'
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentSlide ? 'bg-yellow-500 w-8' : 'bg-white/50 hover:bg-white/80'
               }`}
             />
           ))}
         </div>
       </section>
 
-      {/* Loading State */}
-      {loading && (
-        <div className="py-20 text-center">
-          <div className="inline-flex items-center space-x-2 rtl:space-x-reverse text-ajwaak-primary">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ajwaak-primary"></div>
-            <span className="text-lg font-medium">جاري تحميل العطور...</span>
-          </div>
-        </div>
-      )}
-
-      {/* Error State */}
-      {error && (
-        <ErrorDisplay 
-          error={error} 
-          onRetry={fetchCategoriesWithProducts}
-        />
-      )}
-
-      {/* Categories Section */}
+      {/* Premium Products Section */}
       {!loading && !error && (
-        <section className="py-20 bg-gradient-to-b from-white to-ajwaak-cream">
+        <section className="py-20 bg-gradient-to-b from-black to-gray-900">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-ajwaak-primary mb-4 arabic-title">
+              <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
                 تشكيلة العطور المميزة
               </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
                 اكتشف عالماً من العطور الفاخرة والزيوت العطرية الطبيعية المصممة خصيصاً لك
               </p>
+              <div className="w-24 h-1 bg-gradient-to-r from-yellow-500 to-yellow-600 mx-auto mt-8"></div>
             </div>
 
             {categoryProducts.length > 0 ? (
-              <div className="space-y-20">
+              <div className="space-y-24">
                 {categoryProducts.map((categoryData, categoryIndex) => (
-                  <div key={categoryData.category.id} className="space-y-8">
-                    {/* Category Header */}
-                    <div className="perfume-category rounded-2xl mx-4 relative">
-                      <div className="relative z-10">
-                        <h3 className="text-3xl md:text-4xl font-bold mb-2 arabic-title">
+                  <div key={categoryData.category.id} className="space-y-12">
+                    {/* Category Header - Luxury Style */}
+                    <div className="text-center relative">
+                      <div className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 rounded-full border border-yellow-500/30 backdrop-blur-sm">
+                        <Sparkles className="w-6 h-6 text-yellow-500 ml-3" />
+                        <h3 className="text-3xl md:text-4xl font-bold text-white">
                           {categoryData.category.name}
                         </h3>
-                        <p className="text-lg text-white/90 max-w-lg mx-auto">
-                          {categoryData.category.description}
-                        </p>
+                        <Sparkles className="w-6 h-6 text-yellow-500 mr-3" />
                       </div>
+                      <p className="text-lg text-gray-300 mt-4 max-w-2xl mx-auto">
+                        {categoryData.category.description}
+                      </p>
                     </div>
 
-                    {/* Products Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-4">
+                    {/* Products Grid - Premium Design */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                       {categoryData.products.map((product) => (
-                        <div key={product.id} className="perfume-card group">
-                          <div className="relative overflow-hidden rounded-t-2xl">
-                            <img
-                              src={buildImageUrl(product.mainImage)}
-                              alt={product.name}
-                              className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
-                              onError={(e) => {
-                                (e.target as HTMLImageElement).src = '/placeholder-perfume.png';
-                              }}
-                            />
-                            <div className="absolute top-4 right-4">
-                              <button className="text-white hover:text-ajwaak-gold transition-colors p-2 bg-black/20 rounded-full backdrop-blur-sm">
-                                <Heart className="w-5 h-5" />
-                              </button>
-                            </div>
-                            {product.originalPrice && (
-                              <div className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded-lg text-sm font-bold">
-                                خصم {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
+                        <div key={product.id} className="group relative">
+                          {/* Premium Product Card */}
+                          <div className="bg-gradient-to-br from-gray-900 to-black rounded-2xl overflow-hidden border border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/20">
+                            {/* Product Image */}
+                            <div className="relative overflow-hidden">
+                              <img
+                                src={buildImageUrl(product.mainImage)}
+                                alt={product.name}
+                                className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-700"
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).src = '/placeholder-perfume.png';
+                                }}
+                              />
+                              {/* Overlay Gradient */}
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                              
+                              {/* Floating Action Buttons */}
+                              <div className="absolute top-4 right-4 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <button className="p-2 bg-black/50 backdrop-blur-sm rounded-full text-white hover:text-yellow-500 transition-colors">
+                                  <Heart className="w-5 h-5" />
+                                </button>
+                                <Link to={`/product/${product.id}`} className="p-2 bg-black/50 backdrop-blur-sm rounded-full text-white hover:text-yellow-500 transition-colors">
+                                  <Search className="w-5 h-5" />
+                                </Link>
                               </div>
-                            )}
-                          </div>
-                          
-                          <div className="p-6">
-                            <h4 className="text-xl font-bold text-ajwaak-dark mb-2 line-clamp-2">
-                              {product.name}
-                            </h4>
-                            <p className="text-gray-600 mb-4 line-clamp-2">
-                              {product.description}
-                            </p>
-                            
-                            {/* Rating */}
-                            <div className="flex items-center mb-4">
-                              <div className="flex items-center">
+
+                              {/* Price Badge */}
+                              <div className="absolute top-4 left-4">
+                                <div className="bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">
+                                  {product.price} ريال
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Product Info */}
+                            <div className="p-6">
+                              <h3 className="text-xl font-bold text-white mb-2 line-clamp-2">
+                                {product.name}
+                              </h3>
+                              <p className="text-gray-400 text-sm mb-4 line-clamp-3">
+                                {product.description}
+                              </p>
+
+                              {/* Rating */}
+                              <div className="flex items-center mb-4">
                                 {[...Array(5)].map((_, i) => (
-                                  <Star key={i} className="w-4 h-4 fill-current text-ajwaak-gold" />
+                                  <Star key={i} className="w-4 h-4 text-yellow-500 fill-current" />
                                 ))}
+                                <span className="text-gray-400 text-sm mr-2">(4.8)</span>
                               </div>
-                              <span className="text-sm text-gray-500 mr-2">(4.5)</span>
-                            </div>
-                            
-                            <div className="flex items-center justify-between mb-4">
-                              <div>
-                                <span className="text-2xl font-bold text-ajwaak-primary">
-                                  ر.س {product.price}
-                                </span>
-                                {product.originalPrice && (
-                                  <span className="text-sm text-gray-500 line-through mr-2">
-                                    ر.س {product.originalPrice}
+
+                              {/* Quantity Controls */}
+                              <div className="flex items-center justify-between mb-4">
+                                <div className="flex items-center space-x-3 rtl:space-x-reverse">
+                                  <button 
+                                    onClick={() => handleQuantityDecrease(product.id)}
+                                    className="w-8 h-8 rounded-full bg-gray-800 border border-yellow-500/30 flex items-center justify-center text-white hover:bg-yellow-500 hover:text-black transition-all duration-300"
+                                  >
+                                    <Minus className="w-4 h-4" />
+                                  </button>
+                                  <span className="text-white font-semibold min-w-[2rem] text-center">
+                                    {quantities[product.id] || 1}
                                   </span>
-                                )}
+                                  <button 
+                                    onClick={() => handleQuantityIncrease(product.id, product.stock)}
+                                    className="w-8 h-8 rounded-full bg-gray-800 border border-yellow-500/30 flex items-center justify-center text-white hover:bg-yellow-500 hover:text-black transition-all duration-300"
+                                  >
+                                    <Plus className="w-4 h-4" />
+                                  </button>
+                                </div>
+                                <div className="text-sm text-gray-400">
+                                  متوفر: {product.stock}
+                                </div>
                               </div>
-                            </div>
 
-                            <div className="flex items-center space-x-2 rtl:space-x-reverse mb-4">
+                              {/* Add to Cart Button */}
                               <button
-                                onClick={() => handleQuantityDecrease(product.id)}
-                                className="w-8 h-8 rounded-full border border-ajwaak-primary text-ajwaak-primary hover:bg-ajwaak-primary hover:text-white transition-colors flex items-center justify-center"
+                                onClick={() => handleAddToCart(product)}
+                                className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold py-3 rounded-xl hover:from-yellow-400 hover:to-yellow-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl hover:shadow-yellow-500/25"
                               >
-                                <Minus className="w-4 h-4" />
-                              </button>
-                              <span className="font-semibold text-ajwaak-dark px-3">
-                                {quantities[product.id] || 1}
-                              </span>
-                              <button
-                                onClick={() => handleQuantityIncrease(product.id, product.stock)}
-                                className="w-8 h-8 rounded-full border border-ajwaak-primary text-ajwaak-primary hover:bg-ajwaak-primary hover:text-white transition-colors flex items-center justify-center"
-                              >
-                                <Plus className="w-4 h-4" />
+                                إضافة للسلة
                               </button>
                             </div>
-
-                            <button
-                              onClick={() => handleAddToCart(product)}
-                              className="perfume-button w-full flex items-center justify-center"
-                            >
-                              <ShoppingCart className="w-5 h-5 ml-2" />
-                              أضف للسلة
-                            </button>
                           </div>
                         </div>
                       ))}
-                    </div>
-
-                    {/* View More Button */}
-                    <div className="text-center">
-                      <Link 
-                        to={`/category/${createCategorySlug(categoryData.category.id, categoryData.category.name)}`}
-                        className="inline-flex items-center px-8 py-3 border-2 border-ajwaak-primary text-ajwaak-primary hover:bg-ajwaak-primary hover:text-white transition-colors rounded-full font-semibold"
-                      >
-                        عرض المزيد
-                        <ArrowLeft className="w-5 h-5 mr-2" />
-                      </Link>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
               <div className="text-center py-20">
-                <Gift className="w-16 h-16 text-ajwaak-primary mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-ajwaak-dark mb-2">
-                  قريباً.. تشكيلة عطور مميزة
-                </h3>
-                <p className="text-gray-600">
-                  نعمل على إضافة أفضل العطور والزيوت العطرية لك
-                </p>
+                <div className="w-24 h-24 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Package className="w-12 h-12 text-gray-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">لا توجد منتجات متاحة</h3>
+                <p className="text-gray-400">سيتم إضافة المنتجات قريباً</p>
               </div>
             )}
           </div>
         </section>
       )}
 
-      {/* Payment Methods Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-ajwaak-primary mb-4 arabic-title">
-              طرق دفع متعددة وآمنة
-            </h3>
-            <p className="text-gray-600">ادفع بسهولة وأمان بالطريقة التي تناسبك</p>
-          </div>
-          
-          <div className="flex flex-wrap justify-center items-center gap-8 opacity-70">
-            <img src="/payment/stc-pay.png" alt="STC Pay" className="h-12" />
-            <img src="/payment/mastercard.png" alt="Mastercard" className="h-12" />
-            <img src="/payment/visa.png" alt="Visa" className="h-12" />
-            <img src="/payment/apple-pay.png" alt="Apple Pay" className="h-12" />
-            <img src="/payment/mada.png" alt="Mada" className="h-12" />
-            <img src="/payment/tamara.png" alt="Tamara" className="h-12" />
-            <img src="/payment/tabby.png" alt="Tabby" className="h-12" />
-            <img src="/payment/american-express.png" alt="American Express" className="h-12" />
+      {/* Loading State */}
+      {loading && (
+        <div className="py-32 text-center bg-black">
+          <div className="inline-flex items-center space-x-3 rtl:space-x-reverse text-yellow-500">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-500"></div>
+            <span className="text-xl font-medium text-white">جاري تحميل العطور الفاخرة...</span>
           </div>
         </div>
-      </section>
+      )}
 
-      {/* Customer Reviews Section */}
-      <section className="py-20 bg-gradient-to-b from-ajwaak-cream to-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h3 className="text-4xl font-bold text-ajwaak-primary mb-4 arabic-title">
-              آراء العملاء
-            </h3>
-            <p className="text-lg text-gray-600">
-              عطر يا حبي رائع لا يمكن للانسان ان يستغني عنه ابداً مدة البقاء 8 أيام ويعطي احساس بالمودة والرقة والانوثة، النشر جميع أنحاء الجسم.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3, 4, 5, 6].map((review) => (
-              <div key={review} className="perfume-card p-6">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-ajwaak-primary rounded-full flex items-center justify-center text-white font-bold">
-                    ع{review}
-                  </div>
-                  <div className="mr-4">
-                    <div className="font-semibold text-ajwaak-dark">عميل مميز</div>
-                    <div className="flex items-center">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-current text-ajwaak-gold" />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <p className="text-gray-600">
-                  عطر رائع ومميز، جودة عالية ورائحة تدوم طويلاً. أنصح به بشدة!
-                </p>
+      {/* Premium Footer */}
+      <footer className="bg-black border-t border-gray-800">
+        <div className="container mx-auto px-4 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {/* Brand */}
+            <div className="space-y-4">
+              <div className="text-3xl font-bold text-white">
+                <span className="text-yellow-500">أ</span>جواك
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="ajwaak-gradient text-white py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <div className="text-2xl font-bold mb-4 arabic-title">
-                <span className="text-ajwaak-gold">أ</span>جواك
-                <div className="text-sm font-normal text-white/80">AJWAAK</div>
-              </div>
-              <p className="text-white/80 mb-4">
-                وجهتك المثالية للعطور الفاخرة والزيوت العطرية الطبيعية
+              <p className="text-gray-400 leading-relaxed">
+                رحلة عطرية فاخرة تأخذك إلى عالم من الروائح المميزة والتجارب الحسية الاستثنائية
               </p>
+              <div className="flex space-x-4 rtl:space-x-reverse">
+                <div className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-yellow-500 hover:text-black transition-colors cursor-pointer">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <div className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-yellow-500 hover:text-black transition-colors cursor-pointer">
+                  <Mail className="w-5 h-5" />
+                </div>
+              </div>
             </div>
-            
-            <div>
-              <h4 className="font-bold mb-4">روابط سريعة</h4>
-              <ul className="space-y-2 text-white/80">
-                <li><Link to="/products" className="hover:text-ajwaak-gold">المنتجات</Link></li>
-                <li><Link to="/categories" className="hover:text-ajwaak-gold">التصنيفات</Link></li>
-                <li><Link to="/offers" className="hover:text-ajwaak-gold">العروض</Link></li>
-                <li><Link to="/contact" className="hover:text-ajwaak-gold">تواصل معنا</Link></li>
-              </ul>
+
+            {/* Quick Links */}
+            <div className="space-y-4">
+              <h4 className="text-xl font-bold text-white">روابط سريعة</h4>
+              <div className="space-y-2">
+                <Link to="/products" className="block text-gray-400 hover:text-yellow-500 transition-colors">المنتجات</Link>
+                <Link to="/categories" className="block text-gray-400 hover:text-yellow-500 transition-colors">التصنيفات</Link>
+                <Link to="/about" className="block text-gray-400 hover:text-yellow-500 transition-colors">من نحن</Link>
+                <Link to="/contact" className="block text-gray-400 hover:text-yellow-500 transition-colors">تواصل معنا</Link>
+              </div>
             </div>
-            
-            <div>
-              <h4 className="font-bold mb-4">خدمة العملاء</h4>
-              <ul className="space-y-2 text-white/80">
-                <li><Link to="/help" className="hover:text-ajwaak-gold">مساعدة</Link></li>
-                <li><Link to="/returns" className="hover:text-ajwaak-gold">سياسة الإرجاع</Link></li>
-                <li><Link to="/shipping" className="hover:text-ajwaak-gold">الشحن والتوصيل</Link></li>
-                <li><Link to="/privacy" className="hover:text-ajwaak-gold">سياسة الخصوصية</Link></li>
-              </ul>
+
+            {/* Categories */}
+            <div className="space-y-4">
+              <h4 className="text-xl font-bold text-white">التصنيفات</h4>
+              <div className="space-y-2">
+                <div className="text-gray-400">عطور مستوحاة</div>
+                <div className="text-gray-400">زيوت عطرية</div>
+                <div className="text-gray-400">عطور اللبان</div>
+                <div className="text-gray-400">معطرات المنزل</div>
+              </div>
             </div>
-            
-            <div>
-              <h4 className="font-bold mb-4">تواصل معنا</h4>
-              <div className="space-y-2 text-white/80">
-                <p>📱 +966 50 123 4567</p>
-                <p>📧 info@ajwaak.com</p>
-                <p>📍 الرياض، المملكة العربية السعودية</p>
+
+            {/* Contact */}
+            <div className="space-y-4">
+              <h4 className="text-xl font-bold text-white">تواصل معنا</h4>
+              <div className="space-y-2 text-gray-400">
+                <div>الرياض، المملكة العربية السعودية</div>
+                <div>+966 50 123 4567</div>
+                <div>info@ajwaak.com</div>
               </div>
             </div>
           </div>
-          
-          <div className="border-t border-white/20 pt-8 text-center text-white/60">
-            <p>&copy; 2024 أجواك. جميع الحقوق محفوظة.</p>
+
+          <div className="border-t border-gray-800 mt-12 pt-8 text-center">
+            <p className="text-gray-400">
+              © 2024 أجواك. جميع الحقوق محفوظة.
+            </p>
           </div>
         </div>
       </footer>
@@ -684,17 +566,22 @@ const App: React.FC = () => {
       <WhatsAppButton />
 
       {/* Toast Container */}
-      <ToastContainer
-        position="bottom-left"
+      <ToastContainer 
+        position="top-center"
         autoClose={3000}
         hideProgressBar={false}
-        newestOnTop
+        newestOnTop={false}
         closeOnClick
         rtl
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme="dark"
+        toastStyle={{
+          backgroundColor: '#1f2937',
+          color: '#ffffff',
+          border: '1px solid #374151'
+        }}
       />
     </div>
   );

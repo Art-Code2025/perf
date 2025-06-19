@@ -7,6 +7,18 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Luxury Black and Gold Palette
+        luxury: {
+          black: '#0a0a0a',
+          gold: '#FFD700',
+          'gold-dark': '#B8860B',
+          'gold-light': '#FFF8DC',
+          white: '#FFFFFF',
+          gray: '#1a1a1a',
+          'gray-light': '#2a2a2a',
+          'gray-dark': '#0f0f0f',
+        },
+        
         // Professional Navy Blue Primary Colors
         primary: {
           50: '#f0f4ff',
@@ -20,6 +32,30 @@ export default {
           800: '#1e3a8a',
           900: '#1e293b',
           950: '#0f172a'
+        },
+        
+        // AJWAAK Brand Colors (enhanced)
+        'ajwaak': {
+          'primary': '#8B1538',
+          'secondary': '#A91D47',
+          'gold': '#D4AF37',
+          'cream': '#F5F1E8',
+          'dark': '#2D1810',
+          'light': '#FAF9F7',
+        },
+        
+        // Premium Gold Variations
+        gold: {
+          50: '#fffbeb',
+          100: '#fef3c7',
+          200: '#fde68a',
+          300: '#fcd34d',
+          400: '#fbbf24',
+          500: '#FFD700', // Main Gold
+          600: '#d97706',
+          700: '#b45309',
+          800: '#92400e',
+          900: '#78350f',
         },
         
         // Medical Professional Colors
@@ -45,19 +81,6 @@ export default {
           50: '#f8f5f0', // اللون الكريمي الفاتح
           100: '#f0ece5',
         },
-        gold: {
-          500: '#d4af37', // ذهبي فاتح
-          600: '#c19a2e', // ذهبي غامق شوية
-          700: '#af8725', // ذهبي أغمق
-        },
-        'ajwaak': {
-          'primary': '#8B1538',
-          'secondary': '#A91D47',
-          'gold': '#D4AF37',
-          'cream': '#F5F1E8',
-          'dark': '#2D1810',
-          'light': '#FAF9F7',
-        }
       },
       screens: {
         'xs': '475px',
@@ -82,6 +105,9 @@ export default {
         'responsive-3xl': 'clamp(1.875rem, 6vw, 2.5rem)',
         'responsive-4xl': 'clamp(2.25rem, 7vw, 3rem)',
         'responsive-5xl': 'clamp(3rem, 8vw, 4rem)',
+        'luxury-xl': 'clamp(2rem, 6vw, 3.5rem)',
+        'luxury-2xl': 'clamp(2.5rem, 8vw, 4.5rem)',
+        'luxury-3xl': 'clamp(3rem, 10vw, 6rem)',
       },
       maxWidth: {
         'container-sm': '640px',
@@ -94,6 +120,10 @@ export default {
         'fade-in': 'fadeIn 0.5s ease-in',
         'fade-in-up': 'fadeInUp 0.6s ease-out',
         'perfume-float': 'float 3s ease-in-out infinite',
+        'luxury-rotate': 'luxuryRotate 1s linear infinite',
+        'luxury-pulse': 'luxuryPulse 2s ease-in-out infinite',
+        'luxury-glow': 'luxuryGlow 3s ease-in-out infinite',
+        'luxury-slide-in': 'luxurySlideIn 0.8s ease-out',
       },
       keyframes: {
         fadeIn: {
@@ -108,6 +138,22 @@ export default {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-10px)' },
         },
+        luxuryRotate: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+        luxuryPulse: {
+          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+          '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+        },
+        luxuryGlow: {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(255, 215, 0, 0.3)' },
+          '50%': { boxShadow: '0 0 40px rgba(255, 215, 0, 0.6)' },
+        },
+        luxurySlideIn: {
+          '0%': { opacity: '0', transform: 'translateX(-40px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
       },
       // Professional Gradients
       backgroundImage: {
@@ -119,6 +165,13 @@ export default {
         'gradient-navy': 'linear-gradient(180deg, #1e3a8a 0%, #0f172a 100%)',
         'ajwaak-gradient': 'linear-gradient(135deg, #8B1538 0%, #A91D47 50%, #D4AF37 100%)',
         'perfume-hero': 'linear-gradient(135deg, #8B1538 0%, #A91D47 50%, #D4AF37 100%)',
+        
+        // Luxury Gradients
+        'luxury-gold': 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)',
+        'luxury-black': 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)',
+        'luxury-card': 'linear-gradient(145deg, rgba(26, 26, 26, 0.95) 0%, rgba(42, 42, 42, 0.9) 100%)',
+        'luxury-hero': 'linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(26, 26, 26, 0.6) 100%)',
+        'luxury-glass': 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
       },
       
       // Professional Shadows
@@ -131,6 +184,13 @@ export default {
         'perfume': '0 8px 32px rgba(139, 21, 56, 0.08)',
         'perfume-hover': '0 16px 48px rgba(139, 21, 56, 0.15)',
         'gold': '0 4px 15px rgba(212, 175, 55, 0.3)',
+        
+        // Luxury Shadows
+        'luxury': '0 8px 32px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(255, 215, 0, 0.1)',
+        'luxury-hover': '0 20px 60px rgba(0, 0, 0, 0.4), 0 8px 32px rgba(255, 215, 0, 0.2)',
+        'luxury-glow': '0 0 30px rgba(255, 215, 0, 0.3)',
+        'luxury-button': '0 8px 25px rgba(255, 215, 0, 0.3), 0 2px 8px rgba(255, 215, 0, 0.2)',
+        'luxury-card': '0 8px 32px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(255, 215, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
       },
       
       // Professional Typography
@@ -140,18 +200,27 @@ export default {
         'mono': ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
         'arabic': ['Cairo', 'Amiri', 'Arial', 'sans-serif'],
         'arabic-title': ['Amiri', 'Cairo', 'serif'],
+        'luxury': ['Playfair Display', 'serif'],
+        'luxury-sans': ['Cairo', 'Inter', 'sans-serif'],
       },
       
       // Professional Border Radius
       borderRadius: {
         'xl': '1rem',
         '2xl': '1.5rem',
-        '3xl': '2rem'
+        '3xl': '2rem',
+        'luxury': '20px',
+        'luxury-sm': '12px',
+      },
+      
+      // Custom backdrop blur
+      backdropBlur: {
+        'luxury': '20px',
       },
     },
   },
   plugins: [
-    function({ addUtilities }) {
+    function({ addUtilities, addComponents }) {
       const newUtilities = {
         '.container-responsive': {
           'width': '100%',
@@ -192,36 +261,45 @@ export default {
           'line-height': '1.2',
           'font-weight': '700',
         },
-        '.card-responsive': {
-          'padding': '1rem',
-          'border-radius': '0.75rem',
-          '@screen sm': {
-            'padding': '1.5rem',
-            'border-radius': '1rem',
-          },
-          '@screen lg': {
-            'padding': '2rem',
-            'border-radius': '1.5rem',
-          },
+      };
+      
+      const newComponents = {
+        '.luxury-card': {
+          background: 'linear-gradient(145deg, rgba(26, 26, 26, 0.95) 0%, rgba(42, 42, 42, 0.9) 100%)',
+          border: '1px solid rgba(255, 215, 0, 0.2)',
+          'backdrop-filter': 'blur(20px)',
+          'box-shadow': '0 8px 32px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(255, 215, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+          'border-radius': '20px',
+          overflow: 'hidden',
+          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+          position: 'relative',
         },
-        '.grid-responsive': {
-          'display': 'grid',
-          'grid-template-columns': 'repeat(1, minmax(0, 1fr))',
-          'gap': '1rem',
-          '@screen sm': {
-            'grid-template-columns': 'repeat(2, minmax(0, 1fr))',
-            'gap': '1.5rem',
-          },
-          '@screen md': {
-            'grid-template-columns': 'repeat(3, minmax(0, 1fr))',
-          },
-          '@screen lg': {
-            'grid-template-columns': 'repeat(4, minmax(0, 1fr))',
-            'gap': '2rem',
-          },
+        '.luxury-button': {
+          background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)',
+          color: '#000000',
+          border: 'none',
+          'border-radius': '15px',
+          padding: '16px 32px',
+          'font-weight': '700',
+          'font-size': '16px',
+          'letter-spacing': '0.5px',
+          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          'box-shadow': '0 8px 25px rgba(255, 215, 0, 0.3), 0 2px 8px rgba(255, 215, 0, 0.2)',
+          position: 'relative',
+          overflow: 'hidden',
+          'text-transform': 'uppercase',
         },
-      }
-      addUtilities(newUtilities)
+        '.luxury-text-gradient': {
+          background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)',
+          '-webkit-background-clip': 'text',
+          '-webkit-text-fill-color': 'transparent',
+          'background-clip': 'text',
+          'text-shadow': '0 0 30px rgba(255, 215, 0, 0.3)',
+        },
+      };
+      
+      addUtilities(newUtilities);
+      addComponents(newComponents);
     }
   ],
 }
