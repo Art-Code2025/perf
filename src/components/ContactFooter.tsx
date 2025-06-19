@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, ExternalLink, Users, Headphones, UserCheck, Shield, RotateCcw } from 'lucide-react';
+import { Phone, Mail, MapPin, ExternalLink, Users, Headphones, UserCheck, Shield, RotateCcw, Sparkles, Crown } from 'lucide-react';
 
 const ContactSection = () => {
   const openGoogleMaps = () => {
@@ -11,51 +11,51 @@ const ContactSection = () => {
   };
 
   return (
-    <div className="relative bg-gradient-to-br from-amber-50 via-stone-100 to-amber-100 py-12 sm:py-16 lg:py-20 overflow-hidden">
+    <div className="relative bg-gradient-to-br from-ajwaak-cream via-white to-ajwaak-light py-12 sm:py-16 lg:py-20 overflow-hidden">
       {/* Premium Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-400/10 via-transparent to-rose-400/10" />
-      <div className="absolute top-0 left-0 w-48 h-48 sm:w-64 sm:h-64 lg:w-96 lg:h-96 bg-pink-400/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-0 w-48 h-48 sm:w-64 sm:h-64 lg:w-96 lg:h-96 bg-rose-400/5 rounded-full blur-3xl" />
-      <div className="absolute inset-0 bg-gradient-to-t from-gray-900/5 via-transparent to-gray-900/5" />
+      <div className="absolute inset-0 bg-gradient-to-br from-ajwaak-primary/10 via-transparent to-ajwaak-gold/10" />
+      <div className="absolute top-0 left-0 w-48 h-48 sm:w-64 sm:h-64 lg:w-96 lg:h-96 bg-ajwaak-primary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-48 h-48 sm:w-64 sm:h-64 lg:w-96 lg:h-96 bg-ajwaak-gold/5 rounded-full blur-3xl" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ajwaak-dark/5 via-transparent to-ajwaak-dark/5" />
       
       <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Premium Header */}
         <div className="text-center mb-10 sm:mb-12 lg:mb-16">
           <div className="inline-block">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-gray-800 mb-3 sm:mb-4 bg-gradient-to-r from-gray-700 via-gray-800 to-gray-700 bg-clip-text">
-              تواصل معنا
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-ajwaak-primary mb-3 sm:mb-4 arabic-title">
+              تواصل مع أجواك
             </h2>
-            <div className="h-0.5 sm:h-1 bg-gradient-to-r from-transparent via-pink-500 to-transparent rounded-full mb-4 sm:mb-6" />
+            <div className="h-0.5 sm:h-1 ajwaak-gradient rounded-full mb-4 sm:mb-6" />
           </div>
           <p className="text-gray-600 max-w-3xl mx-auto text-sm sm:text-base lg:text-lg font-light leading-relaxed px-4">
-            نحن دائماً في خدمتكم بأعلى مستويات الجودة والاحترافية. يمكنكم التواصل معنا من خلال أي من الوسائل التالية
+            نحن دائماً في خدمتكم لتقديم أفضل العطور والزيوت العطرية. يمكنكم التواصل معنا من خلال أي من الوسائل التالية
           </p>
         </div>
 
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Premium Location Card */}
           <div 
-            className="group relative bg-gradient-to-br from-white/80 via-amber-50/50 to-white/80 backdrop-blur-2xl rounded-2xl sm:rounded-3xl overflow-hidden transform transition-all duration-500 hover:scale-105 cursor-pointer border border-gray-300/30 shadow-2xl hover:shadow-pink-400/20 md:col-span-2 lg:col-span-1"
+            className="group relative bg-gradient-to-br from-white/80 via-ajwaak-cream/50 to-white/80 backdrop-blur-2xl rounded-2xl sm:rounded-3xl overflow-hidden transform transition-all duration-500 hover:scale-105 cursor-pointer border border-ajwaak-primary/20 shadow-2xl hover:shadow-ajwaak-gold/20 md:col-span-2 lg:col-span-1"
             onClick={openGoogleMaps}
           >
             {/* Card Glow Effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-pink-400/10 via-transparent to-rose-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-br from-ajwaak-primary/10 via-transparent to-ajwaak-gold/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             
             {/* Premium Border Gradient */}
-            <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-gray-300/40 via-pink-400/50 to-gray-300/40 p-px">
-              <div className="w-full h-full bg-gradient-to-br from-white/90 via-amber-50/90 to-white/90 rounded-2xl sm:rounded-3xl" />
+            <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-ajwaak-primary/40 via-ajwaak-gold/50 to-ajwaak-primary/40 p-px">
+              <div className="w-full h-full bg-gradient-to-br from-white/90 via-ajwaak-cream/90 to-white/90 rounded-2xl sm:rounded-3xl" />
             </div>
             
             <div className="relative p-4 sm:p-6 lg:p-8">
-              <div className="bg-gradient-to-br from-pink-400/20 to-rose-400/20 w-16 h-16 sm:w-18 sm:h-18 lg:w-20 lg:h-20 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-500 backdrop-blur-xl border border-gray-300/30">
-                <MapPin className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 text-gray-700 drop-shadow-lg" />
+              <div className="ajwaak-gradient w-16 h-16 sm:w-18 sm:h-18 lg:w-20 lg:h-20 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-500 backdrop-blur-xl border border-ajwaak-primary/30 shadow-lg">
+                <MapPin className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 text-white drop-shadow-lg" />
               </div>
               
-              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-center text-gray-800 mb-3 sm:mb-4">الموقع الحالي</h3>
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-center text-ajwaak-primary mb-3 sm:mb-4 arabic-title">موقع أجواك</h3>
               
               <div className="text-center">
-                <p className="text-gray-600 text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed">طريق الملك عبدالله، المملكة العربية السعودية</p>
-                <button className="mx-auto flex items-center justify-center text-white font-medium bg-gradient-to-r from-pink-500 to-rose-500 backdrop-blur-xl border border-pink-400/30 py-2.5 sm:py-3 px-4 sm:px-6 rounded-xl sm:rounded-2xl hover:from-pink-600 hover:to-rose-600 transition-all duration-300 transform hover:scale-105 shadow-lg text-sm sm:text-base">
+                <p className="text-gray-600 text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed">طريق الملك عبدالله، الرياض، المملكة العربية السعودية</p>
+                <button className="mx-auto flex items-center justify-center text-white font-medium ajwaak-gradient backdrop-blur-xl border border-ajwaak-primary/30 py-2.5 sm:py-3 px-4 sm:px-6 rounded-xl sm:rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105 shadow-lg text-sm sm:text-base">
                   <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
                   <span>افتح في الخريطة</span>
                 </button>
@@ -64,88 +64,88 @@ const ContactSection = () => {
           </div>
           
           {/* Premium Email Card */}
-          <div className="group relative bg-gradient-to-br from-white/80 via-amber-50/50 to-white/80 backdrop-blur-2xl rounded-2xl sm:rounded-3xl overflow-hidden transform transition-all duration-500 hover:scale-105 border border-gray-300/30 shadow-2xl hover:shadow-pink-400/20">
+          <div className="group relative bg-gradient-to-br from-white/80 via-ajwaak-cream/50 to-white/80 backdrop-blur-2xl rounded-2xl sm:rounded-3xl overflow-hidden transform transition-all duration-500 hover:scale-105 border border-ajwaak-primary/20 shadow-2xl hover:shadow-ajwaak-gold/20">
             {/* Card Glow Effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-400/10 via-transparent to-gray-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-br from-ajwaak-primary/10 via-transparent to-ajwaak-gold/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             
             {/* Premium Border Gradient */}
-            <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-gray-300/40 via-gray-400/50 to-gray-300/40 p-px">
-              <div className="w-full h-full bg-gradient-to-br from-white/90 via-amber-50/90 to-white/90 rounded-2xl sm:rounded-3xl" />
+            <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-ajwaak-primary/40 via-ajwaak-gold/50 to-ajwaak-primary/40 p-px">
+              <div className="w-full h-full bg-gradient-to-br from-white/90 via-ajwaak-cream/90 to-white/90 rounded-2xl sm:rounded-3xl" />
             </div>
             
             <div className="relative p-4 sm:p-6 lg:p-8">
-              <div className="bg-gradient-to-br from-gray-400/20 to-gray-600/20 w-16 h-16 sm:w-18 sm:h-18 lg:w-20 lg:h-20 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-500 backdrop-blur-xl border border-gray-300/30">
-                <Mail className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 text-gray-700 drop-shadow-lg" />
+              <div className="ajwaak-gradient w-16 h-16 sm:w-18 sm:h-18 lg:w-20 lg:h-20 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-500 backdrop-blur-xl border border-ajwaak-primary/30 shadow-lg">
+                <Mail className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 text-white drop-shadow-lg" />
               </div>
               
-              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-center text-gray-800 mb-4 sm:mb-6">البريد الإلكتروني</h3>
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-center text-ajwaak-primary mb-4 sm:mb-6 arabic-title">البريد الإلكتروني</h3>
               
               <div className="w-full">
-                <a href="mailto:info@ghem.store" 
-                   className="flex items-center justify-center space-x-1 space-x-reverse py-3 sm:py-4 px-3 sm:px-4 rounded-xl sm:rounded-2xl bg-white/60 backdrop-blur-xl border border-gray-300/40 hover:bg-white/80 transition-all duration-300 group/email">
-                  <Users className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 ml-2 group-hover/email:scale-110 transition-transform duration-300" />
-                  <span className="text-gray-800 hover:text-gray-600 transition-colors text-sm sm:text-base font-medium break-all">info@ghem.store</span>
+                <a href="mailto:info@ajwaak.com" 
+                   className="flex items-center justify-center space-x-1 space-x-reverse py-3 sm:py-4 px-3 sm:px-4 rounded-xl sm:rounded-2xl bg-white/60 backdrop-blur-xl border border-ajwaak-primary/40 hover:bg-white/80 transition-all duration-300 group/email">
+                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-ajwaak-primary ml-2 group-hover/email:scale-110 transition-transform duration-300" />
+                  <span className="text-ajwaak-dark hover:text-ajwaak-primary transition-colors text-sm sm:text-base font-medium break-all">info@ajwaak.com</span>
                 </a>
               </div>
             </div>
           </div>
           
           {/* Premium Phone Numbers Card */}
-          <div className="group relative bg-gradient-to-br from-white/80 via-amber-50/50 to-white/80 backdrop-blur-2xl rounded-2xl sm:rounded-3xl overflow-hidden transform transition-all duration-500 hover:scale-105 border border-gray-300/30 shadow-2xl hover:shadow-pink-400/20 md:col-span-2 lg:col-span-1">
+          <div className="group relative bg-gradient-to-br from-white/80 via-ajwaak-cream/50 to-white/80 backdrop-blur-2xl rounded-2xl sm:rounded-3xl overflow-hidden transform transition-all duration-500 hover:scale-105 border border-ajwaak-primary/20 shadow-2xl hover:shadow-ajwaak-gold/20 md:col-span-2 lg:col-span-1">
             {/* Card Glow Effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-pink-400/10 via-transparent to-rose-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-br from-ajwaak-primary/10 via-transparent to-ajwaak-gold/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             
             {/* Premium Border Gradient */}
-            <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-gray-300/40 via-pink-400/50 to-gray-300/40 p-px">
-              <div className="w-full h-full bg-gradient-to-br from-white/90 via-amber-50/90 to-white/90 rounded-2xl sm:rounded-3xl" />
+            <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-ajwaak-primary/40 via-ajwaak-gold/50 to-ajwaak-primary/40 p-px">
+              <div className="w-full h-full bg-gradient-to-br from-white/90 via-ajwaak-cream/90 to-white/90 rounded-2xl sm:rounded-3xl" />
             </div>
             
             <div className="relative p-4 sm:p-6 lg:p-8">
-              <div className="bg-gradient-to-br from-pink-400/20 to-rose-400/20 w-16 h-16 sm:w-18 sm:h-18 lg:w-20 lg:h-20 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-500 backdrop-blur-xl border border-gray-300/30">
-                <Phone className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 text-gray-700 drop-shadow-lg" />
+              <div className="ajwaak-gradient w-16 h-16 sm:w-18 sm:h-18 lg:w-20 lg:h-20 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-500 backdrop-blur-xl border border-ajwaak-primary/30 shadow-lg">
+                <Phone className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 text-white drop-shadow-lg" />
               </div>
               
-              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-center text-gray-800 mb-3 sm:mb-4">أرقام الجوال</h3>
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-center text-ajwaak-primary mb-3 sm:mb-4 arabic-title">أرقام التواصل</h3>
               
               <div className="w-full space-y-3 sm:space-y-4">
                 <div className="text-center">
-                  <div className="inline-flex items-center justify-center bg-gradient-to-r from-pink-400/20 to-rose-400/20 backdrop-blur-xl border border-gray-300/30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl mb-2 sm:mb-3">
-                    <Headphones className="w-3 h-3 sm:w-4 sm:h-4 text-gray-700 ml-1 sm:ml-2" />
-                    <span className="text-gray-800 font-medium text-xs sm:text-sm">خدمة العملاء</span>
+                  <div className="inline-flex items-center justify-center ajwaak-gradient backdrop-blur-xl border border-ajwaak-primary/30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl mb-2 sm:mb-3">
+                    <Headphones className="w-3 h-3 sm:w-4 sm:h-4 text-white ml-1 sm:ml-2" />
+                    <span className="text-white font-medium text-xs sm:text-sm">خدمة العملاء</span>
                   </div>
                 </div>
                 
                 <div className="space-y-2">
-                  {["0563995580", "0502116888", "0547493606"].map((phone, index) => (
+                  {["+966 50 123 4567", "+966 55 987 6543", "+966 54 555 7890"].map((phone, index) => (
                     <a key={index} href={`tel:${phone}`} 
-                       className="flex items-center justify-center py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-white/60 backdrop-blur-xl border border-gray-300/40 hover:bg-white/80 transition-all duration-300 group/phone">
-                      <span className="text-gray-800 hover:text-gray-600 transition-colors font-medium text-sm sm:text-base group-hover/phone:scale-105 transition-transform duration-300">{phone}</span>
+                       className="flex items-center justify-center py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-white/60 backdrop-blur-xl border border-ajwaak-primary/40 hover:bg-white/80 transition-all duration-300 group/phone">
+                      <span className="text-ajwaak-dark hover:text-ajwaak-primary transition-colors font-medium text-sm sm:text-base group-hover/phone:scale-105 transition-transform duration-300">{phone}</span>
                     </a>
                   ))}
                 </div>
                 
-                <div className="border-t border-gray-300/40 pt-3 sm:pt-4 mt-4 sm:mt-6">
+                <div className="border-t border-ajwaak-primary/20 pt-3 sm:pt-4 mt-4 sm:mt-6">
                   <div className="text-center mb-2 sm:mb-3">
-                    <div className="inline-flex items-center justify-center bg-gradient-to-r from-gray-400/20 to-gray-600/20 backdrop-blur-xl border border-gray-300/30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl mb-2 sm:mb-3">
-                      <Users className="w-3 h-3 sm:w-4 sm:h-4 text-gray-700 ml-1 sm:ml-2" />
-                      <span className="text-gray-800 font-medium text-xs sm:text-sm">أرقام الإدارة</span>
+                    <div className="inline-flex items-center justify-center ajwaak-gradient backdrop-blur-xl border border-ajwaak-primary/30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl mb-2 sm:mb-3">
+                      <Crown className="w-3 h-3 sm:w-4 sm:h-4 text-white ml-1 sm:ml-2" />
+                      <span className="text-white font-medium text-xs sm:text-sm">الإدارة</span>
                     </div>
                   </div>
                   
                   <div className="space-y-2 sm:space-y-3">
                     <div className="text-center">
-                      <p className="text-gray-600 font-medium text-xs sm:text-sm mb-1 sm:mb-2">مدير الفرع</p>
-                      <a href="tel:0502532888" 
-                         className="flex items-center justify-center py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-white/60 backdrop-blur-xl border border-gray-300/40 hover:bg-white/80 transition-all duration-300 group/phone">
-                        <span className="text-gray-800 hover:text-gray-600 transition-colors text-sm sm:text-base group-hover/phone:scale-105 transition-transform duration-300">0502532888</span>
+                      <p className="text-gray-600 font-medium text-xs sm:text-sm mb-1 sm:mb-2">مدير المتجر</p>
+                      <a href="tel:+966502532888" 
+                         className="flex items-center justify-center py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-white/60 backdrop-blur-xl border border-ajwaak-primary/40 hover:bg-white/80 transition-all duration-300 group/phone">
+                        <span className="text-ajwaak-dark hover:text-ajwaak-primary transition-colors text-sm sm:text-base group-hover/phone:scale-105 transition-transform duration-300">+966 50 253 2888</span>
                       </a>
                     </div>
                     
                     <div className="text-center">
-                      <p className="text-gray-600 font-medium text-xs sm:text-sm mb-1 sm:mb-2">مدير إدارة المشاريع</p>
-                      <a href="tel:0505242177" 
-                         className="flex items-center justify-center py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-white/60 backdrop-blur-xl border border-gray-300/40 hover:bg-white/80 transition-all duration-300 group/phone">
-                        <span className="text-gray-800 hover:text-gray-600 transition-colors text-sm sm:text-base group-hover/phone:scale-105 transition-transform duration-300">0505242177</span>
+                      <p className="text-gray-600 font-medium text-xs sm:text-sm mb-1 sm:mb-2">قسم المبيعات</p>
+                      <a href="tel:+966505242177" 
+                         className="flex items-center justify-center py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-white/60 backdrop-blur-xl border border-ajwaak-primary/40 hover:bg-white/80 transition-all duration-300 group/phone">
+                        <span className="text-ajwaak-dark hover:text-ajwaak-primary transition-colors text-sm sm:text-base group-hover/phone:scale-105 transition-transform duration-300">+966 50 524 2177</span>
                       </a>
                     </div>
                   </div>
@@ -157,39 +157,34 @@ const ContactSection = () => {
       </div>
 
       {/* Premium Footer */}
-      <footer className="relative py-6 sm:py-8 mt-12 sm:mt-16 border-t border-gray-300/30">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-stone-100/30 to-transparent" />
+      <footer className="relative py-6 sm:py-8 mt-12 sm:mt-16 border-t border-ajwaak-primary/20">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-ajwaak-cream/30 to-transparent" />
         <div className="relative">
           {/* Policy Links Section */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-6">
             <Link
               to="/privacy-policy"
-              className="inline-flex items-center text-gray-600 text-xs sm:text-sm font-medium hover:text-gray-800 transition-all duration-300 bg-white/60 backdrop-blur-xl border border-gray-300/40 px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl hover:bg-white/80 transform hover:scale-105"
+              className="inline-flex items-center text-gray-600 text-xs sm:text-sm font-medium hover:text-ajwaak-primary transition-all duration-300 bg-white/60 backdrop-blur-xl border border-ajwaak-primary/40 px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl hover:bg-white/80 transform hover:scale-105"
             >
-              <Shield className="w-4 h-4 ml-2 text-blue-600" />
+              <Shield className="w-4 h-4 ml-2 text-ajwaak-primary" />
               <span>سياسة الاستخدام والخصوصية</span>
             </Link>
             <Link
               to="/return-policy"
-              className="inline-flex items-center text-gray-600 text-xs sm:text-sm font-medium hover:text-gray-800 transition-all duration-300 bg-white/60 backdrop-blur-xl border border-gray-300/40 px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl hover:bg-white/80 transform hover:scale-105"
+              className="inline-flex items-center text-gray-600 text-xs sm:text-sm font-medium hover:text-ajwaak-primary transition-all duration-300 bg-white/60 backdrop-blur-xl border border-ajwaak-primary/40 px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl hover:bg-white/80 transform hover:scale-105"
             >
-              <RotateCcw className="w-4 h-4 ml-2 text-green-600" />
+              <RotateCcw className="w-4 h-4 ml-2 text-ajwaak-gold" />
               <span>سياسة الاسترجاع والاستبدال</span>
             </Link>
           </div>
           
           {/* Copyright Section */}
           <div className="text-center">
-            <a 
-              href="https://www.instagram.com/artc.ode39?igsh=OG0xOGltcmM0djV6" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center text-gray-600 text-xs sm:text-sm font-medium hover:text-gray-800 transition-all duration-300 bg-white/60 backdrop-blur-xl border border-gray-300/40 px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl hover:bg-white/80 transform hover:scale-105"
-            >
-              <span className="bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent font-bold">ArtCode</span>
-              <span className="mx-1 sm:mx-2">-</span>
-              <span>2025</span>
-            </a>
+            <div className="inline-flex items-center text-gray-600 text-xs sm:text-sm font-medium bg-white/60 backdrop-blur-xl border border-ajwaak-primary/40 px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl">
+              <span className="text-ajwaak-primary font-bold arabic-title">أجواك</span>
+              <span className="mx-1 sm:mx-2">©</span>
+              <span>2025 - جميع الحقوق محفوظة</span>
+            </div>
           </div>
         </div>
       </footer>

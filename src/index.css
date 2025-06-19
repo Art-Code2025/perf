@@ -83,25 +83,27 @@ body {
 }
 
 .arabic-title {
-  font-family: 'Amiri', 'Cairo', serif;
-  font-weight: 700;
+  font-family: 'Cairo', 'Amiri', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.05em;
   color: var(--ajwaak-primary);
 }
 
 /* Perfume Card Styles */
 .perfume-card {
-  background: linear-gradient(145deg, #ffffff 0%, var(--ajwaak-light) 100%);
+  background: linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(248,244,240,0.8) 100%);
   border: 1px solid rgba(139, 21, 56, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 30px rgba(139, 21, 56, 0.1);
   border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(139, 21, 56, 0.08);
-  transition: all 0.3s ease;
   overflow: hidden;
 }
 
 .perfume-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 48px rgba(139, 21, 56, 0.15);
-  border-color: var(--ajwaak-gold);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px rgba(139, 21, 56, 0.2);
+  border-color: rgba(212, 175, 55, 0.3);
 }
 
 .perfume-card .rating {
@@ -109,17 +111,18 @@ body {
 }
 
 .perfume-button {
-  background: var(--ajwaak-gradient);
+  background: linear-gradient(135deg, var(--ajwaak-primary) 0%, var(--ajwaak-secondary) 100%);
   color: white;
   border: none;
+  border-radius: 12px;
   padding: 12px 24px;
-  border-radius: 25px;
-  font-weight: 600;
+  font-weight: 700;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(139, 21, 56, 0.3);
 }
 
 .perfume-button:hover {
+  background: linear-gradient(135deg, var(--ajwaak-secondary) 0%, var(--ajwaak-gold) 100%);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(139, 21, 56, 0.4);
 }
@@ -547,32 +550,26 @@ html {
 
 /* تحسينات للـ scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-}
-
-@media (min-width: 768px) {
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--ajwaak-light);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #ef4444, #f87171);
+  background: linear-gradient(var(--ajwaak-primary), var(--ajwaak-gold));
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #dc2626, #ef4444);
+  background: linear-gradient(var(--ajwaak-secondary), var(--ajwaak-gold));
 }
 
 /* تحسينات للـ selection */
 ::selection {
-  background-color: #fecaca;
-  color: #7f1d1d;
+  background-color: var(--ajwaak-gold);
+  color: var(--ajwaak-dark);
 }
 
 /* إزالة outline للـ buttons */
@@ -876,5 +873,145 @@ code {
   
   .category-card-mobile {
     @apply p-4 text-sm;
+  }
+}
+
+/* Custom Animations for Hero Section */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes float-delayed {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+/* Animation Classes */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 4s ease-in-out infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Responsive Text Utilities */
+@media (max-width: 640px) {
+  .text-responsive-xs {
+    font-size: 0.75rem;
+  }
+  .text-responsive-sm {
+    font-size: 0.875rem;
+  }
+  .text-responsive-base {
+    font-size: 1rem;
+  }
+  .text-responsive-lg {
+    font-size: 1.125rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .text-responsive-xs {
+    font-size: 0.875rem;
+  }
+  .text-responsive-sm {
+    font-size: 1rem;
+  }
+  .text-responsive-base {
+    font-size: 1.125rem;
+  }
+  .text-responsive-lg {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .text-responsive-xs {
+    font-size: 1rem;
+  }
+  .text-responsive-sm {
+    font-size: 1.125rem;
+  }
+  .text-responsive-base {
+    font-size: 1.25rem;
+  }
+  .text-responsive-lg {
+    font-size: 1.5rem;
+  }
+}
+
+/* Hero Section Specific Styles */
+.hero-text-shadow {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Perfume Bottle Animation */
+.bottle-liquid {
+  animation: liquid-wave 3s ease-in-out infinite;
+}
+
+@keyframes liquid-wave {
+  0%, 100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.95);
   }
 }
