@@ -19,7 +19,6 @@ import CouponForm from './components/CouponForm';
 import Cart from './components/Cart';
 import Wishlist from './components/Wishlist';
 import Checkout from './components/Checkout';
-import TestConnection from './components/TestConnection';
 
 // ProtectedRoute Component
 interface ProtectedRouteProps {
@@ -65,7 +64,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/test" element={<TestConnection />} />
           
           {/* Admin Routes */}
           <Route path="/login" element={<Login />} />
