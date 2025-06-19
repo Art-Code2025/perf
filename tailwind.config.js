@@ -50,6 +50,14 @@ export default {
           600: '#c19a2e', // ذهبي غامق شوية
           700: '#af8725', // ذهبي أغمق
         },
+        'ajwaak': {
+          'primary': '#8B1538',
+          'secondary': '#A91D47',
+          'gold': '#D4AF37',
+          'cream': '#F5F1E8',
+          'dark': '#2D1810',
+          'light': '#FAF9F7',
+        }
       },
       screens: {
         'xs': '475px',
@@ -83,24 +91,23 @@ export default {
         'container-2xl': '1536px',
       },
       animation: {
-        'fade-in': 'fadeIn 0.5s ease-in-out',
-        'slide-up': 'slideUp 0.6s ease-out',
-        'float': 'float 6s ease-in-out infinite',
-        'pulse-slow': 'pulse 3s ease-in-out infinite'
+        'fade-in': 'fadeIn 0.5s ease-in',
+        'fade-in-up': 'fadeInUp 0.6s ease-out',
+        'perfume-float': 'float 3s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' }
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
         },
-        slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(30px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' }
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-10px)' }
-        }
+          '50%': { transform: 'translateY(-10px)' },
+        },
       },
       // Professional Gradients
       backgroundImage: {
@@ -109,7 +116,9 @@ export default {
         'gradient-card': 'linear-gradient(145deg, #ffffff 0%, #f8fafc 100%)',
         'gradient-button': 'linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%)',
         'gradient-hero': 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%)',
-        'gradient-navy': 'linear-gradient(180deg, #1e3a8a 0%, #0f172a 100%)'
+        'gradient-navy': 'linear-gradient(180deg, #1e3a8a 0%, #0f172a 100%)',
+        'ajwaak-gradient': 'linear-gradient(135deg, #8B1538 0%, #A91D47 50%, #D4AF37 100%)',
+        'perfume-hero': 'linear-gradient(135deg, #8B1538 0%, #A91D47 50%, #D4AF37 100%)',
       },
       
       // Professional Shadows
@@ -118,14 +127,19 @@ export default {
         'button': '0 10px 15px -3px rgba(30, 58, 138, 0.3), 0 4px 6px -2px rgba(30, 58, 138, 0.2)',
         'nav': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
         'hero': '0 25px 50px -12px rgba(30, 58, 138, 0.25)',
-        'professional': '0 20px 25px -5px rgba(30, 58, 138, 0.1), 0 10px 10px -5px rgba(30, 58, 138, 0.04)'
+        'professional': '0 20px 25px -5px rgba(30, 58, 138, 0.1), 0 10px 10px -5px rgba(30, 58, 138, 0.04)',
+        'perfume': '0 8px 32px rgba(139, 21, 56, 0.08)',
+        'perfume-hover': '0 16px 48px rgba(139, 21, 56, 0.15)',
+        'gold': '0 4px 15px rgba(212, 175, 55, 0.3)',
       },
       
       // Professional Typography
       fontFamily: {
         'primary': ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
         'heading': ['Poppins', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
-        'mono': ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace']
+        'mono': ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
+        'arabic': ['Cairo', 'Amiri', 'Arial', 'sans-serif'],
+        'arabic-title': ['Amiri', 'Cairo', 'serif'],
       },
       
       // Professional Border Radius

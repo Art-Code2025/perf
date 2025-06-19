@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ChevronLeft, ChevronRight, Menu, X, Search, ShoppingCart, Heart, User, Package, Gift, Sparkles, ArrowLeft, Plus, Minus } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Menu, X, Search, ShoppingCart, Heart, User, Package, Gift, Sparkles, ArrowLeft, Plus, Minus, Star } from 'lucide-react';
 
 // Import components directly for debugging
 import ImageSlider from './components/ImageSlider';
@@ -62,26 +62,65 @@ const App: React.FC = () => {
     {
       id: 1,
       image: cover1,
-      title: 'العينة الطبية',
-      subtitle: 'أحدث المعدات الطبية عالية الجودة للمؤسسات الطبية',
-      buttonText: 'استكشف المنتجات',
+      title: 'عطور فاخرة من أجواك',
+      subtitle: 'استمتع بتشكيلة متنوعة من أفخر العطور والزيوت العطرية',
+      buttonText: 'استكشف العطور',
       buttonLink: '/products'
     },
     {
       id: 2,
       image: cover2,
-      title: 'معدات طبية متطورة',
-      subtitle: 'تقنيات حديثة ومبتكرة للمؤسسات الطبية والرعاية الصحية',
+      title: 'زيوت عطرية طبيعية',
+      subtitle: 'اكتشف عالم العطور الطبيعية والزيوت العطرية الأصيلة',
       buttonText: 'تصفح الآن',
       buttonLink: '/products'
     },
     {
       id: 3,
       image: cover3,
-      title: 'رعاية صحية شاملة',
-      subtitle: 'كل ما تحتاجه من معدات طبية وأدوات عالية الجودة',
+      title: 'معطرات المنزل الفاخرة',
+      subtitle: 'اضفي لمسة من الأناقة والعطر الفواح على منزلك',
       buttonText: 'ابدأ التسوق',
       buttonLink: '/products'
+    }
+  ];
+
+  // Default categories for perfume store
+  const defaultCategories = [
+    {
+      id: 1,
+      name: 'عطور مستوحاة',
+      description: 'عطور مستوحاة من ماركات عالمية',
+      image: '/placeholder-perfume.png',
+      products: []
+    },
+    {
+      id: 2,
+      name: 'زيوت عطرية',
+      description: 'زيوت عطرية طبيعية وفاخرة',
+      image: '/placeholder-oil.png',
+      products: []
+    },
+    {
+      id: 3,
+      name: 'عطور اللبان',
+      description: 'أضافة وتميز في تجربة فريدة لا تنسى',
+      image: '/placeholder-incense.png',
+      products: []
+    },
+    {
+      id: 4,
+      name: 'معطرات المنزل',
+      description: 'تشكيلة واسعة من المعطرات الفاخرة',
+      image: '/placeholder-home.png',
+      products: []
+    },
+    {
+      id: 5,
+      name: 'بخور',
+      description: 'بخور خاص متعدد الاستخدام',
+      image: '/placeholder-bakhoor.png',
+      products: []
     }
   ];
 
@@ -257,533 +296,406 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-rose-50 overflow-hidden" dir="rtl">
-      <style>
-        {`
-          .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-          }
-          .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-          }
-          .line-clamp-2 {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-          }
-          .snap-x {
-            scroll-snap-type: x mandatory;
-          }
-          .snap-start {
-            scroll-snap-align: start;
-          }
-          .snap-mandatory {
-            scroll-snap-type: x mandatory;
-          }
-          
-          /* Smooth scrolling for mobile */
-          @media (max-width: 640px) {
-            .mobile-scroll {
-              scroll-behavior: smooth;
-              -webkit-overflow-scrolling: touch;
-            }
-          }
-          
-          /* Enhanced mobile card animations */
-          @media (max-width: 640px) {
-            .mobile-card {
-              transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-              transform-origin: center;
-            }
-            .mobile-card:hover {
-              transform: translateY(-8px) scale(1.02);
-              box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            }
-          }
-          
-          /* Loading skeleton animation */
-          @keyframes shimmer {
-            0% { background-position: -200px 0; }
-            100% { background-position: calc(200px + 100%) 0; }
-          }
-          .skeleton {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200px 100%;
-            animation: shimmer 1.5s infinite;
-          }
-          
-          /* Premium hover effects */
-          .premium-hover {
-            position: relative;
-            overflow: hidden;
-          }
-          .premium-hover::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-          }
-          .premium-hover:hover::before {
-            left: 100%;
-          }
-        `}
-      </style>
-      <ToastContainer position="top-left" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick pauseOnHover draggable />
-      
-      {/* Premium Hero Slider - أبعاد مضبوطة بدون فراغات */}
-      <section className="relative h-[280px] sm:h-[320px] md:h-[360px] lg:h-[400px] xl:h-[450px] overflow-hidden -mt-16 sm:-mt-20 lg:-mt-24">
-        <div className="absolute inset-0">
-          <ImageSlider slides={heroSlides} />
-        </div>
-        
-        {/* Modern Navigation Buttons - لون موحد رمادي */}
-        <button
-          onClick={prevSlide}
-          className="absolute right-3 sm:right-4 lg:right-6 top-1/2 transform -translate-y-1/2 bg-gray-800/70 backdrop-blur-xl border border-white/30 text-white p-1.5 sm:p-2 lg:p-2.5 rounded-full hover:bg-gray-800/90 shadow-2xl z-30 group transition-all duration-300"
-        >
-          <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5" />
-        </button>
-        <button
-          onClick={nextSlide}
-          className="absolute left-3 sm:left-4 lg:left-6 top-1/2 transform -translate-y-1/2 bg-gray-800/70 backdrop-blur-xl border border-white/30 text-white p-1.5 sm:p-2 lg:p-2.5 rounded-full hover:bg-gray-800/90 shadow-2xl z-30 group transition-all duration-300"
-        >
-          <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5" />
-        </button>
-      </section>
-      
-      {/* Premium Collection Section - بدون فراغات */}
-      <section className="relative py-4 sm:py-6 lg:py-8 overflow-hidden">
-        {/* Premium Background Effects - ألوان متناسقة */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50/60 via-white/80 to-gray-100/60" />
-        <div className="absolute top-0 left-0 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-gray-200/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-gray-300/20 rounded-full blur-3xl" />
-        
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Premium Header with Icons - تقليل الهوامش */}
-          <div className="text-center mb-4 sm:mb-6 lg:mb-8">
-            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-2 sm:mb-3">
-              <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-gray-600 animate-pulse" />
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black bg-gradient-to-r from-gray-700 via-gray-800 to-gray-700 bg-clip-text text-transparent drop-shadow-sm">
-                مجموعاتنا المميزة
-              </h2>
-              <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-gray-600 animate-pulse" />
+    <div className="min-h-screen bg-gradient-to-br from-ajwaak-light via-white to-ajwaak-cream" dir="rtl">
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 ajwaak-gradient shadow-lg backdrop-blur-md">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-20">
+            {/* Logo */}
+            <div className="flex items-center space-x-4 rtl:space-x-reverse">
+              <div className="text-2xl font-bold text-white arabic-title">
+                <span className="text-ajwaak-gold">أ</span>جواك
+                <div className="text-xs font-normal text-white/80">AJWAAK</div>
+              </div>
             </div>
-            <div className="h-1.5 bg-gradient-to-r from-gray-400 via-gray-600 to-gray-400 rounded-full mb-2 sm:mb-3 mx-auto w-24 sm:w-32 lg:w-40 shadow-lg" />
-            <p className="text-xs sm:text-sm lg:text-base text-gray-700 font-medium max-w-2xl mx-auto leading-relaxed px-4 mb-2">
-              اكتشف تشكيلة متنوعة من المجموعات الحصرية المصممة خصيصاً لتناسب جميع أذواقكم الرفيعة
-            </p>
-            <div className="inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-white/90 to-gray-50/90 backdrop-blur-xl border border-gray-200/60 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
-              <Package className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
-              <span className="text-xs sm:text-sm text-gray-700 font-bold">{categoryProducts.length} مجموعة متاحة</span>
+
+            {/* Navigation */}
+            <nav className="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
+              <Link to="/" className="text-white hover:text-ajwaak-gold transition-colors font-medium">
+                الرئيسية
+              </Link>
+              <Link to="/products" className="text-white hover:text-ajwaak-gold transition-colors font-medium">
+                المنتجات
+              </Link>
+              <Link to="/categories" className="text-white hover:text-ajwaak-gold transition-colors font-medium">
+                التصنيفات
+              </Link>
+              <Link to="/about" className="text-white hover:text-ajwaak-gold transition-colors font-medium">
+                من نحن
+              </Link>
+              <Link to="/contact" className="text-white hover:text-ajwaak-gold transition-colors font-medium">
+                تواصل معنا
+              </Link>
+            </nav>
+
+            {/* Icons */}
+            <div className="flex items-center space-x-4 rtl:space-x-reverse">
+              <button className="text-white hover:text-ajwaak-gold transition-colors p-2">
+                <Search className="w-5 h-5" />
+              </button>
+              <button className="text-white hover:text-ajwaak-gold transition-colors p-2">
+                <Heart className="w-5 h-5" />
+              </button>
+              <Link to="/cart" className="text-white hover:text-ajwaak-gold transition-colors p-2 relative">
+                <ShoppingCart className="w-5 h-5" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-ajwaak-gold text-ajwaak-dark text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+              <button className="text-white hover:text-ajwaak-gold transition-colors p-2">
+                <User className="w-5 h-5" />
+              </button>
             </div>
           </div>
-          
-          {/* عرض Categories فوراً بدون شرط */}
-          {categoryProducts.length > 0 ? (
-            <>
-              {/* Mobile: Horizontal Scroll */}
-              <div className="block sm:hidden">
-                <div className="flex gap-4 overflow-x-auto pb-4 px-2 scrollbar-hide snap-x snap-mandatory" style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch' }}>
-                  {categoryProducts.map((categoryProduct, index) => (
-                    <div key={categoryProduct.category.id} className="flex-shrink-0 w-72 snap-start">
-                      <Link to={`/category/${createCategorySlug(categoryProduct.category.id, categoryProduct.category.name)}`}>
-                        <div className="relative bg-gradient-to-br from-white via-pink-50/50 to-white backdrop-blur-xl rounded-2xl overflow-hidden border border-pink-200/60 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] hover:border-pink-300/80">
-                          <div className="relative">
-                            {/* Category Image - Taller */}
-                            <div className="relative h-64 overflow-hidden rounded-t-2xl">
-                              <img
-                                src={buildImageUrl(categoryProduct.category.image)}
-                                alt={categoryProduct.category.name}
-                                className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
-                                onError={(e) => {
-                                  e.currentTarget.src = `https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop&crop=center&auto=format,compress&q=60&ixlib=rb-4.0.3`;
-                                }}
-                              />
-                              
-                              {/* Premium Overlay */}
-                              <div className="absolute inset-0 bg-gradient-to-t from-pink-900/60 via-pink-500/20 to-transparent" />
-                              
-                              {/* Category Number Badge */}
-                              <div className="absolute top-3 right-3 w-8 h-8 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center text-white font-bold text-xs shadow-lg animate-pulse">
-                                {index + 1}
-                              </div>
-                            </div>
-                            
-                            {/* Category Info */}
-                            <div className="relative p-4 bg-gradient-to-b from-white to-pink-50/30">
-                              <div className="text-center">
-                                <h3 className="text-lg font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent mb-3">
-                                  {categoryProduct.category.name}
-                                </h3>
-                                
-                                <div className="h-0.5 bg-gradient-to-r from-transparent via-pink-400 to-transparent rounded-full mb-3 mx-auto w-12" />
-                                
-                                <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-2">
-                                  {categoryProduct.category.description || 'اكتشف مجموعة متنوعة من المنتجات عالية الجودة'}
-                                </p>
-                                
-                                {/* Luxury Button */}
-                                <div className="bg-gradient-to-r from-pink-500 via-pink-600 to-rose-500 text-white px-5 py-2.5 rounded-xl font-bold hover:from-pink-600 hover:to-rose-600 shadow-xl backdrop-blur-xl border-2 border-pink-400/40 inline-flex items-center gap-2 transition-all duration-300 hover:shadow-2xl hover:scale-110 text-sm group">
-                                  <span className="group-hover:translate-x-1 transition-transform duration-300">استكشف مجموعاتنا</span>
-                                  <ChevronLeft className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-                
-                {/* Scroll Indicators */}
-                <div className="flex justify-center mt-2">
-                  <div className="flex gap-1">
-                    {categoryProducts.map((_, idx) => (
-                      <div key={idx} className="w-2 h-2 bg-gray-300 rounded-full transition-all duration-300 hover:bg-pink-500"></div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Desktop: Grid */}
-              <div className={`hidden sm:grid gap-4 sm:gap-6 lg:gap-8 ${
-                categoryProducts.length === 1 ? 'grid-cols-1 max-w-sm sm:max-w-md mx-auto' :
-                categoryProducts.length === 2 ? 'grid-cols-1 sm:grid-cols-2 max-w-2xl sm:max-w-4xl mx-auto' :
-                categoryProducts.length === 3 ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' :
-                categoryProducts.length === 4 ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' :
-                'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'
-              }`}>
-                {categoryProducts.map((categoryProduct, index) => (
-                  <div key={categoryProduct.category.id} className="relative group">
-                    <Link to={`/category/${createCategorySlug(categoryProduct.category.id, categoryProduct.category.name)}`}>
-                      <div className="relative bg-gradient-to-br from-white via-pink-50/50 to-white backdrop-blur-xl rounded-2xl sm:rounded-3xl overflow-hidden border border-pink-200/60 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] hover:border-pink-300/80">
-                        
-                        <div className="relative">
-                          {/* Category Image - Taller */}
-                          <div className="relative h-60 sm:h-68 md:h-76 lg:h-84 overflow-hidden rounded-t-2xl sm:rounded-t-3xl">
-                            <img
-                              src={buildImageUrl(categoryProduct.category.image)}
-                              alt={categoryProduct.category.name}
-                              className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
-                              onError={(e) => {
-                                e.currentTarget.src = `https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop&crop=center&auto=format,compress&q=60&ixlib=rb-4.0.3`;
-                              }}
-                            />
-                            
-                            {/* Premium Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-pink-900/60 via-pink-500/20 to-transparent" />
-                            
-                            {/* Category Number Badge */}
-                            <div className="absolute top-3 sm:top-4 lg:top-6 right-3 sm:right-4 lg:right-6 w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center text-white font-bold text-xs sm:text-sm shadow-lg animate-pulse">
-                              {index + 1}
-                            </div>
-                          </div>
-                          
-                          {/* Category Info */}
-                          <div className="relative p-4 sm:p-6 lg:p-8 bg-gradient-to-b from-white to-pink-50/30">
-                            <div className="text-center">
-                              <h3 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent mb-3 sm:mb-4">
-                                {categoryProduct.category.name}
-                              </h3>
-                              
-                              <div className="h-0.5 bg-gradient-to-r from-transparent via-pink-400 to-transparent rounded-full mb-3 sm:mb-4 mx-auto w-12 sm:w-16" />
-                              
-                              <p className="text-responsive-sm text-gray-600 leading-relaxed mb-4 sm:mb-6 line-clamp-2">
-                                {categoryProduct.category.description || 'اكتشف مجموعة متنوعة من المنتجات عالية الجودة'}
-                              </p>
-                              
-                              {/* Luxury Button */}
-                              <div className="bg-gradient-to-r from-pink-500 via-pink-600 to-rose-500 text-white px-5 sm:px-7 lg:px-9 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl font-bold hover:from-pink-600 hover:to-rose-600 shadow-xl backdrop-blur-xl border-2 border-pink-400/40 inline-flex items-center gap-2 sm:gap-3 transition-all duration-300 hover:shadow-2xl hover:scale-110 text-sm sm:text-base group">
-                                <span className="group-hover:translate-x-1 transition-transform duration-300">استكشف مجموعاتنا</span>
-                                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            </>
-          ) : !loading && !error ? (
-            <div className="text-center py-12">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">📂</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-600 mb-2">لا توجد تصنيفات متاحة</h3>
-              <p className="text-gray-500">سيتم إضافة التصنيفات قريباً</p>
-            </div>
-          ) : null}
         </div>
-      </section>
+      </header>
 
-      {/* Premium Products Section */}
-      <main className="relative container-responsive py-4 sm:py-6 lg:py-8">
-        {/* Premium Background Effects - ألوان متناسقة */}
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-50/40 via-transparent to-gray-100/40" />
-        <div className="absolute top-0 left-0 w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 bg-gray-200/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 bg-gray-300/20 rounded-full blur-3xl" />
+      {/* Hero Section */}
+      <section className="relative h-screen overflow-hidden pt-20">
+        <div className="absolute inset-0">
+          <img 
+            src={heroSlides[currentSlide].image} 
+            alt={heroSlides[currentSlide].title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-ajwaak-primary/70 via-transparent to-ajwaak-secondary/70"></div>
+        </div>
         
-        {/* عرض Products فوراً بدون شرط */}
-        {categoryProducts.length > 0 && (
-  <div className="relative space-y-8 sm:space-y-10 lg:space-y-12">
-    {categoryProducts.map((categoryProduct, sectionIndex) => (
-      <section key={categoryProduct.category.id} className="relative py-4 sm:py-6 lg:py-8">
-        {/* Section Background - ألوان متناسقة */}
-        <div className="absolute inset-0 -mx-4 sm:-mx-6 lg:-mx-8 bg-gradient-to-br from-white/70 via-gray-50/40 to-white/70 rounded-2xl sm:rounded-3xl backdrop-blur-sm border border-gray-100/50 shadow-lg" />
-        
-        <div className="relative z-10">
-          <div className="mb-6 sm:mb-8 lg:mb-10 text-center">
-            <div className="flex items-center justify-center gap-2 sm:gap-4 mb-2 sm:mb-3 lg:mb-4">
-              <div className="h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent w-16 sm:w-24 lg:w-32" />
-              <h2 className="text-responsive-3xl font-black bg-gradient-to-r from-gray-700 via-gray-800 to-gray-700 bg-clip-text text-transparent drop-shadow-sm px-3 sm:px-4 lg:px-6 py-1 sm:py-2">
-                {categoryProduct.category.name}
-              </h2>
-              <div className="h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent w-16 sm:w-24 lg:w-32" />
-            </div>
-            
-            <div className="h-1 bg-gradient-to-r from-gray-400 via-gray-600 to-gray-400 rounded-full mb-3 sm:mb-4 lg:mb-5 mx-auto w-20 sm:w-24 lg:w-32 shadow-lg" />
-            <p className="text-responsive-base text-gray-700 mb-4 sm:mb-5 lg:mb-6 max-w-2xl mx-auto leading-relaxed font-medium px-4">
-              {categoryProduct.category.description || 'مجموعة مختارة من أفضل المنتجات المصنوعة بعناية فائقة'}
+        <div className="relative z-10 h-full flex items-center justify-center text-center text-white px-4">
+          <div className="max-w-4xl">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 arabic-title text-white">
+              {heroSlides[currentSlide].title}
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-2xl mx-auto">
+              {heroSlides[currentSlide].subtitle}
             </p>
             <Link 
-              to={`/category/${createCategorySlug(categoryProduct.category.id, categoryProduct.category.name)}`} 
-              className="inline-flex items-center text-gray-700 hover:text-gray-800 font-semibold bg-white/90 backdrop-blur-xl border border-gray-200/60 px-4 sm:px-6 lg:px-8 py-2 sm:py-3 rounded-xl sm:rounded-2xl hover:bg-gray-50/80 hover:border-gray-300/80 gap-2 sm:gap-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-sm sm:text-base"
+              to={heroSlides[currentSlide].buttonLink}
+              className="perfume-button inline-flex items-center px-8 py-4 text-lg font-semibold"
             >
-              <span>عرض جميع المنتجات</span>
-              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+              {heroSlides[currentSlide].buttonText}
+              <ArrowLeft className="w-5 h-5 mr-2" />
             </Link>
           </div>
-          
-          {/* Products Container */}
-          <div className="relative py-2 sm:py-3 lg:py-4 px-2 sm:px-4 lg:px-8">
-            {/* Mobile: Horizontal Scroll, Desktop: Grid */}
-            <div className="block sm:hidden">
-              {/* Mobile Horizontal Scroll */}
-              <div className="flex gap-4 overflow-x-auto pb-4 px-2 scrollbar-hide snap-x snap-mandatory mobile-scroll">
-                {categoryProduct.products.map((product, idx) => (
-                  <div
-                    key={product.id}
-                    className="flex-shrink-0 w-72 snap-start"
-                  >
-                    <Link to={`/product/${createProductSlug(product.id, product.name)}`} className="block">
-                      <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:scale-105 h-full mobile-card group relative cursor-pointer">
-                        {/* Gradient Border Effect */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 via-transparent to-purple-500/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
-                        
-                        {/* Product Image - Taller for mobile */}
-                        <div className="relative h-72 overflow-hidden rounded-t-3xl bg-gradient-to-br from-gray-50 to-gray-100">
-                          <img
-                            src={buildImageUrl(product.mainImage)}
-                            alt={product.name}
-                            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
-                            onError={(e) => {
-                              e.currentTarget.src = '/placeholder-image.png';
-                            }}
-                          />
-                          {/* Premium Overlay */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                          
-                          {/* New Badge */}
-                          <div className="absolute top-3 right-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg">
-                            جديد
-                          </div>
-                          {/* Product Type Badge */}
-                          {product.productType && (
-                            <div className="absolute top-3 left-3 bg-black/70 text-white px-2 py-1 rounded-full text-xs font-medium backdrop-blur-sm">
-                              {product.productType}
-                            </div>
-                          )}
-                        </div>
-                        
-                        {/* Product Info - Centered Layout */}
-                        <div className="p-5 flex flex-col items-center text-center space-y-3">
-                          {/* Product Name - Centered */}
-                          <h3 className="text-lg font-bold text-gray-800 line-clamp-2 leading-tight min-h-[3rem] hover:text-pink-600 transition-colors duration-300">
-                            {product.name}
-                          </h3>
-                          
-                          {/* Elegant Divider */}
-                          <div className="h-px bg-gradient-to-r from-transparent via-pink-300 to-transparent w-16"></div>
-                          
-                          {/* Price Section - Centered */}
-                          <div className="flex flex-col items-center space-y-2">
-                            {product.originalPrice && product.originalPrice > product.price ? (
-                              <>
-                                <div className="flex items-center gap-2">
-                                  <span className="text-sm text-gray-400 line-through font-medium">
-                                    {product.originalPrice.toFixed(0)} ر.س
-                                  </span>
-                                  <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">
-                                    -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
-                                  </span>
-                                </div>
-                                <div className="text-xl font-bold text-pink-600">
-                                  {product.price.toFixed(0)} <span className="text-base text-gray-600">ر.س</span>
-                                </div>
-                              </>
-                            ) : (
-                              <div className="text-xl font-bold text-pink-600">
-                                {product.price.toFixed(0)} <span className="text-base text-gray-600">ر.س</span>
-                              </div>
-                            )}
-                            
-                            {/* Stock Indicator */}
-                            <div className="text-sm">
-                              {product.stock > 0 ? (
-                                <span className="text-green-600 font-medium bg-green-50 px-2 py-1 rounded-full">متوفر</span>
-                              ) : (
-                                <span className="text-red-600 font-medium bg-red-50 px-2 py-1 rounded-full">نفذ</span>
-                              )}
-                            </div>
-                          </div>
-                          
-                          {/* Actions - Add to Cart instead of View Details */}
-                          {product.stock > 0 && (
-                            <div className="w-full space-y-3">
-                              {/* Quantity Controls */}
-                              <div className="flex items-center justify-center gap-3">
-                                <button
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    handleQuantityDecrease(product.id);
-                                  }}
-                                  className="w-8 h-8 rounded-lg bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 font-bold transition-all duration-200 hover:scale-110"
-                                >
-                                  -
-                                </button>
-                                <span className="w-12 text-center font-bold text-gray-800 text-lg bg-gray-50 py-1 rounded-lg">
-                                  {quantities[product.id] || 1}
-                                </span>
-                                <button
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    handleQuantityIncrease(product.id, product.stock);
-                                  }}
-                                  className="w-8 h-8 rounded-lg bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 font-bold transition-all duration-200 hover:scale-110"
-                                >
-                                  +
-                                </button>
-                              </div>
-                              
-                              {/* Add to Cart Button */}
-                              <button
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  handleAddToCart(product);
-                                }}
-                                className="w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white py-3 px-4 rounded-xl hover:from-pink-600 hover:to-rose-600 transition-all duration-300 text-sm font-bold hover:scale-105 hover:shadow-xl"
-                              >
-                                إضافة للسلة
+        </div>
+
+        {/* Navigation Arrows */}
+        <button 
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-ajwaak-gold transition-colors p-3 rounded-full bg-black/20 backdrop-blur-sm"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        <button 
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-ajwaak-gold transition-colors p-3 rounded-full bg-black/20 backdrop-blur-sm"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
+
+        {/* Slide Indicators */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 rtl:space-x-reverse">
+          {heroSlides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-3 h-3 rounded-full transition-colors ${
+                index === currentSlide ? 'bg-ajwaak-gold' : 'bg-white/50'
+              }`}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* Loading State */}
+      {loading && (
+        <div className="py-20 text-center">
+          <div className="inline-flex items-center space-x-2 rtl:space-x-reverse text-ajwaak-primary">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ajwaak-primary"></div>
+            <span className="text-lg font-medium">جاري تحميل العطور...</span>
+          </div>
+        </div>
+      )}
+
+      {/* Error State */}
+      {error && (
+        <ErrorDisplay 
+          error={error} 
+          onRetry={fetchCategoriesWithProducts}
+        />
+      )}
+
+      {/* Categories Section */}
+      {!loading && !error && (
+        <section className="py-20 bg-gradient-to-b from-white to-ajwaak-cream">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-ajwaak-primary mb-4 arabic-title">
+                تشكيلة العطور المميزة
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                اكتشف عالماً من العطور الفاخرة والزيوت العطرية الطبيعية المصممة خصيصاً لك
+              </p>
+            </div>
+
+            {categoryProducts.length > 0 ? (
+              <div className="space-y-20">
+                {categoryProducts.map((categoryData, categoryIndex) => (
+                  <div key={categoryData.category.id} className="space-y-8">
+                    {/* Category Header */}
+                    <div className="perfume-category rounded-2xl mx-4 relative">
+                      <div className="relative z-10">
+                        <h3 className="text-3xl md:text-4xl font-bold mb-2 arabic-title">
+                          {categoryData.category.name}
+                        </h3>
+                        <p className="text-lg text-white/90 max-w-lg mx-auto">
+                          {categoryData.category.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Products Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-4">
+                      {categoryData.products.map((product) => (
+                        <div key={product.id} className="perfume-card group">
+                          <div className="relative overflow-hidden rounded-t-2xl">
+                            <img
+                              src={buildImageUrl(product.mainImage)}
+                              alt={product.name}
+                              className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).src = '/placeholder-perfume.png';
+                              }}
+                            />
+                            <div className="absolute top-4 right-4">
+                              <button className="text-white hover:text-ajwaak-gold transition-colors p-2 bg-black/20 rounded-full backdrop-blur-sm">
+                                <Heart className="w-5 h-5" />
                               </button>
                             </div>
-                          )}
+                            {product.originalPrice && (
+                              <div className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded-lg text-sm font-bold">
+                                خصم {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
+                              </div>
+                            )}
+                          </div>
+                          
+                          <div className="p-6">
+                            <h4 className="text-xl font-bold text-ajwaak-dark mb-2 line-clamp-2">
+                              {product.name}
+                            </h4>
+                            <p className="text-gray-600 mb-4 line-clamp-2">
+                              {product.description}
+                            </p>
+                            
+                            {/* Rating */}
+                            <div className="flex items-center mb-4">
+                              <div className="flex items-center">
+                                {[...Array(5)].map((_, i) => (
+                                  <Star key={i} className="w-4 h-4 fill-current text-ajwaak-gold" />
+                                ))}
+                              </div>
+                              <span className="text-sm text-gray-500 mr-2">(4.5)</span>
+                            </div>
+                            
+                            <div className="flex items-center justify-between mb-4">
+                              <div>
+                                <span className="text-2xl font-bold text-ajwaak-primary">
+                                  ر.س {product.price}
+                                </span>
+                                {product.originalPrice && (
+                                  <span className="text-sm text-gray-500 line-through mr-2">
+                                    ر.س {product.originalPrice}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+
+                            <div className="flex items-center space-x-2 rtl:space-x-reverse mb-4">
+                              <button
+                                onClick={() => handleQuantityDecrease(product.id)}
+                                className="w-8 h-8 rounded-full border border-ajwaak-primary text-ajwaak-primary hover:bg-ajwaak-primary hover:text-white transition-colors flex items-center justify-center"
+                              >
+                                <Minus className="w-4 h-4" />
+                              </button>
+                              <span className="font-semibold text-ajwaak-dark px-3">
+                                {quantities[product.id] || 1}
+                              </span>
+                              <button
+                                onClick={() => handleQuantityIncrease(product.id, product.stock)}
+                                className="w-8 h-8 rounded-full border border-ajwaak-primary text-ajwaak-primary hover:bg-ajwaak-primary hover:text-white transition-colors flex items-center justify-center"
+                              >
+                                <Plus className="w-4 h-4" />
+                              </button>
+                            </div>
+
+                            <button
+                              onClick={() => handleAddToCart(product)}
+                              className="perfume-button w-full flex items-center justify-center"
+                            >
+                              <ShoppingCart className="w-5 h-5 ml-2" />
+                              أضف للسلة
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    </Link>
+                      ))}
+                    </div>
+
+                    {/* View More Button */}
+                    <div className="text-center">
+                      <Link 
+                        to={`/category/${createCategorySlug(categoryData.category.id, categoryData.category.name)}`}
+                        className="inline-flex items-center px-8 py-3 border-2 border-ajwaak-primary text-ajwaak-primary hover:bg-ajwaak-primary hover:text-white transition-colors rounded-full font-semibold"
+                      >
+                        عرض المزيد
+                        <ArrowLeft className="w-5 h-5 mr-2" />
+                      </Link>
+                    </div>
                   </div>
                 ))}
               </div>
-            </div>
-            
-            {/* Desktop Grid */}
-            <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-16 justify-items-center">
-              {categoryProduct.products.map((product, idx) => (
-                <div
-                  key={product.id}
-                  className="w-full max-w-sm"
-                >
-                  <ProductCard
-                    product={product}
-                  />
-                </div>
-              ))}
-            </div>
+            ) : (
+              <div className="text-center py-20">
+                <Gift className="w-16 h-16 text-ajwaak-primary mx-auto mb-4" />
+                <h3 className="text-2xl font-bold text-ajwaak-dark mb-2">
+                  قريباً.. تشكيلة عطور مميزة
+                </h3>
+                <p className="text-gray-600">
+                  نعمل على إضافة أفضل العطور والزيوت العطرية لك
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* Payment Methods Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold text-ajwaak-primary mb-4 arabic-title">
+              طرق دفع متعددة وآمنة
+            </h3>
+            <p className="text-gray-600">ادفع بسهولة وأمان بالطريقة التي تناسبك</p>
+          </div>
+          
+          <div className="flex flex-wrap justify-center items-center gap-8 opacity-70">
+            <img src="/payment/stc-pay.png" alt="STC Pay" className="h-12" />
+            <img src="/payment/mastercard.png" alt="Mastercard" className="h-12" />
+            <img src="/payment/visa.png" alt="Visa" className="h-12" />
+            <img src="/payment/apple-pay.png" alt="Apple Pay" className="h-12" />
+            <img src="/payment/mada.png" alt="Mada" className="h-12" />
+            <img src="/payment/tamara.png" alt="Tamara" className="h-12" />
+            <img src="/payment/tabby.png" alt="Tabby" className="h-12" />
+            <img src="/payment/american-express.png" alt="American Express" className="h-12" />
           </div>
         </div>
       </section>
-    ))}
-  </div>
-)}
-      </main>
 
-      {/* Premium Footer - Mobile Optimized */}
-      <footer className="relative bg-gradient-to-br from-white via-gray-50 to-gray-100 py-6 sm:py-8 lg:py-10 border-t border-gray-200/60 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-100/30 via-transparent to-gray-200/30" />
-        <div className="absolute top-0 left-0 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-gray-200/15 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-gray-300/15 rounded-full blur-3xl" />
-        
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Mobile: 2x2 Grid, Desktop: 3 columns */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-4 sm:mb-6 lg:mb-8">
-            
-            {/* Brand Section */}
-            <div className="col-span-2 md:col-span-1 text-center md:text-right mb-4 md:mb-0">
-              <h3 className="text-lg sm:text-xl lg:text-2xl font-black bg-gradient-to-r from-gray-700 to-gray-800 bg-clip-text text-transparent mb-2">
-                GHEM.STORE
-              </h3>
-              <div className="h-0.5 bg-gradient-to-r from-gray-400 via-gray-600 to-gray-400 rounded-full mb-2 sm:mb-3 w-16 sm:w-20 mx-auto md:mx-0 shadow-lg" />
-              <p className="text-xs sm:text-sm text-gray-700 font-medium leading-relaxed">
-                متجرك المفضل لأفضل المنتجات
+      {/* Customer Reviews Section */}
+      <section className="py-20 bg-gradient-to-b from-ajwaak-cream to-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h3 className="text-4xl font-bold text-ajwaak-primary mb-4 arabic-title">
+              آراء العملاء
+            </h3>
+            <p className="text-lg text-gray-600">
+              عطر يا حبي رائع لا يمكن للانسان ان يستغني عنه ابداً مدة البقاء 8 أيام ويعطي احساس بالمودة والرقة والانوثة، النشر جميع أنحاء الجسم.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3, 4, 5, 6].map((review) => (
+              <div key={review} className="perfume-card p-6">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-ajwaak-primary rounded-full flex items-center justify-center text-white font-bold">
+                    ع{review}
+                  </div>
+                  <div className="mr-4">
+                    <div className="font-semibold text-ajwaak-dark">عميل مميز</div>
+                    <div className="flex items-center">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-current text-ajwaak-gold" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p className="text-gray-600">
+                  عطر رائع ومميز، جودة عالية ورائحة تدوم طويلاً. أنصح به بشدة!
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="ajwaak-gradient text-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <div className="text-2xl font-bold mb-4 arabic-title">
+                <span className="text-ajwaak-gold">أ</span>جواك
+                <div className="text-sm font-normal text-white/80">AJWAAK</div>
+              </div>
+              <p className="text-white/80 mb-4">
+                وجهتك المثالية للعطور الفاخرة والزيوت العطرية الطبيعية
               </p>
             </div>
             
-            {/* Quick Links - Mobile Horizontal */}
-            <div className="text-center">
-              <h4 className="font-bold text-gray-800 mb-2 sm:mb-3 text-sm sm:text-base">روابط سريعة</h4>
-              <div className="grid grid-cols-2 gap-1 sm:gap-2">
-                <Link to="/" className="text-xs sm:text-sm text-gray-700 hover:text-gray-800 bg-white/80 backdrop-blur-xl border border-gray-200/50 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg hover:bg-gray-50/80 hover:border-gray-300/70 transition-all duration-300">الرئيسية</Link>
-                <Link to="/products" className="text-xs sm:text-sm text-gray-700 hover:text-gray-800 bg-white/80 backdrop-blur-xl border border-gray-200/50 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg hover:bg-gray-50/80 hover:border-gray-300/70 transition-all duration-300">المنتجات</Link>
-                <Link to="/about" className="text-xs sm:text-sm text-gray-700 hover:text-gray-800 bg-white/80 backdrop-blur-xl border border-gray-200/50 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg hover:bg-gray-50/80 hover:border-gray-300/70 transition-all duration-300">من نحن</Link>
-                <Link to="/contact" className="text-xs sm:text-sm text-gray-700 hover:text-gray-800 bg-white/80 backdrop-blur-xl border border-gray-200/50 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg hover:bg-gray-50/80 hover:border-gray-300/70 transition-all duration-300">اتصل بنا</Link>
-                <Link to="/privacy-policy" className="text-xs sm:text-sm text-gray-700 hover:text-gray-800 bg-white/80 backdrop-blur-xl border border-gray-200/50 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg hover:bg-gray-50/80 hover:border-gray-300/70 transition-all duration-300">سياسة الخصوصية</Link>
-                <Link to="/return-policy" className="text-xs sm:text-sm text-gray-700 hover:text-gray-800 bg-white/80 backdrop-blur-xl border border-gray-200/50 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg hover:bg-gray-50/80 hover:border-gray-300/70 transition-all duration-300">سياسة الاسترجاع</Link>
-              </div>
+            <div>
+              <h4 className="font-bold mb-4">روابط سريعة</h4>
+              <ul className="space-y-2 text-white/80">
+                <li><Link to="/products" className="hover:text-ajwaak-gold">المنتجات</Link></li>
+                <li><Link to="/categories" className="hover:text-ajwaak-gold">التصنيفات</Link></li>
+                <li><Link to="/offers" className="hover:text-ajwaak-gold">العروض</Link></li>
+                <li><Link to="/contact" className="hover:text-ajwaak-gold">تواصل معنا</Link></li>
+              </ul>
             </div>
             
-            {/* Contact Info - Mobile Horizontal */}
-            <div className="text-center md:text-left">
-              <h4 className="font-bold text-gray-800 mb-2 sm:mb-3 text-sm sm:text-base">تواصل معنا</h4>
-              <div className="space-y-1 sm:space-y-2">
-                <div className="text-xs sm:text-sm text-gray-700 bg-white/80 backdrop-blur-xl border border-gray-200/50 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg hover:bg-gray-50/50 transition-all duration-300 flex items-center justify-center md:justify-start gap-1">
-                  <span>📞</span>
-                  <span className="truncate">+966551064118</span>
-                </div>
-                <div className="text-xs sm:text-sm text-gray-700 bg-white/80 backdrop-blur-xl border border-gray-200/50 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg hover:bg-gray-50/50 transition-all duration-300 flex items-center justify-center md:justify-start gap-1">
-                  <span>✉️</span>
-                  <span className="truncate">support@ghem.store</span>
-                </div>
-                <div className="text-xs sm:text-sm text-gray-700 bg-white/80 backdrop-blur-xl border border-gray-200/50 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg hover:bg-gray-50/50 transition-all duration-300 flex items-center justify-center md:justify-start gap-1">
-                  <span>📍</span>
-                  <span className="truncate">السعودية</span>
-                </div>
+            <div>
+              <h4 className="font-bold mb-4">خدمة العملاء</h4>
+              <ul className="space-y-2 text-white/80">
+                <li><Link to="/help" className="hover:text-ajwaak-gold">مساعدة</Link></li>
+                <li><Link to="/returns" className="hover:text-ajwaak-gold">سياسة الإرجاع</Link></li>
+                <li><Link to="/shipping" className="hover:text-ajwaak-gold">الشحن والتوصيل</Link></li>
+                <li><Link to="/privacy" className="hover:text-ajwaak-gold">سياسة الخصوصية</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-bold mb-4">تواصل معنا</h4>
+              <div className="space-y-2 text-white/80">
+                <p>📱 +966 50 123 4567</p>
+                <p>📧 info@ajwaak.com</p>
+                <p>📍 الرياض، المملكة العربية السعودية</p>
               </div>
             </div>
           </div>
           
-          {/* Copyright Section */}
-          <div className="border-t border-gray-200/60 pt-3 sm:pt-4 text-center">
-            <div className="bg-gradient-to-r from-white/80 via-gray-50/90 to-white/80 backdrop-blur-xl border border-gray-200/50 rounded-lg sm:rounded-xl p-3 sm:p-4 max-w-full mx-auto shadow-lg">
-              <p className="text-xs sm:text-sm text-gray-700 font-medium">
-              Copyright © 2025 Ghem Store By Art-code </p>
-            </div>
+          <div className="border-t border-white/20 pt-8 text-center text-white/60">
+            <p>&copy; 2024 أجواك. جميع الحقوق محفوظة.</p>
           </div>
         </div>
       </footer>
 
       {/* WhatsApp Button */}
       <WhatsAppButton />
+
+      {/* Toast Container */}
+      <ToastContainer
+        position="bottom-left"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

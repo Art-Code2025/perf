@@ -7,6 +7,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* AJWAAK Brand Colors */
+:root {
+  --ajwaak-primary: #8B1538;  /* Deep Burgundy */
+  --ajwaak-secondary: #A91D47; /* Lighter Burgundy */
+  --ajwaak-gold: #D4AF37;     /* Gold */
+  --ajwaak-cream: #F5F1E8;    /* Cream */
+  --ajwaak-dark: #2D1810;     /* Dark Brown */
+  --ajwaak-light: #FAF9F7;    /* Light Cream */
+  --ajwaak-gradient: linear-gradient(135deg, #8B1538 0%, #A91D47 50%, #D4AF37 100%);
+}
+
 /* إزالة أي margins افتراضية */
 * {
   margin: 0;
@@ -18,9 +29,143 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f1f5f9 100%);
+  font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, var(--ajwaak-light) 0%, var(--ajwaak-cream) 50%, #F8F6F0 100%);
   overflow-x: hidden;
+  color: var(--ajwaak-dark);
+}
+
+/* Ajwaak Brand Classes */
+.ajwaak-primary {
+  background-color: var(--ajwaak-primary);
+}
+
+.ajwaak-secondary {
+  background-color: var(--ajwaak-secondary);
+}
+
+.ajwaak-gold {
+  background-color: var(--ajwaak-gold);
+}
+
+.ajwaak-cream {
+  background-color: var(--ajwaak-cream);
+}
+
+.ajwaak-gradient {
+  background: var(--ajwaak-gradient);
+}
+
+.text-ajwaak-primary {
+  color: var(--ajwaak-primary);
+}
+
+.text-ajwaak-gold {
+  color: var(--ajwaak-gold);
+}
+
+.text-ajwaak-dark {
+  color: var(--ajwaak-dark);
+}
+
+.border-ajwaak-primary {
+  border-color: var(--ajwaak-primary);
+}
+
+.border-ajwaak-gold {
+  border-color: var(--ajwaak-gold);
+}
+
+/* Arabic Typography */
+.arabic-font {
+  font-family: 'Cairo', 'Amiri', 'Arial', sans-serif;
+  font-weight: 500;
+}
+
+.arabic-title {
+  font-family: 'Amiri', 'Cairo', serif;
+  font-weight: 700;
+  color: var(--ajwaak-primary);
+}
+
+/* Perfume Card Styles */
+.perfume-card {
+  background: linear-gradient(145deg, #ffffff 0%, var(--ajwaak-light) 100%);
+  border: 1px solid rgba(139, 21, 56, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(139, 21, 56, 0.08);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.perfume-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(139, 21, 56, 0.15);
+  border-color: var(--ajwaak-gold);
+}
+
+.perfume-card .rating {
+  color: var(--ajwaak-gold);
+}
+
+.perfume-button {
+  background: var(--ajwaak-gradient);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(139, 21, 56, 0.3);
+}
+
+.perfume-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(139, 21, 56, 0.4);
+}
+
+.perfume-category {
+  background: linear-gradient(135deg, var(--ajwaak-primary) 0%, var(--ajwaak-secondary) 100%);
+  color: white;
+  padding: 60px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.perfume-category::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23pattern)"/></svg>');
+  opacity: 0.3;
+}
+
+/* Hero Section for Perfumes */
+.perfume-hero {
+  background: linear-gradient(135deg, var(--ajwaak-primary) 0%, var(--ajwaak-secondary) 50%, var(--ajwaak-gold) 100%);
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.perfume-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 70%, rgba(212, 175, 55, 0.3) 0%, transparent 50%),
+              radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
 }
 
 /* إزالة أي فراغات من المكونات */
