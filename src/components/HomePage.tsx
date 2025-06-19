@@ -243,75 +243,69 @@ const HomePage: React.FC = () => {
                       {/* Main Bottle Container */}
                       <div className="relative z-10 w-64 h-80 mx-auto transform group-hover:scale-110 transition-transform duration-500">
                         
-                        {/* Bottle SVG */}
-                        <svg viewBox="0 0 240 360" className="w-full h-full drop-shadow-2xl">
-                          <defs>
-                            <linearGradient id="bottleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                              <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.9"/>
-                              <stop offset="30%" stopColor="#F5E6A3" stopOpacity="0.7"/>
-                              <stop offset="70%" stopColor="#E6C547" stopOpacity="0.8"/>
-                              <stop offset="100%" stopColor="#D4AF37" stopOpacity="0.9"/>
-                            </linearGradient>
-                            <linearGradient id="liquidGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                              <stop offset="0%" stopColor="#8B1538" stopOpacity="0.9"/>
-                              <stop offset="50%" stopColor="#A91D47" stopOpacity="0.8"/>
-                              <stop offset="100%" stopColor="#6B1028" stopOpacity="0.9"/>
-                            </linearGradient>
-                            <radialGradient id="glowGradient" cx="50%" cy="30%">
-                              <stop offset="0%" stopColor="rgba(255,255,255,0.6)"/>
-                              <stop offset="100%" stopColor="rgba(255,255,255,0)"/>
-                            </radialGradient>
-                          </defs>
-                          
-                          {/* Bottle Body */}
-                          <path
-                            d="M70 100 L70 280 Q70 310 100 310 L140 310 Q170 310 170 280 L170 100 Q170 85 155 85 L85 85 Q70 85 70 100 Z"
-                            fill="url(#bottleGradient)"
-                            className="animate-pulse"
+                        {/* استخدام صورة حقيقية للعطر بدلاً من SVG */}
+                        <div className="w-full h-full relative overflow-hidden rounded-3xl shadow-2xl">
+                          <img 
+                            src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=600&fit=crop&crop=center"
+                            alt="عطر أجواك الفاخر"
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              // في حالة فشل الصورة، استخدم gradient كبديل
+                              (e.target as HTMLImageElement).style.display = 'none';
+                              const parent = (e.target as HTMLImageElement).parentElement;
+                              if (parent) {
+                                parent.style.background = 'linear-gradient(135deg, #8B1538 0%, #D4AF37 50%, #A91D47 100%)';
+                                parent.innerHTML += `
+                                  <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="text-center text-white">
+                                      <div class="text-6xl mb-4">🌹</div>
+                                      <div class="text-2xl font-bold arabic-title">أجواك</div>
+                                      <div class="text-lg">عطور فاخرة</div>
+                                    </div>
+                                  </div>
+                                `;
+                              }
+                            }}
                           />
                           
-                          {/* Liquid Inside */}
-                          <path
-                            d="M80 110 L80 280 Q80 300 100 300 L140 300 Q160 300 160 280 L160 110 Z"
-                            fill="url(#liquidGradient)"
-                            className="bottle-liquid"
-                          />
-                          
-                          {/* Bottle Neck */}
-                          <rect x="105" y="50" width="30" height="50" fill="url(#bottleGradient)" rx="8"/>
-                          
-                          {/* Cap */}
-                          <ellipse cx="120" cy="40" rx="25" ry="15" fill="#D4AF37"/>
-                          <rect x="95" y="25" width="50" height="25" fill="#D4AF37" rx="12"/>
-                          
-                          {/* Bottle Highlight */}
-                          <ellipse cx="100" cy="150" rx="15" ry="80" fill="url(#glowGradient)" opacity="0.7"/>
-                          
-                          {/* Label Area */}
-                          <rect x="90" y="160" width="60" height="80" fill="rgba(255,255,255,0.1)" rx="8"/>
-                          
-                          {/* Brand Text */}
-                          <text x="120" y="190" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">AJWAAK</text>
-                          <text x="120" y="205" textAnchor="middle" fill="rgba(255,255,255,0.8)" fontSize="6">LUXURY</text>
-                        </svg>
+                          {/* Overlay للنص */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-ajwaak-dark/60 via-transparent to-transparent"></div>
+                          <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-center text-white">
+                            <div className="text-2xl font-black arabic-title mb-2">أجواك</div>
+                            <div className="text-sm opacity-90">عطر الملوك</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Floating Mini Bottles */}
+                  {/* Floating Mini Bottles مع صور حقيقية */}
                   <div className="absolute inset-0">
-                    {[...Array(8)].map((_, i) => (
+                    {[
+                      "https://images.unsplash.com/photo-1588405748880-12d1d2a59d32?w=100&h=150&fit=crop",
+                      "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=100&h=150&fit=crop",
+                      "https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=100&h=150&fit=crop",
+                      "https://images.unsplash.com/photo-1557170334-a9632e77c6e4?w=100&h=150&fit=crop"
+                    ].map((imgSrc, i) => (
                       <div
                         key={i}
-                        className="absolute w-12 h-16 bg-ajwaak-gold/40 rounded-full animate-float opacity-60 backdrop-blur-sm"
+                        className="absolute w-16 h-20 rounded-lg overflow-hidden shadow-xl animate-float opacity-70 hover:opacity-100 transition-opacity border-2 border-ajwaak-gold/30"
                         style={{
-                          left: `${15 + (i * 10)}%`,
-                          top: `${20 + Math.sin(i * 0.8) * 60}%`,
+                          left: `${15 + (i * 20)}%`,
+                          top: `${20 + Math.sin(i * 0.8) * 40}%`,
                           animationDelay: `${i * 0.7}s`,
-                          transform: `rotate(${i * 45}deg)`,
-                          filter: 'blur(1px)'
+                          transform: `rotate(${i * 15}deg)`,
                         }}
-                      />
+                      >
+                        <img 
+                          src={imgSrc} 
+                          alt={`عطر ${i + 1}`}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDEwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTUwIiBmaWxsPSIjOEIxNTM4Ii8+Cjx0ZXh0IHg9IjUwIiB5PSI3NSIgZmlsbD0iI0Q0QUYzNyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIyMCI+8J+MuTwvdGV4dD4KPC9zdmc+';
+                          }}
+                        />
+                      </div>
                     ))}
                   </div>
 
@@ -411,7 +405,7 @@ const HomePage: React.FC = () => {
             
             {newProducts.length > 0 ? (
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-                {newProducts.map((product) => (
+                {newProducts.map((product, index) => (
                   <div key={product.id} className="perfume-card group">
                     <div className="relative overflow-hidden rounded-t-2xl">
                       <img
@@ -419,7 +413,16 @@ const HomePage: React.FC = () => {
                         alt={product.name}
                         className="w-full h-48 lg:h-64 object-cover group-hover:scale-110 transition-transform duration-300"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = '/placeholder-perfume.png';
+                          // استخدام صور جميلة للعطور من Unsplash كـ fallback
+                          const perfumeImages = [
+                            'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=600&fit=crop',
+                            'https://images.unsplash.com/photo-1588405748880-12d1d2a59d32?w=400&h=600&fit=crop',
+                            'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=600&fit=crop',
+                            'https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=400&h=600&fit=crop',
+                            'https://images.unsplash.com/photo-1557170334-a9632e77c6e4?w=400&h=600&fit=crop',
+                            'https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400&h=600&fit=crop'
+                          ];
+                          (e.target as HTMLImageElement).src = perfumeImages[index % perfumeImages.length];
                         }}
                       />
                       <div className="absolute top-3 right-3">
@@ -498,12 +501,68 @@ const HomePage: React.FC = () => {
               </div>
             ) : (
               <div className="text-center py-20">
+                {/* عرض منتجات وهمية جميلة في حالة عدم وجود بيانات */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 mb-12">
+                  {[
+                    { name: 'عطر الملوك الفاخر', price: 299, image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=600&fit=crop' },
+                    { name: 'زيت العود الأصلي', price: 399, image: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59d32?w=400&h=600&fit=crop' },
+                    { name: 'عطر الياسمين الشرقي', price: 249, image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=600&fit=crop' },
+                    { name: 'بخور الصندل الملكي', price: 199, image: 'https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=400&h=600&fit=crop' },
+                    { name: 'عطر الورد الدمشقي', price: 349, image: 'https://images.unsplash.com/photo-1557170334-a9632e77c6e4?w=400&h=600&fit=crop' },
+                    { name: 'معطر المنزل الفاخر', price: 159, image: 'https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400&h=600&fit=crop' }
+                  ].map((product, index) => (
+                    <div key={index} className="perfume-card group">
+                      <div className="relative overflow-hidden rounded-t-2xl">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-48 lg:h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+                        />
+                        <div className="absolute top-3 right-3">
+                          <button className="text-white hover:text-ajwaak-gold transition-colors p-2 bg-black/20 rounded-full backdrop-blur-sm">
+                            <Heart className="w-5 h-5" />
+                          </button>
+                        </div>
+                        <div className="absolute top-3 left-3 bg-ajwaak-gold text-ajwaak-dark px-3 py-1 rounded-lg text-sm font-bold">
+                          جديد
+                        </div>
+                      </div>
+                      
+                      <div className="p-4">
+                        <h4 className="text-lg font-bold text-ajwaak-dark mb-2">
+                          {product.name}
+                        </h4>
+                        
+                        <div className="flex items-center mb-3">
+                          <div className="flex items-center">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} className="w-4 h-4 fill-current text-ajwaak-gold" />
+                            ))}
+                          </div>
+                          <span className="text-sm text-gray-500 mr-2">(4.9)</span>
+                        </div>
+                        
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-xl font-bold text-ajwaak-primary">
+                            ر.س {product.price}
+                          </span>
+                        </div>
+
+                        <button className="perfume-button w-full flex items-center justify-center text-lg py-3">
+                          <ShoppingCart className="w-5 h-5 ml-2" />
+                          أضف للسلة
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                
                 <Sparkles className="w-20 h-20 text-ajwaak-primary mx-auto mb-6" />
                 <h3 className="text-3xl font-bold text-ajwaak-dark mb-4">
-                  قريباً.. تشكيلة عطور مميزة
+                  مرحباً بك في أجواك
                 </h3>
                 <p className="text-xl text-gray-600">
-                  نعمل على إضافة أفضل العطور والزيوت العطرية لك
+                  أفضل العطور والزيوت العطرية الفاخرة في انتظارك
                 </p>
               </div>
             )}

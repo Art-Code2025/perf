@@ -39,27 +39,32 @@ export const buildApiUrl = (endpoint: string): string => {
   return `${baseUrl}/api/${finalEndpoint}`;
 };
 
-// دالة مساعدة لبناء URL الصور - محدثة
+// دالة مساعدة لبناء URL الصور - مبسطة للعمل على Netlify
 export const buildImageUrl = (imagePath: string): string => {
   if (!imagePath) return '/placeholder-image.png';
   if (imagePath.startsWith('http')) return imagePath;
   if (imagePath.startsWith('data:image/')) return imagePath;
   
-  const baseUrl = getApiBaseUrl();
-  
-  // إذا كان المسار يبدأ بـ /images/ فهو مسار نسبي من الباك إند
-  if (imagePath.startsWith('/images/')) {
-    return `${baseUrl}${imagePath}`;
+  // للتطوير المحلي
+  if (import.meta.env.DEV) {
+    const baseUrl = getApiBaseUrl();
+    if (imagePath.startsWith('/images/')) {
+      return `${baseUrl}${imagePath}`;
+    }
+    if (imagePath.startsWith('images/')) {
+      return `${baseUrl}/${imagePath}`;
+    }
+    const cleanPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+    return `${baseUrl}/images${cleanPath}`;
   }
   
-  // إذا كان المسار يبدأ بـ images/ بدون slash
-  if (imagePath.startsWith('images/')) {
-    return `${baseUrl}/${imagePath}`;
+  // للإنتاج على Netlify - استخدم الصور المحلية
+  if (imagePath.startsWith('/')) {
+    return imagePath;
   }
   
-  // إذا كان مسار عادي، أضف /images/ قبله
-  const cleanPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
-  return `${baseUrl}/images${cleanPath}`;
+  // إذا كان مسار بسيط، أضف / قبله
+  return `/${imagePath}`;
 };
 
 // دالة محسنة مع retry logic - مع نظام fallback ذكي
